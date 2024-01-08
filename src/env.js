@@ -17,6 +17,9 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_AGORA_APP_ID: z.string(),
+    NEXT_PUBLIC_AGORA_TOKEN: z.string(),
+    NEXT_PUBLIC_AGORA_CHANNEL: z.string(),
   },
 
   /**
@@ -25,6 +28,9 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_AGORA_APP_ID: process.env.NEXT_PUBLIC_AGORA_APP_ID,
+    NEXT_PUBLIC_AGORA_TOKEN: process.env.NEXT_PUBLIC_AGORA_TOKEN,
+    NEXT_PUBLIC_AGORA_CHANNEL: process.env.NEXT_PUBLIC_AGORA_CHANNEL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

@@ -1,12 +1,14 @@
-import Link from "next/link";
+"use client";
 
-import { CreatePost } from "@/app/_components/create-post";
-import { api } from "@/trpc/server";
+import { UserPreview } from "@/components/user-preview";
 
-export default async function Home() {
+const Home = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       Home page
+      <UserPreview />
     </main>
   );
-}
+};
+
+export default Home;
