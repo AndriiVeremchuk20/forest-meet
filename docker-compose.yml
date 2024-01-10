@@ -1,0 +1,27 @@
+services:
+  postgres:
+    container_name: test-postgres
+    image: postgres:13-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - /data/app-pg/:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: forest-meet
+
+  pgadmin:
+    container_name: test-pgadmin
+    image: dpage/pgadmin4
+    user: root
+    environment:
+      PGADMIN_DEFAULT_USERNAME: admin
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+
+    volumes:
+      - /data/pgadmin:/var/lib/pgadmin
+
+    ports:
+      - 5050:80
