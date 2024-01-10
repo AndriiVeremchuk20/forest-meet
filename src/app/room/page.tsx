@@ -19,6 +19,7 @@ import { useEffect } from "react";
 const RoomPage = () => {
   const searchParams = useSearchParams();
   const roomId = searchParams.get("id");
+  const token = searchParams.get("token");
 
   const client = useRTCClient();
 
