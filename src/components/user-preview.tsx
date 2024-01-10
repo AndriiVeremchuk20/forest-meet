@@ -1,10 +1,17 @@
 "use client";
 import { env } from "@/env";
-import { LocalVideoTrack, useJoin, useLocalCameraTrack } from "agora-rtc-react";
-import { useEffect } from "react";
+import {
+  LocalVideoTrack,
+  useAutoPlayVideoTrack,
+  useJoin,
+  useLocalCameraTrack,
+} from "agora-rtc-react";
+import { useEffect, useRef } from "react";
 
 export const UserPreview = () => {
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
+  //const divRef = useRef<HTMLDivElement | null>(null);
+  //useAutoPlayVideoTrack(localCameraTrack, true, divRef.current);
 
   useJoin({
     appid: env.NEXT_PUBLIC_AGORA_APP_ID,
@@ -19,11 +26,11 @@ export const UserPreview = () => {
   }, []);
 
   return (
-    <div className="h-[500px] w-[400px]">
+    <div className="h-[500px] w-[400px] bg-neutral-400">
       {isLoadingCam ? (
         <div>Loading</div>
       ) : (
-        <LocalVideoTrack track={localCameraTrack} play={true} />
+        <LocalVideoTrack play={true} track={localCameraTrack} />
       )}
     </div>
   );
