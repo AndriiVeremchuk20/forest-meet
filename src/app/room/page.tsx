@@ -15,7 +15,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-// getting a room id from  search params like: (/room?id=someId)
+// getting a room id from  search params like: (/room?id=someId&token=tokeeeeen)
 const RoomPage = () => {
   const searchParams = useSearchParams();
   const roomId = searchParams.get("id");
@@ -34,8 +34,8 @@ const RoomPage = () => {
 
   useJoin({
     appid: env.NEXT_PUBLIC_AGORA_APP_ID,
-    token: env.NEXT_PUBLIC_AGORA_TOKEN,
-    channel: env.NEXT_PUBLIC_AGORA_CHANNEL,
+    token: token, //env.NEXT_PUBLIC_AGORA_TOKEN,
+    channel: roomId ?? "", //env.NEXT_PUBLIC_AGORA_CHANNEL,
   });
 
   usePublish([localCameraTrack]);
