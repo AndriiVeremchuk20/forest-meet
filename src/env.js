@@ -8,7 +8,17 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    
+	/*Agora credentials*/
     AGORA_APP_CERTIFICATE: z.string(),
+    
+	/*Next-auth variables*/
+    NEXTAUTH_SECRET: z.string(),
+    NEXTAUTH_URL: z.string(),
+    
+	/*Google auth provider*/
+    PROVIDER_GOOGLE_ID: z.string(),
+    PROVIDER_GOOGLE_SECRET: z.string(),
   },
 
   /**
@@ -18,6 +28,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    /*Agora credentials*/
     NEXT_PUBLIC_AGORA_APP_ID: z.string(),
     NEXT_PUBLIC_AGORA_TOKEN: z.string(),
     NEXT_PUBLIC_AGORA_CHANNEL: z.string(),
@@ -29,10 +40,22 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    
+	/*Agora credentials*/
     NEXT_PUBLIC_AGORA_APP_ID: process.env.NEXT_PUBLIC_AGORA_APP_ID,
     NEXT_PUBLIC_AGORA_TOKEN: process.env.NEXT_PUBLIC_AGORA_TOKEN,
     NEXT_PUBLIC_AGORA_CHANNEL: process.env.NEXT_PUBLIC_AGORA_CHANNEL,
     AGORA_APP_CERTIFICATE: process.env.AGORA_APP_CERTIFICATE,
+    
+	/*next auth variables*/
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+	
+	/*Google auth provider*/
+	PROVIDER_GOOGLE_ID: process.env.PROVIDER_GOOGLE_ID,
+    PROVIDER_GOOGLE_SECRET: process.env.PROVIDER_GOOGLE_SECRET,
+
+
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
