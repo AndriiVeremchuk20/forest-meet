@@ -8,6 +8,7 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    AGORA_APP_CERTIFICATE: z.string(),
   },
 
   /**
@@ -31,6 +32,7 @@ export const env = createEnv({
     NEXT_PUBLIC_AGORA_APP_ID: process.env.NEXT_PUBLIC_AGORA_APP_ID,
     NEXT_PUBLIC_AGORA_TOKEN: process.env.NEXT_PUBLIC_AGORA_TOKEN,
     NEXT_PUBLIC_AGORA_CHANNEL: process.env.NEXT_PUBLIC_AGORA_CHANNEL,
+    AGORA_APP_CERTIFICATE: process.env.AGORA_CERTIFICATE,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
