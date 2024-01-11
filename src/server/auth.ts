@@ -4,7 +4,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 
-import GoogleProvider from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "@/env";
 
@@ -35,35 +35,16 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-      }
+  secret: env.NEXTAUTH_SECRET,
 
-      return token;
-    },
-
-    session: ({ token, session }) => {
-      if (token && session.user) {
-        session.user.id = token.id as string;
-      }
-
-      return session;
-    },
-  },
-  session: {
-    strategy: "jwt",
-  },
-  jwt: {
-    secret: env.NEXTAUTH_SECRET,
-  },
   providers: [
-	GoogleProvider({
-	clientId: env.PROVIDER_GOOGLE_ID,
-	clientSecret: env.PROVIDER_GOOGLE_SECRET,
-	})	
+    GoogleProvider({
+      clientId: env.PROVIDER_GOOGLE_ID,
+      clientSecret: env.PROVIDER_GOOGLE_SECRET,
+      httpOptions: {
+        timeout: 40000,
+      },
+    }),
   ],
 };
 

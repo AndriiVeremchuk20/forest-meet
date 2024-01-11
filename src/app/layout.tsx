@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import AgoraProvider from "@/providers/agora";
+import AppSessionProvider from "@/providers/session";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,11 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <AgoraProvider>
-          <TRPCReactProvider cookies={cookies().toString()}>
-            {children}
-          </TRPCReactProvider>
-        </AgoraProvider>
+        <AppSessionProvider>
+            <TRPCReactProvider cookies={cookies().toString()}>
+              {children}
+            </TRPCReactProvider>
+        </AppSessionProvider>
       </body>
     </html>
   );
