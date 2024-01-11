@@ -1,20 +1,24 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import AppLoading from "./loading";
+import Link from "next/link";
 
 const Home = () => {
-  const router = useRouter();
-	const {data, status} = useSession();
-  
-  if(status === "loading"){
-	return <div>Loading</div>
+  const { data, status } = useSession();
+
+  if (status === "loading") {
+    return <AppLoading />;
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      
-	  <div>Home page of user: {data?.user.name}</div>
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      <div>Home page of user: {data?.user.name}</div>
+	  <div>
+	   { data?.user ?
+		<Link href="/room/lobby/" className="text-blue-500 hover:underline">Go To Forest Meet</Link>	
+	  :<Link href="/auth/">Singin</Link>}
+	  </div>
     </main>
   );
 };

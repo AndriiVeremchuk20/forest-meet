@@ -1,15 +1,15 @@
 import "@/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { Pixelify_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import AgoraProvider from "@/providers/agora";
 import AppSessionProvider from "@/providers/session";
 
-const inter = Inter({
+const ps_font = Pixelify_Sans({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: "400",
+  style: "normal",
 });
 
 export const metadata = {
@@ -25,11 +25,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+      <body
+        className={`font-sans ${ps_font.className} bg-[url('/bg_light.gif')] text-black bg-cover bg-fixed text-xl`}
+      >
         <AppSessionProvider>
-            <TRPCReactProvider cookies={cookies().toString()}>
-              {children}
-            </TRPCReactProvider>
+          <TRPCReactProvider cookies={cookies().toString()}>
+            {children}
+          </TRPCReactProvider>
         </AppSessionProvider>
       </body>
     </html>
