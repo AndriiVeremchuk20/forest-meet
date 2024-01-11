@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${ps_font.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl`}
+        className={`font-sans ${ps_font.className} bg-[url('/bg_light.gif')] text-black bg-cover bg-fixed text-xl`}
       >
         <AppSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
