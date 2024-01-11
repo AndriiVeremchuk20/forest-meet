@@ -4,15 +4,15 @@ import { useSession } from "next-auth/react";
 import AppLoading from "./loading";
 
 const Home = () => {
-	const {data, status} = useSession();
-  
-  if(status === "loading"){
-	return <AppLoading/>
+  const { data, status } = useSession();
+
+  if (status === "loading") {
+    return <AppLoading />;
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-	  <div>Home page of user: {data?.user.name}</div>
+    <main className="flex min-h-screen flex-col items-center justify-center text-white">
+      <div>Home page of user: {data?.user.name}</div>
     </main>
   );
 };

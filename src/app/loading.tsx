@@ -1,5 +1,5 @@
 import Loader from "@/components/loader";
 
-const AppLoading = () => <Loader/>
+const AppLoading = () => <Loader />;
 
 export default AppLoading;
