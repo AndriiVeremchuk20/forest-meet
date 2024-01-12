@@ -1,14 +1,15 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import { useRTCClient } from "agora-rtc-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LobbyPage = () => {
-  const router = useRouter();
+
+
+const router = useRouter();
   const session = useSession();
-  const client = useRTCClient();
+
 
   const createRoomMutation = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
@@ -23,7 +24,6 @@ const LobbyPage = () => {
   });
 
   const onCreateClick = () => {
-    console.log(client.uid);
     createRoomMutation.mutate();
   };
 
@@ -49,10 +49,10 @@ const LobbyPage = () => {
     }
   };
 
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center text-white">
       Home page of user: {session.data?.user.name}
-      {/*<UserPreview />*/}
       <div className="space-x-2">
         <button onClick={onJoinClick} className="">
           Join

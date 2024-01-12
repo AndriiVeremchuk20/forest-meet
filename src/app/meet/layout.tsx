@@ -1,12 +1,5 @@
-"use client";
 
-//import AgoraProvider from "@/providers/agora";
-
-import dynamic from "next/dynamic";
-
-const AgoraProvider = dynamic(() => import("../../providers/agora"), {
-  ssr: false,
-});
+import AgoraProvider from "@/providers/agora";
 
 export default function RootLayout({
   children,
