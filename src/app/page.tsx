@@ -14,11 +14,15 @@ const Home = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <div>Home page of user: {data?.user.name}</div>
-	  <div>
-	   { data?.user ?
-		<Link href="/room/lobby/" className="text-blue-500 hover:underline">Go To Forest Meet</Link>	
-	  :<Link href="/auth/">Singin</Link>}
-	  </div>
+      <div>
+        {data?.user ? (
+          <Link href="/meet/lobby/" className="text-blue-500 hover:underline">
+            Go To Forest Meet
+          </Link>
+        ) : (
+          <Link href="/auth/">Singin</Link>
+        )}
+      </div>
     </main>
   );
 };
