@@ -11,15 +11,15 @@ export const UserPreview = () => {
   //useEffect(() => {
   //  setM(true);
   //  return () => {
-   //   localCameraTrack?.close();
-   // };
+  //   localCameraTrack?.close();
+  // };
   //}, []);
 
   //if (!m) return <div>Loading</div>;
 
   return (
     <div className="h-[500px] w-[400px] bg-neutral-400">
-		Video here in future
-	</div>
+      Video here in future
+    </div>
   );
 };
