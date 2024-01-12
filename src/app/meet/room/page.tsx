@@ -1,7 +1,6 @@
 "use client";
 
 import { env } from "@/env";
-//import {api} from "@/trpc/react";
 import {
   LocalVideoTrack,
   RemoteUser,
@@ -19,7 +18,7 @@ import { useEffect, useState } from "react";
 
 // getting a room id from  search params like: (/room?id=someId&token=tokeeeeen)
 const RoomPage = () => {
-  const [isMounted, setIsMounted] = useState(false);
+  const appId = env.NEXT_PUBLIC_AGORA_APP_ID;
   const searchParams = useSearchParams();
   const roomId = searchParams.get("id");
   const token = searchParams.get("token");
@@ -30,21 +29,23 @@ const RoomPage = () => {
 
   // getting local camera and microphone tracks
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
-  //const { isLoading: isLoadingMic, localMicrophoneTrack } =
-  useLocalMicrophoneTrack();
+  const { isLoading: isLoadingMic, localMicrophoneTrack } =
+    useLocalMicrophoneTrack();
 
-  const isLoading = isLoadingCam; //|| isLoadingMic;
+  const isLoading = isLoadingCam || isLoadingMic;
 
   const remoteUsers = useRemoteUsers();
 
-  useJoin({
+  usePublish([localCameraTrack, localMicrophoneTrack]);
+
+  console.log({ appId, token, roomId, uid });
+
+  const join = useJoin({
     appid: env.NEXT_PUBLIC_AGORA_APP_ID,
     token: token, //env.NEXT_PUBLIC_AGORA_TOKEN,
     channel: roomId ?? "", //env.NEXT_PUBLIC_AGORA_CHANNEL,
     uid,
   });
-
-  usePublish([localCameraTrack]);
 
   useClientEvent(client, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
@@ -59,20 +60,19 @@ const RoomPage = () => {
   });
 
   useEffect(() => {
-    setIsMounted(true);
+    console.log(join);
+    console.log(env.NEXT_PUBLIC_AGORA_APP_ID);
+  }, [join]);
 
+  useEffect(() => {
     return () => {
       localCameraTrack?.close();
-      //   localMicrophoneTrack?.close();
+      localMicrophoneTrack?.close();
     };
   }, []);
 
   if (isLoading) {
     return <div>Loading</div>;
-  }
-
-  if (!isMounted) {
-    return <div>Mounted</div>;
   }
 
   return (
