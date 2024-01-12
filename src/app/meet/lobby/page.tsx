@@ -5,11 +5,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LobbyPage = () => {
-
-
-const router = useRouter();
+  const router = useRouter();
   const session = useSession();
-
 
   const createRoomMutation = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
@@ -48,7 +45,6 @@ const router = useRouter();
       });
     }
   };
-
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center text-white">

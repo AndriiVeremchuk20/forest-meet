@@ -12,17 +12,18 @@ import {
   useRTCClient,
   useRemoteUsers,
 } from "agora-rtc-react";
-import { type FC, useEffect} from "react";
+import { type FC, useEffect } from "react";
+import LeaveButton from "./buttons/leave";
 
-interface MeetProps{
-roomId: string,
-token: string,
-uid: number,
+interface MeetProps {
+  roomId: string;
+  token: string;
+  uid: number;
 }
 
-const Meet: FC<MeetProps> = ({roomId, token, uid}) => {
+const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   const appId = env.NEXT_PUBLIC_AGORA_APP_ID;
-   const client = useRTCClient();
+  const client = useRTCClient();
 
   // getting local camera and microphone tracks
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
@@ -76,6 +77,11 @@ const Meet: FC<MeetProps> = ({roomId, token, uid}) => {
     <main>
       Room: {roomId} Users: {remoteUsers.length}
       <div>
+        <div>token: {token}</div>
+        <div>uid: {uid}</div>
+        <div>channelName: {roomId}</div>
+      </div>
+      <div>
         <div className="h-[300px] w-full">
           <LocalVideoTrack track={localCameraTrack} play={true} />
         </div>
@@ -92,9 +98,11 @@ const Meet: FC<MeetProps> = ({roomId, token, uid}) => {
           ))}
         </div>
       </div>
+      <div>
+        <LeaveButton />
+      </div>
     </main>
   );
 };
 
 export default Meet;
-
