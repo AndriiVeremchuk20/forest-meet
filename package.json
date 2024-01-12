@@ -33,6 +33,7 @@
     "agora-rtc-sdk-ng": "^4.20.0",
     "agora-token": "^2.0.3",
     "firebase": "^10.7.1",
+    "ky": "^1.2.0",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
     "prisma": "^5.8.0",

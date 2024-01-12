@@ -1,22 +1,32 @@
 import { z } from "zod";
 import { RtcTokenBuilder, RtcRole } from "agora-token";
 
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import { env } from "@/env";
 import { TRPCError } from "@trpc/server";
+import channelNameGenerator from "@/utils/agora/channel-name-generator";
 
 export const agoraRouter = createTRPCRouter({
-  generateToken: publicProcedure
+ createRoom: publicProcedure.mutation(()=>{
+
+	 const channelName = channelNameGenerator();
+	 
+
+ }), 
+ generateToken: publicProcedure
     .input(
       z.object({
         channelName: z.string(),
-        uid: z.string(),
         role: z.union([z.literal("publisher"), z.literal("audience")]),
         expireTime: z.number().default(3600),
       }),
     )
     .mutation(({ input }) => {
-      const { channelName, uid, role, expireTime } = input;
+      const { channelName, role, expireTime } = input;
 
       // get agora project credentials from env
       const appId = env.NEXT_PUBLIC_AGORA_APP_ID;
@@ -26,13 +36,7 @@ export const agoraRouter = createTRPCRouter({
       const currentTime: number = Math.floor(Date.now() / 1000);
       const privilegeExpireTime = currentTime + expireTime;
 
-      // check uid
-      if (!uid) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "uid is required",
-        });
-      }
+      const uid = Math.floor(Math.random() * 10000);
 
       // convert role to RtcRole
       const rtcRole =
@@ -43,7 +47,7 @@ export const agoraRouter = createTRPCRouter({
         appId,
         appCertificate,
         channelName,
-        Number(uid),
+        uid,
         rtcRole,
         expireTime,
         privilegeExpireTime,
@@ -52,6 +56,7 @@ export const agoraRouter = createTRPCRouter({
       return {
         token,
         channelName,
+        uid,
       };
     }),
 });

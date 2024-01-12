@@ -28,7 +28,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
   const session = await getServerAuthSession();
   return {
     session,
-    db,
+    //db,
     ...opts,
   };
 };
