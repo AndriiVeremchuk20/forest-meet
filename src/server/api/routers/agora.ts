@@ -9,12 +9,24 @@ import {
 import { env } from "@/env";
 import { TRPCError } from "@trpc/server";
 import channelNameGenerator from "@/utils/agora/channel-name-generator";
+import {generateAgoraTokenByUid} from "@/utils/agora/generate-token";
 
 export const agoraRouter = createTRPCRouter({
- createRoom: publicProcedure.mutation(()=>{
+ createRoom: publicProcedure.mutation(async()=>{
 
-	 const channelName = channelNameGenerator();
-	 
+	 const channelName = await channelNameGenerator();
+	 console.log(channelName);
+	 const uid = Math.floor(Math.random() * 10000);
+	 const role = "publisher";
+	 const expireTime = 3600; // 1 hour
+
+	 const {token} = generateAgoraTokenByUid({channelName, uid, role, expireTime });
+
+	 return {
+		channelName,
+		uid,
+		token
+	 }
 
  }), 
  generateToken: publicProcedure
