@@ -34,8 +34,6 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   const remoteUsers = useRemoteUsers();
 
-  usePublish([localCameraTrack, localMicrophoneTrack]);
-
   console.log({ appId, token, roomId, uid });
 
   const join = useJoin({
@@ -44,6 +42,9 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
     channel: roomId ?? "", //env.NEXT_PUBLIC_AGORA_CHANNEL,
     uid,
   });
+
+usePublish([localCameraTrack, localMicrophoneTrack]);
+
 
   useClientEvent(client, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
