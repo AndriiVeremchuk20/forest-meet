@@ -8,7 +8,7 @@ export const agoraRouter = createTRPCRouter({
   createRoom: publicProcedure.mutation(async () => {
     const channelName = await channelNameGenerator();
     console.log(channelName);
-    const uid = Math.floor(Math.random() * 10000);
+    const uid = Math.floor(Math.random() * 1000000);
     const role = "publisher";
     const expireTime = 3600; // 1 hour
 

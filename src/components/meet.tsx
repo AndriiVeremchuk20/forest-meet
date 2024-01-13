@@ -30,8 +30,6 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   const { isLoading: isLoadingMic, localMicrophoneTrack } =
     useLocalMicrophoneTrack();
 
-  const isLoading = isLoadingCam || isLoadingMic;
-
   const remoteUsers = useRemoteUsers();
 
   console.log({ appId, token, roomId, uid });
@@ -40,10 +38,12 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
     appid: env.NEXT_PUBLIC_AGORA_APP_ID,
     token: token, //env.NEXT_PUBLIC_AGORA_TOKEN,
     channel: roomId ?? "", //env.NEXT_PUBLIC_AGORA_CHANNEL,
-    uid,
+    uid: Number(uid),
   });
 
-usePublish([localCameraTrack, localMicrophoneTrack]);
+const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
+
+const isLoading = isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
 
 
   useClientEvent(client, "user-joined", (user) => {
@@ -59,8 +59,7 @@ usePublish([localCameraTrack, localMicrophoneTrack]);
   });
 
   useEffect(() => {
-    console.log(join);
-    console.log(env.NEXT_PUBLIC_AGORA_APP_ID);
+    console.log(join.error?.rtcError);
   }, [join]);
 
   useEffect(() => {
@@ -82,7 +81,8 @@ usePublish([localCameraTrack, localMicrophoneTrack]);
         <div>uid: {uid}</div>
         <div>channelName: {roomId}</div>
       </div>
-      <div>
+      {join.isConnected?
+	  <div>
         <div className="h-[300px] w-full">
           <LocalVideoTrack track={localCameraTrack} play={true} />
         </div>
@@ -98,8 +98,9 @@ usePublish([localCameraTrack, localMicrophoneTrack]);
             </div>
           ))}
         </div>
-      </div>
-      <div>
+      </div>: <div className="my-10">Not connected: {join.error?.message}</div>
+      }
+	  <div>
         <LeaveButton />
       </div>
     </main>

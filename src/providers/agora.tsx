@@ -1,7 +1,7 @@
 "use client";
 
 import AgoraRTC, { AgoraRTCProvider, useRTCClient } from "agora-rtc-react";
-import { type ReactNode} from "react";
+import { type ReactNode } from "react";
 
 // create agora provider to use agora-react
 const AgoraProvider = ({ children }: { children: ReactNode }) => {
