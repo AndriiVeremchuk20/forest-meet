@@ -30,8 +30,6 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
     /*Agora credentials*/
     NEXT_PUBLIC_AGORA_APP_ID: z.string(),
-    NEXT_PUBLIC_AGORA_TOKEN: z.string(),
-    NEXT_PUBLIC_AGORA_CHANNEL: z.string(),
   },
 
   /**
@@ -43,8 +41,6 @@ export const env = createEnv({
 
     /*Agora credentials*/
     NEXT_PUBLIC_AGORA_APP_ID: process.env.NEXT_PUBLIC_AGORA_APP_ID,
-    NEXT_PUBLIC_AGORA_TOKEN: process.env.NEXT_PUBLIC_AGORA_TOKEN,
-    NEXT_PUBLIC_AGORA_CHANNEL: process.env.NEXT_PUBLIC_AGORA_CHANNEL,
     AGORA_APP_CERTIFICATE: process.env.AGORA_APP_CERTIFICATE,
 
     /*next auth variables*/

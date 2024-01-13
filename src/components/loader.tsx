@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Loader = () => {
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-screen backdrop-blur-sm items-center justify-center">
+    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center backdrop-blur-sm">
       <div className="flex flex-col items-center ">
         <Image
           src="/loader.gif"
@@ -11,7 +11,7 @@ const Loader = () => {
           height={400}
           priority
         />
-        <span className="text-4xl text-white font-bold">Loading..</span>
+        <span className="text-4xl font-bold text-white">Loading..</span>
       </div>
     </div>
   );

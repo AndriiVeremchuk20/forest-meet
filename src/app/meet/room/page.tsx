@@ -4,8 +4,7 @@ import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 //import Meet from "@/components/meet";
 
-const Meet =  dynamic(()=>import("../../../components/meet"), {ssr: false})
-
+const Meet = dynamic(() => import("../../../components/meet"), { ssr: false });
 
 // getting a room id from  search params like: (/room?id=someId&token=tokeeeeen)
 const RoomPage = () => {
