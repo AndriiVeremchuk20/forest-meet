@@ -33,8 +33,10 @@ const getRandomNumber = () => {
 
 const channelNameGenerator = async () => {
   const word = await getRandomWord();
+  const word1 = await getRandomWord();
+  const word2 = await getRandomWord();
 
-  return `${word}-${getRandomNumber()}-${getRandomNumber()}`;
+  return `${word}-${word1}-${word2}`;
 };
 
 export default channelNameGenerator;

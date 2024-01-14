@@ -1,6 +1,8 @@
 "use client";
 
+import AgoraChannelForm from "@/components/form/agora-channel";
 import { api } from "@/trpc/react";
+import { useRTCClient } from "agora-rtc-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -47,7 +49,7 @@ const LobbyPage = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center text-white">
+    <main className="flex min-h-screen flex-col items-center justify-center text-black">
       Home page of user: {session.data?.user.name}
       <div className="space-x-2">
         <button onClick={onJoinClick} className="">
@@ -55,6 +57,7 @@ const LobbyPage = () => {
         </button>
         <button onClick={onCreateClick}>Create</button>
       </div>
+      <AgoraChannelForm />
     </main>
   );
 };

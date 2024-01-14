@@ -22,7 +22,7 @@ interface MeetProps {
 }
 
 const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
-  const appId = env.NEXT_PUBLIC_AGORA_APP_ID;
+  const AppId = "7c659c8e10b043078be160acaa725696";
   const client = useRTCClient();
 
   // getting local camera and microphone tracks
@@ -32,19 +32,19 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   const remoteUsers = useRemoteUsers();
 
-  console.log({ appId, token, roomId, uid });
+  console.log({ AppId, token, roomId, uid });
 
   const join = useJoin({
-    appid: env.NEXT_PUBLIC_AGORA_APP_ID,
-    token: token, //env.NEXT_PUBLIC_AGORA_TOKEN,
-    channel: roomId ?? "", //env.NEXT_PUBLIC_AGORA_CHANNEL,
-    uid: Number(uid),
+    appid: AppId,
+    token: token.replace(" ", "+"), //env.NEXT_PUBLIC_AGORA_TOKEN,
+    channel: roomId, //env.NEXT_PUBLIC_AGORA_CHANNEL,
+    uid: uid.toString(),
   });
 
-const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
+  const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
 
-const isLoading = isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
-
+  const isLoading =
+    isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
 
   useClientEvent(client, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
@@ -77,30 +77,32 @@ const isLoading = isLoadingCam || isLoadingMic || publish.isLoading || join.isLo
     <main>
       Room: {roomId} Users: {remoteUsers.length}
       <div>
-        <div>token: {token}</div>
+        <textarea defaultValue={token} rows={12} cols={130}/>
         <div>uid: {uid}</div>
         <div>channelName: {roomId}</div>
       </div>
-      {join.isConnected?
-	  <div>
-        <div className="h-[300px] w-full">
-          <LocalVideoTrack track={localCameraTrack} play={true} />
+      {join.isConnected ? (
+        <div>
+          <div className="h-[300px] w-full">
+            <LocalVideoTrack track={localCameraTrack} play={true} />
+          </div>
+          <div className="grid grid-cols-3">
+            {remoteUsers.map((remoteUser) => (
+              <div className="h-[300px] w-[300px]" key={remoteUser.uid}>
+                <RemoteUser
+                  user={remoteUser}
+                  playVideo={true}
+                  playAudio={false}
+                  className="rounded-full border-[5px] border-red-400"
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="grid grid-cols-3">
-          {remoteUsers.map((remoteUser) => (
-            <div className="h-[300px] w-[300px]" key={remoteUser.uid}>
-              <RemoteUser
-                user={remoteUser}
-                playVideo={true}
-                playAudio={false}
-                className="rounded-full border-[5px] border-red-400"
-              />
-            </div>
-          ))}
-        </div>
-      </div>: <div className="my-10">Not connected: {join.error?.message}</div>
-      }
-	  <div>
+      ) : (
+        <div className="my-10">Not connected: {join.error?.message}</div>
+      )}
+      <div>
         <LeaveButton />
       </div>
     </main>
