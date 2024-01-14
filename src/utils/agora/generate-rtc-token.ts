@@ -1,17 +1,17 @@
 import { env } from "@/env";
 import { RtcRole, RtcTokenBuilder } from "agora-token";
 
-interface GenerateTokenByUidParams {
-  channelName: string;
+interface GenerateRtcTokenParams {
   uid: number;
+  channelName: string;
   expireTime: number;
 }
 
-export const generateAgoraRtcTokenByUid = ({
-  channelName,
+export const generateRtcToken = ({
   uid,
+  channelName,
   expireTime,
-}: GenerateTokenByUidParams) => {
+}: GenerateRtcTokenParams) => {
   // get agora project credentials from env
   const appId = env.NEXT_PUBLIC_AGORA_APP_ID;
   const appCertificate = env.AGORA_APP_CERTIFICATE;
@@ -31,7 +31,5 @@ export const generateAgoraRtcTokenByUid = ({
     privilegeExpireTime,
   );
 
-  return {
-    token,
-  };
+  return token;
 };

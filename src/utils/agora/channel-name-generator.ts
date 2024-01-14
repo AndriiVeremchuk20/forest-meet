@@ -1,5 +1,4 @@
 // function to generate random channel name
-// ex: potato-3394-3938, enserfment-3030-6865
 
 import ky from "ky";
 
@@ -27,16 +26,12 @@ const getRandomWord = async () => {
   }
 };
 
-const getRandomNumber = () => {
-  return Math.floor(Math.random() * 9000) + 1000;
-};
-
-const channelNameGenerator = async () => {
-  const word = await getRandomWord();
+const generateChannelName = async () => {
   const word1 = await getRandomWord();
   const word2 = await getRandomWord();
+  const word3 = await getRandomWord();
 
-  return `${word}-${word1}-${word2}`;
+  return `${word1}-${word2}-${word3}`;
 };
 
-export default channelNameGenerator;
+export default generateChannelName;

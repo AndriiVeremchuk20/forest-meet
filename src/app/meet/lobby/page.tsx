@@ -1,21 +1,20 @@
 "use client";
 
-import AgoraChannelForm from "@/components/form/agora-channel";
+import useUserStore from "@/store";
 import { api } from "@/trpc/react";
-import { useRTCClient } from "agora-rtc-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LobbyPage = () => {
+  const userStore = useUserStore();
   const router = useRouter();
   const session = useSession();
 
   const createRoomMutation = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
       console.log(data);
-      router.push(
-        `/meet/room?id=${data.channelName}&token=${data.token}&uid=${data.uid}`,
-      );
+      userStore.setUser(data);
+      router.push(`/meet/room?id=${data.channelName}`);
     },
     onError(error) {
       console.log(error.message);
@@ -29,9 +28,8 @@ const LobbyPage = () => {
   const joinToRoomMutation = api.agora.joinToRoom.useMutation({
     onSuccess: async (data) => {
       console.log(data);
-      router.push(
-        `/meet/room?id=${data.channelName}&token=${data.token}&uid=${data.uid}`,
-      );
+      userStore.setUser(data);
+      router.push(`/meet/room?id=${data.channelName}`);
     },
     onError(error) {
       console.log(error.message);
@@ -57,7 +55,6 @@ const LobbyPage = () => {
         </button>
         <button onClick={onCreateClick}>Create</button>
       </div>
-      <AgoraChannelForm />
     </main>
   );
 };
