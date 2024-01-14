@@ -92,7 +92,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
                 <RemoteUser
                   user={remoteUser}
                   playVideo={true}
-                  playAudio={false}
+                  playAudio={true}
                   className="rounded-full border-[5px] border-red-400"
                 />
               </div>
