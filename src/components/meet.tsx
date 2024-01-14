@@ -22,7 +22,7 @@ interface MeetProps {
 }
 
 const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
-  const AppId = "7c659c8e10b043078be160acaa725696";
+  const AppId = env.NEXT_PUBLIC_AGORA_APP_ID;
   const client = useRTCClient();
 
   // getting local camera and microphone tracks
@@ -75,25 +75,24 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   return (
     <main>
-      Room: {roomId} Users: {remoteUsers.length}
-      <div>
-        <textarea defaultValue={token} rows={12} cols={130}/>
-        <div>uid: {uid}</div>
-        <div>channelName: {roomId}</div>
-      </div>
       {join.isConnected ? (
         <div>
-          <div className="h-[300px] w-full">
-            <LocalVideoTrack track={localCameraTrack} play={true} />
+          <div className="absolute bottom-10 right-5 h-fit w-fit border-[5px] border-red-800">
+            <div className="h-[300px] w-[300px]">
+              <LocalVideoTrack track={localCameraTrack} play={true} />
+            </div>
+            <div>
+              <LeaveButton />
+            </div>
           </div>
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-2">
             {remoteUsers.map((remoteUser) => (
-              <div className="h-[300px] w-[300px]" key={remoteUser.uid}>
+              <div className="h-[200px] w-[200px]" key={remoteUser.uid}>
                 <RemoteUser
                   user={remoteUser}
                   playVideo={true}
-                  playAudio={false}
-                  className="rounded-full border-[5px] border-red-400"
+                  playAudio={true}
+                  className="border-[5px] border-red-900"
                 />
               </div>
             ))}
@@ -102,9 +101,6 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
       ) : (
         <div className="my-10">Not connected: {join.error?.message}</div>
       )}
-      <div>
-        <LeaveButton />
-      </div>
     </main>
   );
 };
