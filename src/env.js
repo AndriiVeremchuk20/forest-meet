@@ -12,6 +12,7 @@ export const env = createEnv({
     /*Agora credentials*/
     AGORA_APP_CERTIFICATE: z.string(),
 
+
     /*Next-auth variables*/
     NEXTAUTH_SECRET: z.string(),
     NEXTAUTH_URL: z.string(),

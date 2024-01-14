@@ -7,7 +7,7 @@ const LeaveButton = () => {
 
   const onLeaveClick = async () => {
     await client.leave();
-    router.replace("/meet/ended/");
+    router.replace("/meet/lobby/");
   };
 
   return (

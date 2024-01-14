@@ -4,14 +4,12 @@ import { RtcRole, RtcTokenBuilder } from "agora-token";
 interface GenerateTokenByUidParams {
   channelName: string;
   uid: number;
-  role: "publisher" | "audience";
   expireTime: number;
 }
 
-export const generateAgoraTokenByUid = ({
+export const generateAgoraRtcTokenByUid = ({
   channelName,
   uid,
-  role,
   expireTime,
 }: GenerateTokenByUidParams) => {
   // get agora project credentials from env
@@ -22,16 +20,13 @@ export const generateAgoraTokenByUid = ({
   const currentTime: number = Math.floor(Date.now() / 1000);
   const privilegeExpireTime = currentTime + expireTime;
 
-  // convert role to RtcRole
-  const rtcRole = role === "publisher" ? RtcRole.PUBLISHER : RtcRole.SUBSCRIBER;
-
   // generate token by uid
   const token = RtcTokenBuilder.buildTokenWithUid(
     appId,
     appCertificate,
     channelName,
     uid,
-    rtcRole,
+    RtcRole.PUBLISHER,
     expireTime,
     privilegeExpireTime,
   );
