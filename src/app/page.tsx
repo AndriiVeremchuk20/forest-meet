@@ -16,11 +16,13 @@ const Home = () => {
       <div>Home page of user: {data?.user.name}</div>
       <div>
         {data?.user ? (
-          <Link href="/meet/lobby/" className="text-blue-500 hover:underline">
-            Go To Forest Meet
-          </Link>
+          <>
+            <Link href="/meet/lobby/" className="text-blue-500 hover:underline">
+              Go To Forest Meet
+            </Link>
+          </>
         ) : (
-          <Link href="/auth/">Singin</Link>
+          <Link href={"/auth"}>Sign in</Link>
         )}
       </div>
     </main>
