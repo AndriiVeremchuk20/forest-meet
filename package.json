@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build && prisma generate && db:push",
+    "build": "next build && db:push",
     "db:start": "docker-compose up",
     "db:stop": "docker-compose down",
     "db:init": "prisma generate",
