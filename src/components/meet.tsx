@@ -33,7 +33,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   const remoteUsers = useRemoteUsers();
 
-  console.log({ AppId, token, roomId, uid });
+//  console.log({ AppId, token, roomId, uid });
 
   const join = useJoin({
     appid: AppId,
@@ -47,10 +47,11 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   const isLoading =
     isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
 
-  useClientEvent(client, "user-joined", async (user) => {
+  useClientEvent(client, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
-    if (audioRef.current) {
-      audioRef.current.play();
+    
+	if (audioRef.current) {
+      audioRef.current.play().then(()=>console.log("Played")).catch(error=>console.log(error));
     }
   });
 
