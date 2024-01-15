@@ -7,6 +7,8 @@ import {
 import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "@/env";
+import { db } from "./db";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -35,15 +37,23 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  callbacks: {
+    session: ({ session, user }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: user.id,
+      },
+    }),
+  },
   secret: env.NEXTAUTH_SECRET,
+
+  adapter: PrismaAdapter(db),
 
   providers: [
     GoogleProvider({
       clientId: env.PROVIDER_GOOGLE_ID,
       clientSecret: env.PROVIDER_GOOGLE_SECRET,
-      httpOptions: {
-        timeout: 40000,
-      },
     }),
   ],
 };
