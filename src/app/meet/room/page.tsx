@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 const Meet = dynamic(() => import("../../../components/meet"), { ssr: false });
 
-// getting a room id from  search params like: (/room?id=someId&token=tokeeeeen)
+// getting a room id from  search params like: (meet/room?id=potato-home-monkey)
 const RoomPage = () => {
   const searchParams = useSearchParams();
   const roomId = searchParams.get("id");
