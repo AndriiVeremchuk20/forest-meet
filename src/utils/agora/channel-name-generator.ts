@@ -13,9 +13,7 @@ const randomWordApiClient = ky.create({
 
 const getRandomWord = async () => {
   try {
-    const randomWord = await randomWordApiClient
-      .get("word")
-      .json<[string]>()
+    const randomWord = await randomWordApiClient.get("word").json<[string]>();
 
     return randomWord[0];
   } catch (error) {
@@ -24,7 +22,11 @@ const getRandomWord = async () => {
 };
 
 const generateChannelName = async () => {
-  const words = await Promise.all([getRandomWord(), getRandomWord(), getRandomWord()])
+  const words = await Promise.all([
+    getRandomWord(),
+    getRandomWord(),
+    getRandomWord(),
+  ]);
   return words.join("-");
 };
 

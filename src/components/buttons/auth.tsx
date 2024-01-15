@@ -1,18 +1,18 @@
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
-import {useSearchParams} from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export const GoogleButton = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") ?? "/";
 
   const handleClick = async () => {
-   await signIn("google", { callbackUrl });
+    await signIn("google", { callbackUrl, redirect: true });
   };
 
   return (
     <button
-	  type="button"
+      type="button"
       onClick={handleClick}
       className="flex h-[60px] w-[300px]  items-center border-[5px] border-blue-800 bg-blue-500 duration-100 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
     >
@@ -35,7 +35,7 @@ export const SingOutButton = () => {
   };
   return (
     <button
-	  type="button"
+      type="button"
       onClick={handleClick}
       className="border-[5px] border-red-700 bg-red-500 p-2 text-white transition duration-300 hover:bg-red-600 focus:bg-red-700"
     >

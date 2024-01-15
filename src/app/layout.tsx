@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import AppSessionProvider from "@/providers/session";
+import Header from "@/components/layout/header";
 
 const googlePixelifySans = localFont({
   src: "../../font/PixelifySans-VariableFont_wght.ttf",
@@ -28,6 +29,7 @@ export default function RootLayout({
       >
         <AppSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
+            <Header />
             {children}
           </TRPCReactProvider>
         </AppSessionProvider>
