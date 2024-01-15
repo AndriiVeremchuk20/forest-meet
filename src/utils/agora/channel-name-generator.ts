@@ -16,9 +16,6 @@ const getRandomWord = async () => {
     const randomWord = await randomWordApiClient
       .get("word")
       .json<[string]>()
-      .then((res) => res);
-
-    console.log(randomWord[0]);
 
     return randomWord[0];
   } catch (error) {
@@ -27,11 +24,8 @@ const getRandomWord = async () => {
 };
 
 const generateChannelName = async () => {
-  const word1 = await getRandomWord();
-  const word2 = await getRandomWord();
-  const word3 = await getRandomWord();
-
-  return `${word1}-${word2}-${word3}`;
+  const words = await Promise.all([getRandomWord(), getRandomWord(), getRandomWord()])
+  return words.join("-");
 };
 
 export default generateChannelName;
