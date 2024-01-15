@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export const GoogleButton = () => {
   const handleClick = async () => {
-    const res = await signIn("google",{redirect: false});
+    const res = await signIn("google", { redirect: false });
     console.log(res);
   };
 
