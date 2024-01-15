@@ -1,16 +1,12 @@
 import "@/styles/globals.css";
 
-import { Pixelify_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import AppSessionProvider from "@/providers/session";
 
-const ps_font = Pixelify_Sans({
-  subsets: ["latin"],
-  weight: "400",
-  style: "normal",
-});
+const googlePixelifySans = localFont({src: "../../font/PixelifySans-VariableFont_wght.ttf"});
 
 export const metadata = {
   title: "Create T3 App",
@@ -26,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${ps_font.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl text-black`}
+        className={`${googlePixelifySans.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl text-black`}
       >
         <AppSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
