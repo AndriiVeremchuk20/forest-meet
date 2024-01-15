@@ -6,7 +6,9 @@ import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import AppSessionProvider from "@/providers/session";
 
-const googlePixelifySans = localFont({src: "../../font/PixelifySans-VariableFont_wght.ttf"});
+const googlePixelifySans = localFont({
+  src: "../../font/PixelifySans-VariableFont_wght.ttf",
+});
 
 export const metadata = {
   title: "Create T3 App",

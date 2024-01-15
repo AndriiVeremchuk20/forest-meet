@@ -15,8 +15,8 @@
     "db:format": "prisma format",
     "db:studio": "prisma studio",
     "dev:next": "next dev --experimental-https",
-    "dev":"run-p db:start dev:next",
-	"lint": "next lint",
+    "dev": "run-p db:start dev:next",
+    "lint": "next lint",
     "start": "next start",
     "format": "prettier . --write"
   },
