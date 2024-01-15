@@ -14,6 +14,10 @@ import {
 } from "agora-rtc-react";
 import { type FC, useEffect, useRef } from "react";
 import LeaveButton from "./buttons/leave";
+import { ToggleAudioButton, ToggleVideoButton } from "./buttons/media-control";
+import { useUserMediaStore } from "@/store/user-media";
+import RemoteUserPlayer from "./palyers/remote-user";
+import LocalUserPlayer from "./palyers/local-user";
 
 interface MeetProps {
   roomId: string;
@@ -26,23 +30,27 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   const client = useRTCClient();
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // getting local camera and microphone tracks
+  const {
+    media: { video, audio },
+  } = useUserMediaStore();
+
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
   const { isLoading: isLoadingMic, localMicrophoneTrack } =
     useLocalMicrophoneTrack();
 
   const remoteUsers = useRemoteUsers();
 
-  //  console.log({ AppId, token, roomId, uid });
-
   const join = useJoin({
     appid: AppId,
-    token: token.replace(" ", "+"), //env.NEXT_PUBLIC_AGORA_TOKEN,
-    channel: roomId, //env.NEXT_PUBLIC_AGORA_CHANNEL,
+    token: token.replace(" ", "+"),
+    channel: roomId,
     uid: uid.toString(),
   });
 
-  const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
+  const publish = usePublish([
+    localCameraTrack,
+    localMicrophoneTrack,
+  ]);
 
   const isLoading =
     isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
@@ -65,10 +73,6 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   useClientEvent(client, "user-published", (user, mediaType) => {
     console.log("The user", user.uid, " has published media in the channel");
   });
-
-  useEffect(() => {
-    console.log(join.error?.rtcError);
-  }, [join]);
 
   useEffect(() => {
     return () => {
@@ -95,21 +99,22 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
         <div>
           <div className="absolute bottom-10 right-5 h-fit w-fit border-[5px] border-red-800">
             <div className="h-[300px] w-[300px]">
-              <LocalVideoTrack track={localCameraTrack} play={true} />
+              <LocalUserPlayer
+                cameraTrack={localCameraTrack}
+                audioTrack={localMicrophoneTrack}
+              />
+              {/*<LocalVideoTrack track={localCameraTrack} play={true} />*/}
             </div>
-            <div>
+            <div className="flex justify-between">
               <LeaveButton />
+              <ToggleVideoButton track={localCameraTrack} />
+              <ToggleAudioButton track={localMicrophoneTrack} />
             </div>
           </div>
           <div className="grid grid-cols-2">
             {remoteUsers.map((remoteUser) => (
               <div className="h-[200px] w-[200px]" key={remoteUser.uid}>
-                <RemoteUser
-                  user={remoteUser}
-                  playVideo={true}
-                  playAudio={true}
-                  className="border-[5px] border-red-900"
-                />
+                <RemoteUserPlayer user={remoteUser} />
               </div>
             ))}
           </div>
