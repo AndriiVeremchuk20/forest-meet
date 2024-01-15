@@ -12,7 +12,7 @@ import {
   useRTCClient,
   useRemoteUsers,
 } from "agora-rtc-react";
-import { type FC, useEffect } from "react";
+import { type FC, useEffect, useRef } from "react";
 import LeaveButton from "./buttons/leave";
 
 interface MeetProps {
@@ -24,6 +24,7 @@ interface MeetProps {
 const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   const AppId = env.NEXT_PUBLIC_AGORA_APP_ID;
   const client = useRTCClient();
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   // getting local camera and microphone tracks
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
@@ -32,7 +33,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   const remoteUsers = useRemoteUsers();
 
-  console.log({ AppId, token, roomId, uid });
+  //  console.log({ AppId, token, roomId, uid });
 
   const join = useJoin({
     appid: AppId,
@@ -48,6 +49,13 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   useClientEvent(client, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
+
+    if (audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => console.log("Played"))
+        .catch((error) => console.log(error));
+    }
   });
 
   useClientEvent(client, "user-left", (user) => {
@@ -75,6 +83,14 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   return (
     <main>
+      <>
+        <audio
+          src="/audio/join_caw_sound.mp3"
+          ref={audioRef}
+          preload={"auto"}
+          className="hidden"
+        />
+      </>
       {join.isConnected ? (
         <div>
           <div className="absolute bottom-10 right-5 h-fit w-fit border-[5px] border-red-800">
