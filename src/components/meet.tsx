@@ -47,10 +47,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
     uid: uid.toString(),
   });
 
-  const publish = usePublish([
-    localCameraTrack,
-    localMicrophoneTrack,
-  ]);
+  const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
 
   const isLoading =
     isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
