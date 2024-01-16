@@ -1,6 +1,7 @@
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { GoogleIcon } from "../icons";
 
 export const GoogleButton = () => {
   const searchParams = useSearchParams();
@@ -16,14 +17,10 @@ export const GoogleButton = () => {
       onClick={handleClick}
       className="flex w-[300px]  items-center border-[5px] border-blue-800 bg-blue-500 duration-100 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
     >
-      <Image
-        src="/icon/google-icon.svg"
-        alt="google"
-        width={45}
-        height={45}
-        className="p-1 bg-blue-300"
-      />
-      <span className="p-2 text-2xl text-white">Sign in with Google</span>
+      <div className="bg-blue-300 p-1">
+        <GoogleIcon width={45} />
+      </div>
+            <span className="p-2 text-2xl text-white">Sign in with Google</span>
     </button>
   );
 };

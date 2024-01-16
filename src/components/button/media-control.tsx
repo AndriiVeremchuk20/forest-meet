@@ -4,6 +4,7 @@ import {
   type ICameraVideoTrack,
 } from "agora-rtc-react";
 import { useState } from "react";
+import {CameraOffIcon, CameraOnIcon, MicroOffIcon, MicroOnIcon} from "../icons";
 
 export const ToggleVideoButton = ({
   track,
@@ -21,9 +22,11 @@ export const ToggleVideoButton = ({
   return (
     <button
       onClick={handleClick}
-      className={`bg-blue-800 px-3 py-2 text-white`}
+      className={`px-3 py-2 text-white`}
     >
-      Video
+      {
+		video?<CameraOnIcon width={70}/>:<CameraOffIcon width={70}/>
+	  }
     </button>
   );
 };
@@ -40,8 +43,10 @@ export const ToggleAudioButton = ({
     setAudio((prev) => !prev);
   };
   return (
-    <button onClick={handleClick} className="bg-blue-800 px-3 py-2 text-white">
-      Audio
+    <button onClick={handleClick} className="px-3 py-2 text-white">
+      {
+		audio?<MicroOnIcon/>:<MicroOffIcon/>
+	  }
     </button>
   );
 };

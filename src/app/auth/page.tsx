@@ -1,6 +1,6 @@
 "use client";
 
-import { GoogleButton, SingOutButton } from "@/components/buttons/auth";
+import { GoogleButton, SingOutButton } from "@/components/button/auth";
 import Loader from "@/components/loader";
 import { useSession } from "next-auth/react";
 import Link from "next/link";

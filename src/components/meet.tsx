@@ -2,8 +2,8 @@
 
 import { env } from "@/env";
 import {
-  LocalVideoTrack,
-  RemoteUser,
+  //LocalVideoTrack,
+  //RemoteUser,
   useClientEvent,
   useJoin,
   useLocalCameraTrack,
@@ -13,11 +13,10 @@ import {
   useRemoteUsers,
 } from "agora-rtc-react";
 import { type FC, useEffect, useRef } from "react";
-import LeaveButton from "./buttons/leave";
-import { ToggleAudioButton, ToggleVideoButton } from "./buttons/media-control";
-import { useUserMediaStore } from "@/store/user-media";
-import RemoteUserPlayer from "./palyers/remote-user";
-import LocalUserPlayer from "./palyers/local-user";
+import LeaveButton from "./button/leave";
+import { ToggleAudioButton, ToggleVideoButton } from "./button/media-control";
+import RemoteUserPlayer from "./palyer/remote-user";
+import LocalUserPlayer from "./palyer/local-user";
 
 interface MeetProps {
   roomId: string;
@@ -29,10 +28,6 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   const AppId = env.NEXT_PUBLIC_AGORA_APP_ID;
   const client = useRTCClient();
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  const {
-    media: { video, audio },
-  } = useUserMediaStore();
 
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
   const { isLoading: isLoadingMic, localMicrophoneTrack } =
@@ -47,10 +42,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
     uid: uid.toString(),
   });
 
-  const publish = usePublish([
-    localCameraTrack,
-    localMicrophoneTrack,
-  ]);
+  const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
 
   const isLoading =
     isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
