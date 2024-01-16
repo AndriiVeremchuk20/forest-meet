@@ -14,14 +14,14 @@ export const GoogleButton = () => {
     <button
       type="button"
       onClick={handleClick}
-      className="flex h-[60px] w-[300px]  items-center border-[5px] border-blue-800 bg-blue-500 duration-100 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
+      className="flex w-[300px]  items-center border-[5px] border-blue-800 bg-blue-500 duration-100 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
     >
       <Image
-        src="/google.png"
+        src="/icon/google-icon.svg"
         alt="google"
-        width={50}
-        height={50}
-        className="bg-white"
+        width={45}
+        height={45}
+        className="p-1 bg-blue-300"
       />
       <span className="p-2 text-2xl text-white">Sign in with Google</span>
     </button>
