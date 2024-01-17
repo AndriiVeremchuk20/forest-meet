@@ -1,32 +1,29 @@
-//import { useUserMediaStore } from "@/store/user-media";
 import {
   type IMicrophoneAudioTrack,
   type ICameraVideoTrack,
 } from "agora-rtc-react";
+import {
+  CameraOffIcon,
+  CameraOnIcon,
+  MicroOffIcon,
+  MicroOnIcon,
+} from "../icons";
 import { useState } from "react";
-import {CameraOffIcon, CameraOnIcon, MicroOffIcon, MicroOnIcon} from "../icons";
 
 export const ToggleVideoButton = ({
   track,
 }: {
   track: ICameraVideoTrack | null;
 }) => {
-  const [video, setVideo] = useState<boolean>(true);
-  //const {media, setVideo} = useUserMediaStore();
+  const [camera, setCamera] = useState<boolean>(!!track?.enabled);
 
   const handleClick = async () => {
-    await track?.setEnabled(!video);
-    setVideo((prev) => !prev);
+    await track?.setEnabled(!camera);
+    setCamera((prev) => !prev);
   };
-
   return (
-    <button
-      onClick={handleClick}
-      className={`px-3 py-2 text-white`}
-    >
-      {
-		video?<CameraOnIcon width={70}/>:<CameraOffIcon width={70}/>
-	  }
+    <button onClick={handleClick} className={`px-3 py-2 text-white`}>
+      {camera ? <CameraOnIcon width={70} /> : <CameraOffIcon width={70} />}
     </button>
   );
 };
@@ -36,17 +33,16 @@ export const ToggleAudioButton = ({
 }: {
   track: IMicrophoneAudioTrack | null;
 }) => {
-  const [audio, setAudio] = useState<boolean>(true);
+  const [microphone, setMicrophone] = useState<boolean>(!!track?.enabled);
 
   const handleClick = async () => {
-    await track?.setEnabled(!audio);
-    setAudio((prev) => !prev);
+    await track?.setEnabled(!microphone);
+    setMicrophone((prev) => !prev);
   };
+
   return (
     <button onClick={handleClick} className="px-3 py-2 text-white">
-      {
-		audio?<MicroOnIcon/>:<MicroOffIcon/>
-	  }
+      {microphone ? <MicroOnIcon /> : <MicroOffIcon />}
     </button>
   );
 };
