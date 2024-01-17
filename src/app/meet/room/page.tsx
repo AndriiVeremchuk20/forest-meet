@@ -33,7 +33,7 @@ const RoomPage = () => {
     return <div>Room id not found</div>;
   }
   return (
-    <main>
+    <main className="h-screen bg-[url('/meet.gif')] bg-fixed bg-cover">
       {roomId && token && uid && (
         <Meet roomId={roomId} token={token} uid={uid} />
       )}

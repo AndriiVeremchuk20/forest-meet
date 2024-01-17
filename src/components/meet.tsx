@@ -81,7 +81,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
   }
 
   return (
-    <main>
+    <div>
       <>
         <audio
           src="/audio/join_caw_sound.mp3"
@@ -94,7 +94,6 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
         <div>
           <div className="absolute bottom-24 right-5 h-fit w-fit border-[5px] border-red-800 backdrop-blur-md">
               <LocalUserPlayer cameraTrack={localCameraTrack} />
-              {/*<LocalVideoTrack track={localCameraTrack} play={true} />*/}
           </div>
           <div className="grid grid-cols-2">
             {remoteUsers.map((remoteUser) => (
@@ -110,7 +109,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
       ) : (
         <div className="my-10">Not connected: {join.error?.message}</div>
       )}
-    </main>
+    </div>
   );
 };
 
