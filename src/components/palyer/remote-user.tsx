@@ -26,7 +26,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user }) => {
 
   return (
     <div
-      className={`h-[200px] w-[200px]  ${Math.floor(volumeLevel * 100) > 10 ? "shadow-xl" : Math.floor(volumeLevel * 100) > 30 ? "shadow-2xl" : ""} border-red-500 shadow-pink-500`}
+      className={`h-full w-full  ${Math.floor(volumeLevel * 100) > 10 ? "shadow-xl" : Math.floor(volumeLevel * 100) > 30 ? "shadow-2xl" : ""} border-red-500 shadow-pink-500`}
     >
       <div className="bg-red-300">{(volumeLevel * 100).toFixed()}</div>
       {!user.hasAudio && (
@@ -38,6 +38,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user }) => {
         playAudio={true}
         className="border-[5px] border-red-900"
       />
+	  <div>User name</div>
     </div>
   );
 };
