@@ -38,7 +38,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user }) => {
         playAudio={true}
         className="border-[5px] border-red-900"
       />
-	  <div>User name</div>
+      <div>User name</div>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import AppSessionProvider from "@/providers/session";
 import Header from "@/components/layout/header";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const googlePixelifySans = localFont({
   src: "../../font/PixelifySans-VariableFont_wght.ttf",
@@ -33,6 +34,7 @@ export default function RootLayout({
             {children}
           </TRPCReactProvider>
         </AppSessionProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
