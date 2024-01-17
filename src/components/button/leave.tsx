@@ -1,5 +1,6 @@
 import { useRTCClient } from "agora-rtc-react";
 import { useRouter } from "next/navigation";
+import { ExitIcon } from "../icons";
 
 const LeaveButton = () => {
   const client = useRTCClient();
@@ -11,8 +12,8 @@ const LeaveButton = () => {
   };
 
   return (
-    <button onClick={onLeaveClick} className="h-[30px] w-[100px] bg-red-500">
-      Leave
+    <button onClick={onLeaveClick} className="w-full">
+      <ExitIcon className="w-3/5" />
     </button>
   );
 };

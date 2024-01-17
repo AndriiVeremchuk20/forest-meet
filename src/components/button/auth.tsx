@@ -20,7 +20,7 @@ export const GoogleButton = () => {
       <div className="bg-blue-300 p-1">
         <GoogleIcon width={45} />
       </div>
-            <span className="p-2 text-2xl text-white">Sign in with Google</span>
+      <span className="p-2 text-2xl text-white">Sign in with Google</span>
     </button>
   );
 };

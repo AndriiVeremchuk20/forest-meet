@@ -17,6 +17,7 @@ import LeaveButton from "./button/leave";
 import { ToggleAudioButton, ToggleVideoButton } from "./button/media-control";
 import RemoteUserPlayer from "./palyer/remote-user";
 import LocalUserPlayer from "./palyer/local-user";
+import MeetControl from "./meet-control";
 
 interface MeetProps {
   roomId: string;
@@ -37,7 +38,7 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
 
   const join = useJoin({
     appid: AppId,
-    token: token.replace(" ", "+"),
+    token: token,
     channel: roomId,
     uid: uid.toString(),
   });
@@ -57,6 +58,8 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
         .catch((error) => console.log(error));
     }
   });
+
+  // client.enableAudioVolumeIndicator();
 
   useClientEvent(client, "user-left", (user) => {
     console.log("The user", user.uid, " has left the channel");
@@ -89,19 +92,9 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
       </>
       {join.isConnected ? (
         <div>
-          <div className="absolute bottom-10 right-5 h-fit w-fit border-[5px] border-red-800">
-            <div className="h-[300px] w-[300px]">
-              <LocalUserPlayer
-                cameraTrack={localCameraTrack}
-                audioTrack={localMicrophoneTrack}
-              />
+          <div className="absolute bottom-24 right-5 h-fit w-fit border-[5px] border-red-800 backdrop-blur-md">
+              <LocalUserPlayer cameraTrack={localCameraTrack} />
               {/*<LocalVideoTrack track={localCameraTrack} play={true} />*/}
-            </div>
-            <div className="flex justify-between">
-              <LeaveButton />
-              <ToggleVideoButton track={localCameraTrack} />
-              <ToggleAudioButton track={localMicrophoneTrack} />
-            </div>
           </div>
           <div className="grid grid-cols-2">
             {remoteUsers.map((remoteUser) => (
@@ -109,6 +102,9 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
                 <RemoteUserPlayer user={remoteUser} />
               </div>
             ))}
+          </div>
+          <div className="absolute bottom-0 p-2 border-t-2 border-neutral-600 w-full backdrop-blur-md">
+		    <MeetControl audioTrack={localMicrophoneTrack} videoTrack={localCameraTrack}/> 
           </div>
         </div>
       ) : (
