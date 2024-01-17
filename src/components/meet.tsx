@@ -18,6 +18,7 @@ import { ToggleAudioButton, ToggleVideoButton } from "./button/media-control";
 import RemoteUserPlayer from "./palyer/remote-user";
 import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./meet-control";
+import RemoteUsersCircle from "./remote-users-circle";
 
 interface MeetProps {
   roomId: string;
@@ -91,18 +92,19 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
         />
       </>
       {join.isConnected ? (
-        <div>
-          <div className="absolute bottom-24 right-5 h-fit w-fit border-[5px] border-red-800 backdrop-blur-md">
+        <div className="">
+          <div className="absolute bottom-24 right-5">
               <LocalUserPlayer cameraTrack={localCameraTrack} />
           </div>
-          <div className="grid grid-cols-2">
-            {remoteUsers.map((remoteUser) => (
+          <div className="w-full">
+            <RemoteUsersCircle remoteUsers={remoteUsers}/>
+			{/*remoteUsers.map((remoteUser) => (
               <div className="h-[200px] w-[200px]" key={remoteUser.uid}>
                 <RemoteUserPlayer user={remoteUser} />
               </div>
-            ))}
+            ))*/}
           </div>
-          <div className="absolute bottom-0 p-2 border-t-2 border-neutral-600 w-full backdrop-blur-md">
+          <div className="absolute bottom-0 w-full">
 		    <MeetControl audioTrack={localMicrophoneTrack} videoTrack={localCameraTrack}/> 
           </div>
         </div>

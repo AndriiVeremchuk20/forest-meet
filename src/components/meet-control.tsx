@@ -13,7 +13,7 @@ interface MeetControlProps {
 
 const MeetControl: FC<MeetControlProps> = ({ audioTrack, videoTrack }) => {
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full backdrop-blur-md border-t-2 border-neutral-600 py-2 flex justify-center">
 	<div className="w-2/6 grid grid-cols-3">
       <ToggleVideoButton track={videoTrack} />
       <ToggleAudioButton track={audioTrack} />
