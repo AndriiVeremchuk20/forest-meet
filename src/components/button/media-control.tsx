@@ -23,7 +23,7 @@ export const ToggleVideoButton = ({
   };
   return (
     <button onClick={handleClick} className={`px-3 py-2 text-white`}>
-      {camera ? <CameraOnIcon width={70} /> : <CameraOffIcon width={70} />}
+      {camera ? <CameraOnIcon width={70} className="h-[40px]" /> : <CameraOffIcon width={70} className="h-[40px]"/>}
     </button>
   );
 };
@@ -41,8 +41,8 @@ export const ToggleAudioButton = ({
   };
 
   return (
-    <button onClick={handleClick} className="px-3 py-2 text-white">
-      {microphone ? <MicroOnIcon /> : <MicroOffIcon />}
+    <button onClick={handleClick} className="px-3 py-2 text-white hover:right-2 ring-slate-900">
+      {microphone ? <MicroOnIcon className="h-[40px]"/> : <MicroOffIcon className="h-[40px]"/>}
     </button>
   );
 };
