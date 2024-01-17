@@ -94,18 +94,21 @@ const Meet: FC<MeetProps> = ({ roomId, token, uid }) => {
       {join.isConnected ? (
         <div className="">
           <div className="absolute bottom-24 right-5">
-              <LocalUserPlayer cameraTrack={localCameraTrack} />
+            <LocalUserPlayer cameraTrack={localCameraTrack} />
           </div>
           <div className="w-full">
-            <RemoteUsersCircle remoteUsers={remoteUsers}/>
-			{/*remoteUsers.map((remoteUser) => (
+            <RemoteUsersCircle remoteUsers={remoteUsers} />
+            {/*remoteUsers.map((remoteUser) => (
               <div className="h-[200px] w-[200px]" key={remoteUser.uid}>
                 <RemoteUserPlayer user={remoteUser} />
               </div>
             ))*/}
           </div>
           <div className="absolute bottom-0 w-full">
-		    <MeetControl audioTrack={localMicrophoneTrack} videoTrack={localCameraTrack}/> 
+            <MeetControl
+              audioTrack={localMicrophoneTrack}
+              videoTrack={localCameraTrack}
+            />
           </div>
         </div>
       ) : (

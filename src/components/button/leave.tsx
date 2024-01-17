@@ -13,7 +13,7 @@ const LeaveButton = () => {
 
   return (
     <button onClick={onLeaveClick} className="w-full hover:opacity-80">
-      <ExitIcon className="w-3/5"/>
+      <ExitIcon className="w-3/5" />
     </button>
   );
 };
