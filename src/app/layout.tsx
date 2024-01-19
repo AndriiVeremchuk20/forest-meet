@@ -9,8 +9,9 @@ import Header from "@/components/layout/header";
 
 // vercel tools
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 
+// load font
 const googlePixelifySans = localFont({
   src: "../../font/PixelifySans-VariableFont_wght.ttf",
 });
@@ -38,7 +39,7 @@ export default function RootLayout({
           </TRPCReactProvider>
         </AppSessionProvider>
         <SpeedInsights />
-		<Analytics/>
+        <Analytics />
       </body>
     </html>
   );
