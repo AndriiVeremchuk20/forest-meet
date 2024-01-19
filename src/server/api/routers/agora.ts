@@ -1,39 +1,85 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import AgoraServices from "@/utils/agora";
+import { TRPCError } from "@trpc/server";
 
 export const agoraRouter = createTRPCRouter({
-  createRoom: publicProcedure.mutation(async () => {
-    // just generate a channel name for future room
+  createRoom: protectedProcedure.mutation(async ({ ctx: { db, session } }) => {
+    // generate a channel name for future room
     const channelName = await AgoraServices.generateChannelName();
+
+    // check if channel name is not exist
+    const checkExist = await db.room.findUnique({ where: { channelName } });
+
+    if (checkExist) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Server error",
+      });
+    }
+
+    // add a new room into db
+    const newRoom = await db.room.create({
+      data: {
+        creatorId: session.user.id,
+        channelName,
+      },
+    });
 
     return {
       channelName,
     };
   }),
+
   joinToRoom: publicProcedure
     .input(
       z.object({
         channelName: z.string(),
       }),
     )
-    .mutation(({ input }) => {
+    .mutation(async ({ input, ctx: { db } }) => {
       const { channelName } = input;
+
+      // check room
+      const checkRoom = await db.room.findUnique({ where: { channelName } });
+
+      if (!checkRoom) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Room not found" });
+      }
 
       const uid = AgoraServices.generateUid();
       const expireTime = 3600; // 1 hour
 
-      const token = AgoraServices.generateRtcToken({
+      const rtcToken = AgoraServices.Token.rtc({
         uid,
         channelName,
         expireTime,
       });
 
+      const rtmToken = AgoraServices.Token.rtm({
+        uid: uid.toString(),
+        expireTime,
+      });
+
+      //const addUserToRoom = await db.userInRoom.create({data: {
+      //		userId: session.user.id,
+      //		roomId: checkRoom.id,
+      //		uid,
+      //		token,
+      //	  }});
+
       return {
         channelName,
         uid,
-        token,
+        token: {
+          rtc: rtcToken,
+          rtm: rtmToken,
+        },
       };
     }),
 });

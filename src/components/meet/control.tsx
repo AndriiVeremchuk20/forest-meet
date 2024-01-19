@@ -3,8 +3,8 @@ import {
   type IMicrophoneAudioTrack,
 } from "agora-rtc-react";
 import { type FC } from "react";
-import { ToggleAudioButton, ToggleVideoButton } from "./button/media-control";
-import LeaveButton from "./button/leave";
+import { ToggleAudioButton, ToggleVideoButton } from "../button/media-control";
+import LeaveButton from "../button/leave";
 
 interface MeetControlProps {
   videoTrack: ICameraVideoTrack | null;
@@ -17,7 +17,7 @@ const MeetControl: FC<MeetControlProps> = ({ audioTrack, videoTrack }) => {
       <div className="grid w-2/6 grid-cols-3">
         <ToggleVideoButton track={videoTrack} />
         <ToggleAudioButton track={audioTrack} />
-        <LeaveButton />
+        <LeaveButton cameraTrack={videoTrack} microphoneTrack={audioTrack} />
       </div>
     </div>
   );
