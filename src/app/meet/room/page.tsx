@@ -1,6 +1,5 @@
 "use client";
 
-import Chat from "@/components/chat";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
