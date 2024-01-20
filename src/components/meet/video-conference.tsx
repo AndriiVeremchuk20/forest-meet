@@ -60,8 +60,9 @@ const VideoConference: FC<MeetProps> = ({
 
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
 
-  const isLoading =
-    isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
+  const isLoadingDevice = isLoadingCam || isLoadingMic;
+
+  const isLoadingJoin = publish.isLoading || join.isLoading;
 
   useClientEvent(rtcClient, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
@@ -83,7 +84,9 @@ const VideoConference: FC<MeetProps> = ({
       .catch((error) => console.log(error));
 
     await rtmClient.addOrUpdateLocalUserAttributes({
-      name: userData?.user.name ?? "guest",
+      name:
+        userData?.user.name ??
+        `guest(${prompt("Enter Your name") ?? "Unknown"})`,
       userRtcUid: uid.toString(),
     });
 
@@ -101,13 +104,6 @@ const VideoConference: FC<MeetProps> = ({
     );
 
     setRemoteRtmUsers(membInfo);
-    console.log(membInfo);
-
-    //await AgoraRTM.enableNotificationToChannelMembers(true);
-
-    rtmChannel.on("ChannelMessage", (msg) => {
-      console.log(msg);
-    });
 
     rtmChannel.on("MemberJoined", async (memberId) => {
       const { name, userRtcUid } = await rtmClient.getUserAttributesByKeys(
@@ -130,11 +126,6 @@ const VideoConference: FC<MeetProps> = ({
         prev.filter((u) => u.uid !== Number(memberId)),
       );
     });
-    // enableNotificationToChannelMembers
-    // rtmChannel.on("AttributesUpdated" , (attr) => {
-    //   console.log("Attributes update");
-    // console.log(attr);
-    // });
   };
 
   const rtmLogout = async () => {
@@ -158,8 +149,15 @@ const VideoConference: FC<MeetProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isLoading) {
-    return <div>Loading</div>;
+  if (isLoadingDevice || isLoadingJoin) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="flex h-[200px] w-[300px] flex-col items-center justify-center gap-3 border-[5px] border-orange-900 text-2xl backdrop-blur-sm">
+          {isLoadingDevice && <div>Loading devices</div>}
+          {isLoadingJoin && <div>Joining</div>}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -178,7 +176,6 @@ const VideoConference: FC<MeetProps> = ({
                 user={remoteUser}
                 name={
                   rtmUsers.filter((user) => {
-                    // console.log(`${user.uid} === ${remoteUser.uid} ${user.name}`);
                     return user.uid == remoteUser.uid;
                   })[0]?.name ?? "Not found"
                 }

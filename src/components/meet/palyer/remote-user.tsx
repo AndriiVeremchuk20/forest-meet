@@ -16,7 +16,7 @@ interface RemoteUserPlayerProps {
 const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
   const volumeLevel = useVolumeLevel(user.audioTrack);
 
-  const {hasAudio, hasVideo} = user;
+  const { hasAudio, hasVideo } = user;
 
   return (
     <div
