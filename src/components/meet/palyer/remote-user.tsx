@@ -16,12 +16,16 @@ interface RemoteUserPlayerProps {
 const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
   const volumeLevel = useVolumeLevel(user.audioTrack);
 
+  const {hasAudio, hasVideo} = user;
+
   return (
-    <div className={`border-[5px] bg-neutral-400 ${user.hasAudio&&parseVolumeLevel(volumeLevel)>10?"border-green-500":"border-orange-900"}`}>
-      <div>{!user.hasAudio&&"No audio"}</div>
-	  <div>{!user.hasVideo&&"No video"}</div>
-	  <div className="h-[200px] w-[200px]">
-		<RemoteUser user={user} playVideo={true} playAudio={true} />
+    <div
+      className={`border-[5px] bg-neutral-400 ${hasAudio && parseVolumeLevel(volumeLevel) > 10 ? "border-green-500" : "border-orange-900"}`}
+    >
+      <div>{!hasAudio && "No audio"}</div>
+      <div>{!hasVideo && "No video"}</div>
+      <div className="h-[200px] w-[200px]">
+        <RemoteUser user={user} playVideo={true} playAudio={true} />
       </div>
       <div className="bg-blue-600 text-white">{name}</div>
     </div>
