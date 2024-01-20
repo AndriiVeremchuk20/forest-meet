@@ -55,23 +55,16 @@ export const agoraRouter = createTRPCRouter({
       const uid = AgoraServices.generateUid();
       const expireTime = 3600; // 1 hour
 
-      const rtcToken = AgoraServices.Token.rtc({
+      const rtcToken = AgoraServices.token.rtc({
         uid,
         channelName,
         expireTime,
       });
 
-      const rtmToken = AgoraServices.Token.rtm({
+      const rtmToken = AgoraServices.token.rtm({
         uid: uid.toString(),
         expireTime,
-      });
-
-      //const addUserToRoom = await db.userInRoom.create({data: {
-      //		userId: session.user.id,
-      //		roomId: checkRoom.id,
-      //		uid,
-      //		token,
-      //	  }});
+      }); 
 
       return {
         channelName,
