@@ -20,7 +20,6 @@ import { useRtmClient } from "@/providers/agora";
 import RemoteUserPlayer from "./palyer/remote-user";
 import useRtmChannel from "@/hooks/use-rtm-channel";
 import { useSession } from "next-auth/react";
-import AgoraRTM from "agora-rtm-react";
 
 interface MeetProps {
   roomId: string;
@@ -59,7 +58,7 @@ const VideoConference: FC<MeetProps> = ({
     uid: uid.toString(),
   });
 
-  const publish = usePublish([localCameraTrack, localMicrophoneTrack]);
+  const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
 
   const isLoading =
     isLoadingCam || isLoadingMic || publish.isLoading || join.isLoading;
@@ -174,20 +173,16 @@ const VideoConference: FC<MeetProps> = ({
             {/* <RemoteUsersCircle remoteUsers={remoteUsers} />*/}
 
             {remoteUsers.map((remoteUser) => (
-              <div
-                className="flex h-fit w-[200px] flex-col"
+              <RemoteUserPlayer
                 key={remoteUser.uid}
-              >
-                <RemoteUserPlayer
-                  user={remoteUser}
-                  name={
-                    rtmUsers.filter((user) => {
-                      // console.log(`${user.uid} === ${remoteUser.uid} ${user.name}`);
-                      return user.uid == remoteUser.uid;
-                    })[0]?.name ?? "Not found"
-                  }
-                />
-              </div>
+                user={remoteUser}
+                name={
+                  rtmUsers.filter((user) => {
+                    // console.log(`${user.uid} === ${remoteUser.uid} ${user.name}`);
+                    return user.uid == remoteUser.uid;
+                  })[0]?.name ?? "Not found"
+                }
+              />
             ))}
           </div>
           <div className="absolute bottom-0 w-full">

@@ -1,44 +1,28 @@
 "use client";
 
+import parseVolumeLevel from "@/utils/parse-volume-level";
 import {
   type IAgoraRTCRemoteUser,
   RemoteUser,
   useVolumeLevel,
 } from "agora-rtc-react";
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 
 interface RemoteUserPlayerProps {
   user: IAgoraRTCRemoteUser;
   name: string;
 }
+
 const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
   const volumeLevel = useVolumeLevel(user.audioTrack);
 
-  if (!user.hasVideo) {
-    return (
-      <div className="h-[200px] w-[200px] bg-neutral-500">
-        {!user.hasAudio && (
-          <div className="bg-neutral-700 text-white">No audio</div>
-        )}
-        No video {name}
-      </div>
-    );
-  }
-
   return (
-    <div
-      className={`h-[200px] w-[200px]  ${Math.floor(volumeLevel * 100) > 10 ? "shadow-xl" : Math.floor(volumeLevel * 100) > 30 ? "shadow-2xl" : ""} border-red-500 shadow-pink-500`}
-    >
-      <div className="bg-red-300">{(volumeLevel * 100).toFixed()}</div>
-      {!user.hasAudio && (
-        <div className="bg-neutral-700 text-white">No audio</div>
-      )}
-      <RemoteUser
-        user={user}
-        playVideo={true}
-        playAudio={true}
-        className="border-[5px] border-red-900"
-      />
+    <div className={`border-[5px] bg-neutral-400 ${user.hasAudio&&parseVolumeLevel(volumeLevel)>10?"border-green-500":"border-orange-900"}`}>
+      <div>{!user.hasAudio&&"No audio"}</div>
+	  <div>{!user.hasVideo&&"No video"}</div>
+	  <div className="h-[200px] w-[200px]">
+		<RemoteUser user={user} playVideo={true} playAudio={true} />
+      </div>
       <div className="bg-blue-600 text-white">{name}</div>
     </div>
   );
