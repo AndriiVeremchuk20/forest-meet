@@ -16,22 +16,21 @@ const VideoConference = dynamic(
 const RoomPage = () => {
   const router = useRouter();
   const roomId = useRoom();
-  
-  const [credentials, setCredentials] = useState<{rtcToken: string, rtmToken: string, uid: number}|null>();
 
-  //const [token, setToken] = useState<string | null>(null);
-  //const [rtmToken, setRtmtoken] = useState<string | null>(null);
-  //const [uid, setUid] = useState<number | null>(null);
+  const [credentials, setCredentials] = useState<{
+    rtcToken: string;
+    rtmToken: string;
+    uid: number;
+  } | null>();
 
   const getMeetCredentials = api.agora.joinToRoom.useMutation({
     onSuccess(data) {
-     setCredentials({
-		uid: data.uid,
-		rtcToken: data.token.rtc,
-		rtmToken: data.token.rtm,
-	 })
-
-	},
+      setCredentials({
+        uid: data.uid,
+        rtcToken: data.token.rtc,
+        rtmToken: data.token.rtm,
+      });
+    },
     onError(error) {
       alert(error.message);
       router.replace("/meet/lobby");
@@ -51,10 +50,7 @@ const RoomPage = () => {
   return (
     <main className="flex h-screen bg-[url('/meet.gif')] bg-cover bg-fixed">
       {roomId && credentials && (
-          <VideoConference
-            roomId={roomId}
-            credentials={credentials} 
-          />
+        <VideoConference roomId={roomId} credentials={credentials} />
       )}
     </main>
   );

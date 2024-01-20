@@ -23,19 +23,15 @@ import { useSession } from "next-auth/react";
 interface MeetProps {
   roomId: string;
   credentials: {
-	 uid: number;
-  rtcToken: string;
-  rtmToken: string;
-  }
- 
+    uid: number;
+    rtcToken: string;
+    rtmToken: string;
+  };
 }
 
-const VideoConference: FC<MeetProps> = ({
-  roomId,
-  credentials,
-}) => {
+const VideoConference: FC<MeetProps> = ({ roomId, credentials }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
-  const {uid, rtcToken, rtmToken} = credentials;
+  const { uid, rtcToken, rtmToken } = credentials;
   const { data: userData } = useSession();
 
   const rtcClient = useRTCClient(); // agora RTC client
@@ -85,9 +81,7 @@ const VideoConference: FC<MeetProps> = ({
       .catch((error) => console.log(error));
 
     await rtmClient.addOrUpdateLocalUserAttributes({
-      name:
-        userData?.user.name ??
-        `guest`,
+      name: userData?.user.name ?? `guest`,
       userRtcUid: uid.toString(),
     });
 
