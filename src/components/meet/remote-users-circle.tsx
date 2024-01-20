@@ -39,7 +39,7 @@ const RemoteUsersCircle: FC<RemoteUsersCircleProps> = ({ remoteUsers }) => {
             style={style}
           >
             {/* Assuming RemoteUserPlayer is imported */}
-            {/*<RemoteUserPlayer user={remoteUser} />*/   }
+            {/*<RemoteUserPlayer user={remoteUser} />*/}
           </div>
         );
       })}

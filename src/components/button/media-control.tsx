@@ -17,9 +17,12 @@ export const ToggleVideoButton = ({
 }) => {
   const [camera, setCamera] = useState<boolean>(!!track?.enabled);
 
-  const handleClick = async () => {
-    await track?.setEnabled(!camera);
-    setCamera((prev) => !prev);
+  const handleClick = () => {
+    track
+      ?.setEnabled(!camera)
+      .then(() => setCamera((prev) => !prev))
+      .catch((error) => console.log(error));
+    //await track?.setEnabled(!camera);
   };
   return (
     <button
@@ -40,10 +43,11 @@ export const ToggleAudioButton = ({
 }: {
   track: IMicrophoneAudioTrack | null;
 }) => {
-  const [microphone, setMicrophone] = useState<boolean>(!!track?.enabled);
+  const [microphone, setMicrophone] = useState<boolean>(!!track?.muted);
 
   const handleClick = async () => {
-    await track?.setEnabled(!microphone);
+    await track?.setMuted(!microphone);
+    //await track?.setEnabled(!microphone);
     setMicrophone((prev) => !prev);
   };
 
@@ -52,7 +56,7 @@ export const ToggleAudioButton = ({
       onClick={handleClick}
       className="w-fit px-3 py-2 text-white hover:opacity-80"
     >
-      {microphone ? (
+      {!microphone ? (
         <MicroOnIcon className="h-[40px]" />
       ) : (
         <MicroOffIcon className="h-[40px]" />
