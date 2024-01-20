@@ -64,7 +64,7 @@ export const agoraRouter = createTRPCRouter({
       const rtmToken = AgoraServices.token.rtm({
         uid: uid.toString(),
         expireTime,
-      }); 
+      });
 
       return {
         channelName,
