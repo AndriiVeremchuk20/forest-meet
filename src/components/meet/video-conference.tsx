@@ -15,7 +15,6 @@ import {
 import { type FC, useEffect, useState } from "react";
 import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
-//import RemoteUsersCircle from "./remote-users-circle";
 import { useRtmClient } from "@/providers/agora";
 import RemoteUserPlayer from "./palyer/remote-user";
 import useRtmChannel from "@/hooks/use-rtm-channel";
@@ -23,18 +22,20 @@ import { useSession } from "next-auth/react";
 
 interface MeetProps {
   roomId: string;
-  uid: number;
+  credentials: {
+	 uid: number;
   rtcToken: string;
   rtmToken: string;
+  }
+ 
 }
 
 const VideoConference: FC<MeetProps> = ({
   roomId,
-  uid,
-  rtcToken,
-  rtmToken,
+  credentials,
 }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
+  const {uid, rtcToken, rtmToken} = credentials;
   const { data: userData } = useSession();
 
   const rtcClient = useRTCClient(); // agora RTC client
@@ -72,7 +73,7 @@ const VideoConference: FC<MeetProps> = ({
     console.log("The user", user.uid, " has left the channel");
   });
 
-  useClientEvent(rtcClient, "user-published", (user, mediaType) => {
+  useClientEvent(rtcClient, "user-published", (user) => {
     console.log("The user", user.uid, " has published media in the channel");
   });
 
@@ -86,7 +87,7 @@ const VideoConference: FC<MeetProps> = ({
     await rtmClient.addOrUpdateLocalUserAttributes({
       name:
         userData?.user.name ??
-        `guest(${prompt("Enter Your name") ?? "Unknown"})`,
+        `guest`,
       userRtcUid: uid.toString(),
     });
 
