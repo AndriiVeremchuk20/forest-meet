@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // pages where the header is not show
-const hideOnPages = ["/meet"];
+const hideOnPages = ["/meet/room"];
 
 const Logo = () => {
   return (
@@ -21,7 +21,7 @@ const User = () => {
   const { data } = useSession();
 
   return (
-    <div className="flex items-center gap-2 border-[5px] border-orange-900 bg-neutral-200 p-2">
+    <div className="flex items-center gap-2 bg-green-400 p-2 dark:bg-blue-900">
       {data?.user ? (
         <>
           <span>{data.user.name}</span>
@@ -53,7 +53,7 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-xl">
+    <header className="fixed flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-xl dark:border-blue-900">
       <Logo />
       <User />
     </header>

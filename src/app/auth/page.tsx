@@ -21,8 +21,8 @@ const AuthPage = () => {
 
 const SignInForm = () => {
   return (
-    <form className="flex h-[300px] w-[400px] flex-col items-center justify-between border-[5px] border-green-500 p-4 backdrop-blur-md">
-      <h2 className="border-b-[3px] border-green-500 text-center text-4xl">
+    <form className="flex h-[300px] w-[400px] flex-col items-center justify-between border-[5px] border-green-500 p-4 backdrop-blur-md dark:border-blue-900">
+      <h2 className="border-b-[3px] border-green-500 text-center text-4xl dark:border-blue-900">
         Sing In
       </h2>
       <div className="text-2xl">
@@ -37,8 +37,8 @@ const SignInForm = () => {
 
 const SuccessMessage = () => {
   return (
-    <div className="flex h-[300px] w-[400px] flex-col items-center justify-between border-[5px] border-green-500 p-4 backdrop-blur-md">
-      <h2 className="border-b-[3px] border-green-500 text-center text-4xl">
+    <div className="flex h-[300px] w-[400px] flex-col items-center justify-between border-[5px] border-green-500 p-4 backdrop-blur-md dark:border-blue-900">
+      <h2 className="border-b-[3px] border-green-500 text-center text-4xl dark:border-blue-900">
         Success
       </h2>
       <span className="text-xl">
