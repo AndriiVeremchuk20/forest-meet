@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const LobbyPage = () => {
   const router = useRouter();
-  const session = useSession();
+  const { data } = useSession();
 
   const createRoomMutation = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
@@ -31,8 +31,8 @@ const LobbyPage = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center text-black">
-      Home page of user: {session.data?.user.name}
+    <main className="flex min-h-screen flex-col items-center justify-center">
+      Home page of user: {data?.user.name}
       <div className="space-x-2">
         <button onClick={onJoinClick} className="">
           Join

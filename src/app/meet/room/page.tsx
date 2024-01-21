@@ -2,6 +2,7 @@
 
 import useRoom from "@/hooks/use-room";
 import { api } from "@/trpc/react";
+import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -16,12 +17,15 @@ const VideoConference = dynamic(
 const RoomPage = () => {
   const router = useRouter();
   const roomId = useRoom();
+  const { data } = useSession();
 
   const [credentials, setCredentials] = useState<{
     rtcToken: string;
     rtmToken: string;
     uid: number;
   } | null>();
+
+  const [name, setName] = useState<string | null | undefined>(data?.user.name);
 
   const getMeetCredentials = api.agora.joinToRoom.useMutation({
     onSuccess(data) {
