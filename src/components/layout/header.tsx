@@ -10,10 +10,13 @@ const hideOnPages = ["/meet/room"];
 
 const Logo = () => {
   return (
-    <div className="flex cursor-pointer items-center justify-center">
+    <Link
+      href={"/"}
+      className="flex cursor-pointer items-center justify-center"
+    >
       <Image src="/icon.png" width={80} height={80} alt="logo" />
       <span className="text-3xl">Forest Meet</span>
-    </div>
+    </Link>
   );
 };
 
