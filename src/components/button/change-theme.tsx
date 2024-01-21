@@ -3,8 +3,12 @@
 import { useThemeStore } from "@/store";
 import { MoonIcon, SunIcon } from "../icons";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+
+const hideOnPages = ["/meet/room"];
 
 const ChangeTheme = () => {
+  const pathname = usePathname();
   const { isDark, setIsDark } = useThemeStore();
 
   const handleClick = () => {
@@ -15,6 +19,10 @@ const ChangeTheme = () => {
     if (isDark) document.documentElement.classList.remove("dark");
     else document.documentElement.classList.add("dark");
   }, [isDark]);
+
+  if (hideOnPages.some((p) => pathname.includes(p))) {
+    return null;
+  }
 
   return (
     <button onClick={handleClick} className="absolute right-5 top-[120px] z-20">
