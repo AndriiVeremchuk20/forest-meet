@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const LobbyPage = () => {
   const router = useRouter();
-  const { data } = useSession();
+  const { status } = useSession();
 
   const createRoomMutation = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
@@ -32,12 +32,21 @@ const LobbyPage = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      Home page of user: {data?.user.name}
-      <div className="space-x-2">
-        <button onClick={onJoinClick} className="">
+      <div className="flex space-x-2">
+        <button
+          onClick={onJoinClick}
+          className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
+        >
           Join
         </button>
-        <button onClick={onCreateClick}>Create</button>
+        {status === "authenticated" && (
+          <button
+            onClick={onCreateClick}
+            className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
+          >
+            Create
+          </button>
+        )}
       </div>
     </main>
   );

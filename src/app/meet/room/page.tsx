@@ -53,9 +53,30 @@ const RoomPage = () => {
   }
 
   return (
-    <main className="flex h-screen bg-[url('/meet.gif')] bg-cover bg-fixed">
-      {roomId && credentials && (
-        <VideoConference roomId={roomId} credentials={credentials} />
+    <main className="flex h-screen bg-cover bg-fixed">
+      {joined ? (
+        <>
+          {roomId && credentials && name && joined && (
+            <VideoConference
+              roomId={roomId}
+              userName={name}
+              credentials={credentials}
+            />
+          )}
+        </>
+      ) : (
+        <div>
+          <div className="h-[400px] w-[300px] bg-neutral-500">User Preview</div>
+          {!data?.user.name && (
+            <div>
+              <label>Your name:</label>
+              <input type="text" onChange={(e) => setName(e.target.value)} />
+            </div>
+          )}
+          <button onClick={() => setJoined(true)} className="bg-zinc-600 p-4">
+            Join
+          </button>
+        </div>
       )}
     </main>
   );

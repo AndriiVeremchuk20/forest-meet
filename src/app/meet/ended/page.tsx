@@ -6,7 +6,7 @@ const MeetEndedPage = () => {
       Meet Ended
       <div>
         <Link href={"/"}>Home</Link>
-        <Link href={"/meet/lobby"}>Lobby</Link>
+        <Link href={"/meet"}>Lobby</Link>
       </div>
     </div>
   );

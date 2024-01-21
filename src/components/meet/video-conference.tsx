@@ -2,8 +2,6 @@
 
 import { env } from "@/env";
 import {
-  //LocalVideoTrack,
-  //RemoteUser,
   useClientEvent,
   useJoin,
   useLocalCameraTrack,
@@ -18,10 +16,10 @@ import MeetControl from "./control";
 import { useRtmClient } from "@/providers/agora";
 import RemoteUserPlayer from "./palyer/remote-user";
 import useRtmChannel from "@/hooks/use-rtm-channel";
-import { useSession } from "next-auth/react";
 
 interface MeetProps {
   roomId: string;
+  userName: string;
   credentials: {
     uid: number;
     rtcToken: string;
@@ -29,10 +27,9 @@ interface MeetProps {
   };
 }
 
-const VideoConference: FC<MeetProps> = ({ roomId, credentials }) => {
+const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
   const { uid, rtcToken, rtmToken } = credentials;
-  const { data: userData } = useSession();
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
@@ -69,9 +66,9 @@ const VideoConference: FC<MeetProps> = ({ roomId, credentials }) => {
     console.log("The user", user.uid, " has left the channel");
   });
 
-  useClientEvent(rtcClient, "user-published", (user) => {
-    console.log("The user", user.uid, " has published media in the channel");
-  });
+  //useClientEvent(rtcClient, "user-published", (user) => {
+  //  console.log("The user", user.uid, " has published media in the channel");
+  //});
 
   const initRtm = async () => {
     await rtmClient.login({ uid: uid.toString(), token: rtmToken });
@@ -81,7 +78,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, credentials }) => {
       .catch((error) => console.log(error));
 
     await rtmClient.addOrUpdateLocalUserAttributes({
-      name: userData?.user.name ?? `guest`,
+      name: userName,
       userRtcUid: uid.toString(),
     });
 

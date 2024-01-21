@@ -23,7 +23,7 @@ const LeaveButton: FC<LeaveButtonProps> = ({
     await client.leave();
     cameraTrack?.close();
     microphoneTrack?.close();
-    router.replace("/meet/lobby/");
+    router.replace("/meet/ended/");
   };
 
   return (
