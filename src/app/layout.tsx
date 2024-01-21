@@ -10,6 +10,7 @@ import Header from "@/components/layout/header";
 // vercel tools
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import ChangeTheme from "@/components/button/change-theme";
 
 // load font
 const googlePixelifySans = localFont({
@@ -31,11 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${googlePixelifySans.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl text-black`}
+        className={`${googlePixelifySans.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl text-black dark:bg-[url('/bg_dark.gif')] dark:text-neutral-200`}
       >
         <AppSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
             <Header />
+            <ChangeTheme />
             {children}
           </TRPCReactProvider>
         </AppSessionProvider>

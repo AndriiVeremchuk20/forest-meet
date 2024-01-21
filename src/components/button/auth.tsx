@@ -1,18 +1,30 @@
 import { signIn, signOut } from "next-auth/react";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import { GoogleIcon } from "../icons";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const GoogleButton = () => {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleClick = async () => {
-    await signIn("google", { callbackUrl, redirect: true });
+    setIsLoading(true);
+    const res = await signIn("google", { redirect: false });
+    setIsLoading(false);
+
+    if (res?.error) {
+      alert(res.error);
+    }
+
+    if (res?.url) {
+      router.push(res.url);
+    }
   };
 
   return (
     <button
+      disabled={isLoading}
       type="button"
       onClick={handleClick}
       className="flex w-[300px]  items-center border-[5px] border-blue-800 bg-blue-500 duration-100 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
@@ -20,7 +32,9 @@ export const GoogleButton = () => {
       <div className="bg-blue-300 p-1">
         <GoogleIcon width={45} />
       </div>
-      <span className="p-2 text-2xl text-white">Sign in with Google</span>
+      <span className="p-2 text-2xl text-white">
+        {isLoading ? "Loading" : "Sign in with Google"}
+      </span>
     </button>
   );
 };
