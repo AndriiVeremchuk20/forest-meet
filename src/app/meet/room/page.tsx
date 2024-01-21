@@ -19,6 +19,7 @@ const RoomPage = () => {
   const roomId = useRoom();
   const { data } = useSession();
 
+  const [joined, setJoined] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<{
     rtcToken: string;
     rtmToken: string;
@@ -27,7 +28,7 @@ const RoomPage = () => {
 
   const [name, setName] = useState<string | null | undefined>(data?.user.name);
 
-  const getMeetCredentials = api.agora.joinToRoom.useMutation({
+  const getMeetCredentialsMutations = api.agora.joinToRoom.useMutation({
     onSuccess(data) {
       setCredentials({
         uid: data.uid,
@@ -43,7 +44,7 @@ const RoomPage = () => {
 
   useEffect(() => {
     if (roomId) {
-      getMeetCredentials.mutate({ channelName: roomId });
+      getMeetCredentialsMutations.mutate({ channelName: roomId });
     }
   }, []);
 
