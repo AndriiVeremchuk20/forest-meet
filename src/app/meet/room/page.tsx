@@ -1,7 +1,8 @@
 "use client";
 
+import InputName from "@/components/form/name";
 import { UserPreview } from "@/components/meet/user-preview";
-import useRoom from "@/hooks/use-room";
+import useRoom from "@/hooks/room-id";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
@@ -18,7 +19,7 @@ const VideoConference = dynamic(
 const RoomPage = () => {
   const router = useRouter();
   const roomId = useRoom();
-  const { data } = useSession();
+  const { data, status } = useSession();
 
   const [joined, setJoined] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<{
@@ -43,18 +44,29 @@ const RoomPage = () => {
     },
   });
 
-  useEffect(() => {
-    if (roomId) {
-      getMeetCredentialsMutations.mutate({ channelName: roomId });
-    }
-  }, []);
+  const handleGoClick = () => {
+	if(status !== "authenticated"){
+		setName(prev=>`Guest(${prev})`);
+	}
+    
+	if(roomId)
+	getMeetCredentialsMutations.mutate({channelName: roomId});
+
+	setJoined(true);
+  }
+   
+  //useEffect(() => {
+  //  if (roomId) {
+  //    getMeetCredentialsMutations.mutate({ channelName: roomId });
+  //  }
+  //}, []);
 
   if (!roomId) {
     return <div>Room id not found</div>;
   }
 
   return (
-    <main className="flex h-screen bg-cover bg-fixed">
+    <main className="h-screen">
       {joined ? (
         <>
           {roomId && credentials && name && joined && (
@@ -66,18 +78,15 @@ const RoomPage = () => {
           )}
         </>
       ) : (
-        <div>
-          <div className="h-[400px] w-[300px] bg-neutral-500">
+        <div className="h-full flex gap-3 flex-col justify-center items-center ">
+          <div className="">
             <UserPreview />
           </div>
           {!data?.user.name && (
-            <div>
-              <label>Your name:</label>
-              <input type="text" onChange={(e) => setName(e.target.value)} />
-            </div>
-          )}
-          <button onClick={() => setJoined(true)} className="bg-zinc-600 p-4">
-            Join
+		     <InputName onInputChange={setName}/>
+           )}
+          <button onClick={handleGoClick} className="p-4  bg-gray-400 text-white dark:text-white dark:bg-blue-900">
+            Go
           </button>
         </div>
       )}

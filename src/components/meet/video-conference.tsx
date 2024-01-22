@@ -15,7 +15,7 @@ import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
 import { useRtmClient } from "@/providers/agora";
 import RemoteUserPlayer from "./palyer/remote-user";
-import useRtmChannel from "@/hooks/use-rtm-channel";
+import useRtmChannel from "@/hooks/rtm-channel";
 
 interface MeetProps {
   roomId: string;

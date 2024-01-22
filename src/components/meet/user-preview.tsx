@@ -1,25 +1,34 @@
+import { useUserMedia } from "@/hooks/user-media";
+import Image from "next/image";
+
 export const UserPreview = () => {
-  // replace to custom user camera displaing
-  //const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
-
-  //useJoin({
-  //  appid: env.NEXT_PUBLIC_AGORA_APP_ID,
-  //  token: env.NEXT_PUBLIC_AGORA_TOKEN,
-  //  channel: env.NEXT_PUBLIC_AGORA_CHANNEL,
-  //});
-
-  //useEffect(() => {
-  //  setM(true);
-  //  return () => {
-  //   localCameraTrack?.close();
-  // };
-  //}, []);
-
-  //if (!m) return <div>Loading</div>;
-
-  return (
-    <div className="h-[500px] w-[400px] bg-neutral-400">
-      Video here in future
-    </div>
-  );
+  const { isLoading, media } = useUserMedia({ video: true, audio: true });
+  
+  if (media) {
+    return (
+      <div className="bg-neutral-400 border-orange-900">
+        {isLoading ? (
+          <div>Loading</div>
+        ) : (
+          <video
+            ref={(ref) => {
+              if (ref && media) {
+                ref.srcObject = media;
+              }
+            }}
+            autoPlay
+            playsInline
+            muted
+			className="w-[300px] h-[300px]"
+          />
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div className="h-full w-full bg-neutral-400">
+        <Image src={"/user.png"} width={200} height={200} alt="user" />
+      </div>
+    );
+  }
 };
