@@ -45,16 +45,15 @@ const RoomPage = () => {
   });
 
   const handleGoClick = () => {
-	if(status !== "authenticated"){
-		setName(prev=>`Guest(${prev})`);
-	}
-    
-	if(roomId)
-	getMeetCredentialsMutations.mutate({channelName: roomId});
+    if (status !== "authenticated") {
+      setName((prev) => `Guest(${prev})`);
+    }
 
-	setJoined(true);
-  }
-   
+    if (roomId) getMeetCredentialsMutations.mutate({ channelName: roomId });
+
+    setJoined(true);
+  };
+
   //useEffect(() => {
   //  if (roomId) {
   //    getMeetCredentialsMutations.mutate({ channelName: roomId });
@@ -78,14 +77,15 @@ const RoomPage = () => {
           )}
         </>
       ) : (
-        <div className="h-full flex gap-3 flex-col justify-center items-center ">
+        <div className="flex h-full flex-col items-center justify-center gap-3 ">
           <div className="">
             <UserPreview />
           </div>
-          {!data?.user.name && (
-		     <InputName onInputChange={setName}/>
-           )}
-          <button onClick={handleGoClick} className="p-4  bg-gray-400 text-white dark:text-white dark:bg-blue-900">
+          {!data?.user.name && <InputName onInputChange={setName} />}
+          <button
+            onClick={handleGoClick}
+            className="bg-gray-400  p-4 text-white dark:bg-blue-900 dark:text-white"
+          >
             Go
           </button>
         </div>

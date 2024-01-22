@@ -18,7 +18,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
   const volumeLevel = useVolumeLevel(user.audioTrack);
   const { hasAudio, hasVideo } = user;
 
-const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
+  const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
 
   useEffect(() => {
     if (hasAudio && parseVolumeLevel(volumeLevel) > 20) {
@@ -30,7 +30,7 @@ const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
 
   return (
     <div
-      className={`border-[5px] w-fit bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
+      className={`w-fit border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
     >
       {!hasAudio && (
         <div className="absolute top-0 z-40 bg-orange-900 p-1">Micro off</div>
@@ -53,7 +53,9 @@ const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
           className={`${!hasVideo ? "hidden" : "block"}`}
         />
       </div>
-      <div className="w-[200px] h-fit bg-blue-600 p-2 text-white break-all">{name}</div>
+      <div className="h-fit w-[200px] break-all bg-blue-600 p-2 text-white">
+        {name}
+      </div>
     </div>
   );
 };
