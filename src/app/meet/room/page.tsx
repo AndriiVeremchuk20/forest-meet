@@ -1,5 +1,6 @@
 "use client";
 
+import { UserPreview } from "@/components/meet/user-preview";
 import useRoom from "@/hooks/use-room";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
@@ -66,7 +67,9 @@ const RoomPage = () => {
         </>
       ) : (
         <div>
-          <div className="h-[400px] w-[300px] bg-neutral-500">User Preview</div>
+          <div className="h-[400px] w-[300px] bg-neutral-500">
+            <UserPreview />
+          </div>
           {!data?.user.name && (
             <div>
               <label>Your name:</label>
