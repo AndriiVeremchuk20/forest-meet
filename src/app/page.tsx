@@ -27,9 +27,9 @@ const IntroText = () => {
   return (
     <div className="flex gap-4 phone:flex-col desktop:flex-row">
       <span className="text-justify text-2xl">
-        Forest Meet offers a unique online meeting experience, blending
-        cutting-edge technologies with the warm atmosphere of friendly
-        gatherings around a campfire.
+        Forest Meet is an online meeting platform that offers a unique
+        experience, merging cutting-edge technologies with the warm atmosphere
+        of friendly gatherings around a virtual campfire.
       </span>
       <div className="flex items-center justify-center">
         <Image src="/home_pic.svg" width={400} height={400} alt="pic" />

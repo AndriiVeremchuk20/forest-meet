@@ -6,6 +6,7 @@ import {
 import { useRouter } from "next/navigation";
 import { ExitIcon } from "../icons";
 import { type FC } from "react";
+import { useUserMedia } from "@/hooks/user-media";
 
 interface LeaveButtonProps {
   cameraTrack: ICameraVideoTrack | null;
@@ -19,11 +20,14 @@ const LeaveButton: FC<LeaveButtonProps> = ({
   const client = useRTCClient();
   const router = useRouter();
 
+  const { isLoading, media } = useUserMedia({ video: true, audio: false });
+
   const onLeaveClick = async () => {
     await client.leave();
     cameraTrack?.close();
     microphoneTrack?.close();
     router.replace("/meet/ended/");
+    media?.getTracks().forEach((track) => track.stop());
   };
 
   return (

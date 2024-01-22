@@ -30,7 +30,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
 
   return (
     <div
-      className={`border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
+      className={`w-fit border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
     >
       {!hasAudio && (
         <div className="absolute top-0 z-40 bg-orange-900 p-1">Micro off</div>
@@ -53,7 +53,9 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
           className={`${!hasVideo ? "hidden" : "block"}`}
         />
       </div>
-      <div className="bg-blue-600 p-2 text-white">{name}</div>
+      <div className="h-fit w-[200px] break-all bg-blue-600 p-2 text-white">
+        {name}
+      </div>
     </div>
   );
 };
