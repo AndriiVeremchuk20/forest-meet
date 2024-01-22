@@ -6,7 +6,8 @@ import {
   RemoteUser,
   useVolumeLevel,
 } from "agora-rtc-react";
-import { type FC } from "react";
+import Image from "next/image";
+import { useState, type FC, useEffect } from "react";
 
 interface RemoteUserPlayerProps {
   user: IAgoraRTCRemoteUser;
@@ -15,19 +16,44 @@ interface RemoteUserPlayerProps {
 
 const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
   const volumeLevel = useVolumeLevel(user.audioTrack);
-
   const { hasAudio, hasVideo } = user;
+
+  const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (hasAudio && parseVolumeLevel(volumeLevel) > 20) {
+      return setIsSpeaker(true);
+    }
+
+    setIsSpeaker(false);
+  }, [volumeLevel, hasAudio]);
 
   return (
     <div
-      className={`border-[5px] bg-neutral-400 ${hasAudio && parseVolumeLevel(volumeLevel) > 10 ? "border-green-500" : "border-orange-900"}`}
+      className={`border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
     >
-      <div>{!hasAudio && "No audio"}</div>
-      <div>{!hasVideo && "No video"}</div>
+      {!hasAudio && (
+        <div className="absolute top-0 z-40 bg-orange-900 p-1">Micro off</div>
+      )}
+
       <div className="h-[200px] w-[200px]">
-        <RemoteUser user={user} playVideo={true} playAudio={true} />
+        {!hasVideo && (
+          <Image
+            src="/user.png"
+            width={200}
+            height={200}
+            alt="user"
+            className="bg-neutral-500"
+          />
+        )}
+        <RemoteUser
+          user={user}
+          playVideo={true}
+          playAudio={true}
+          className={`${!hasVideo ? "hidden" : "block"}`}
+        />
       </div>
-      <div className="bg-blue-600 text-white">{name}</div>
+      <div className="bg-blue-600 p-2 text-white">{name}</div>
     </div>
   );
 };
