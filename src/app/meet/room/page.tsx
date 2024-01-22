@@ -1,6 +1,7 @@
 "use client";
 
 import InputName from "@/components/form/name";
+import Loader from "@/components/loader";
 import { UserPreview } from "@/components/meet/user-preview";
 import useRoom from "@/hooks/room-id";
 import { api } from "@/trpc/react";
@@ -37,6 +38,7 @@ const RoomPage = () => {
         rtcToken: data.token.rtc,
         rtmToken: data.token.rtm,
       });
+	  setJoined(true);
     },
     onError(error) {
       alert(error.message);
@@ -50,8 +52,6 @@ const RoomPage = () => {
     }
 
     if (roomId) getMeetCredentialsMutations.mutate({ channelName: roomId });
-
-    setJoined(true);
   };
 
   //useEffect(() => {
@@ -62,6 +62,10 @@ const RoomPage = () => {
 
   if (!roomId) {
     return <div>Room id not found</div>;
+  }
+
+  if(getMeetCredentialsMutations.isLoading){
+	return <Loader/>
   }
 
   return (

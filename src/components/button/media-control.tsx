@@ -47,7 +47,6 @@ export const ToggleAudioButton = ({
 
   const handleClick = async () => {
     await track?.setMuted(!microphone);
-    //await track?.setEnabled(!microphone);
     setMicrophone((prev) => !prev);
   };
 
