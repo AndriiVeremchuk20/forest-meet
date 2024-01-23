@@ -1,25 +1,23 @@
 import { signIn, signOut } from "next-auth/react";
 import { GoogleIcon } from "../icons";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const router = useRouter();
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl") ?? "/";
 
   const handleClick = async () => {
-    setIsLoading(true);
-    const res = await signIn("google", { redirect: false });
+	setIsLoading(true);
+    const res = await signIn("google", { redirect: true, callbackUrl });
     setIsLoading(false);
 
     if (res?.error) {
-      alert(res.error);
+      throw new Error(res.error);
     }
 
-    if (res?.url) {
-      router.push(res.url);
-    }
   };
 
   return (

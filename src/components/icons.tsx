@@ -95,9 +95,9 @@ export const MoonIcon: FC<IconProps> = ({ width, className }) => {
     <Image
       src={"/icon/moon.svg"}
       width={width ?? 50}
-      height={100}
+      height="0"
       alt="moon"
-      className={className ?? ""}
+      className={className ?? "w-full h-auto"}
     />
   );
 };
