@@ -38,7 +38,7 @@ const RoomPage = () => {
         rtcToken: data.token.rtc,
         rtmToken: data.token.rtm,
       });
-	  setJoined(true);
+      setJoined(true);
     },
     onError(error) {
       alert(error.message);
@@ -54,18 +54,12 @@ const RoomPage = () => {
     if (roomId) getMeetCredentialsMutations.mutate({ channelName: roomId });
   };
 
-  //useEffect(() => {
-  //  if (roomId) {
-  //    getMeetCredentialsMutations.mutate({ channelName: roomId });
-  //  }
-  //}, []);
-
   if (!roomId) {
     return <div>Room id not found</div>;
   }
 
-  if(getMeetCredentialsMutations.isLoading){
-	return <Loader/>
+  if (getMeetCredentialsMutations.isLoading) {
+    return <Loader />;
   }
 
   return (

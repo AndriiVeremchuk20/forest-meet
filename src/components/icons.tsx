@@ -72,7 +72,7 @@ export const ExitIcon: FC<IconProps> = ({ width, className }) => {
       src={"/icon/exit.svg"}
       width={width ?? 50}
       height={100}
-      alt="camera off icon"
+      alt="exit"
       className={className ?? ""}
     />
   );
@@ -84,7 +84,7 @@ export const SunIcon: FC<IconProps> = ({ width, className }) => {
       src={"/icon/sun.svg"}
       width={width ?? 50}
       height={100}
-      alt="camera off icon"
+      alt="sun"
       className={className ?? ""}
     />
   );
@@ -96,7 +96,7 @@ export const MoonIcon: FC<IconProps> = ({ width, className }) => {
       src={"/icon/moon.svg"}
       width={width ?? 50}
       height={100}
-      alt="camera off icon"
+      alt="moon"
       className={className ?? ""}
     />
   );

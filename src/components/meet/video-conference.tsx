@@ -36,14 +36,15 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const rtmChannel = useRtmChannel({ channelName: roomId }); // create RTM channel
 
+  // getting local camera & microphone tracks
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
   const { isLoading: isLoadingMic, localMicrophoneTrack } =
     useLocalMicrophoneTrack();
 
-  const remoteUsers = useRemoteUsers();
+  const remoteUsers = useRemoteUsers(); // get all remote users
   const [rtmUsers, setRemoteRtmUsers] = useState<
     { uid: number; name: string }[]
-  >([]);
+  >([]); // collect rtm remote users
 
   const join = useJoin({
     appid: APP_ID,
@@ -65,10 +66,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   useClientEvent(rtcClient, "user-left", (user) => {
     console.log("The user", user.uid, " has left the channel");
   });
-
-  //useClientEvent(rtcClient, "user-published", (user) => {
-  //  console.log("The user", user.uid, " has published media in the channel");
-  //});
 
   const initRtm = async () => {
     await rtmClient.login({ uid: uid.toString(), token: rtmToken });
@@ -126,18 +123,15 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   };
 
   useEffect(() => {
+    initRtm()
+      .then(() => console.log("Login success"))
+      .catch((error) => console.log(error));
+
     return () => {
       localCameraTrack?.close();
       localMicrophoneTrack?.close();
       rtmLogout().catch((error) => console.log(error));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    initRtm()
-      .then(() => console.log("Login success"))
-      .catch((error) => console.log(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

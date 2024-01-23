@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 const hideOnPages = ["/meet/room"];
 
-const ChangeTheme = () => {
+export const ChangeTheme = () => {
   const pathname = usePathname();
   const { isDark, setIsDark } = useThemeStore();
 
@@ -33,5 +33,3 @@ const ChangeTheme = () => {
     </button>
   );
 };
-
-export default ChangeTheme;

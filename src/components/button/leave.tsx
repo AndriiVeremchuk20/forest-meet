@@ -13,21 +13,21 @@ interface LeaveButtonProps {
   microphoneTrack: IMicrophoneAudioTrack | null;
 }
 
-const LeaveButton: FC<LeaveButtonProps> = ({
+export const LeaveButton: FC<LeaveButtonProps> = ({
   cameraTrack,
   microphoneTrack,
 }) => {
   const client = useRTCClient();
   const router = useRouter();
 
-  //const { isLoading, media } = useUserMedia({ video: true, audio: false });
+  const { isLoading, media } = useUserMedia({ video: true, audio: false });
 
   const onLeaveClick = async () => {
     await client.leave();
     cameraTrack?.close();
     microphoneTrack?.close();
     router.replace("/meet/ended/");
-    //media?.getTracks().forEach((track) => track.stop());
+    media?.getTracks().forEach((track) => track.stop());
   };
 
   return (
@@ -36,5 +36,3 @@ const LeaveButton: FC<LeaveButtonProps> = ({
     </button>
   );
 };
-
-export default LeaveButton;

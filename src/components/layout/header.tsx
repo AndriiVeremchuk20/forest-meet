@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {CustomNextLink} from "../default";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room"];
@@ -37,12 +38,11 @@ const User = () => {
           />
         </>
       ) : (
-        <Link
+        <CustomNextLink
           href={"/auth"}
-          className="text-blue-500 underline hover:text-blue-700"
         >
           Sign in
-        </Link>
+        </CustomNextLink>
       )}
     </div>
   );

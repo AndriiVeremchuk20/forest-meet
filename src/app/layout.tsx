@@ -10,7 +10,7 @@ import Header from "@/components/layout/header";
 // vercel tools
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import ChangeTheme from "@/components/button/change-theme";
+import { ChangeTheme } from "@/components/button/change-theme";
 
 // load font
 const googlePixelifySans = localFont({
