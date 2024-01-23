@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import AppLoading from "./loading";
 import Link from "next/link";
-import Image from "next/image";
+import { CustomNextLink } from "@/components/default";
 
 const Home = () => {
   const { status } = useSession();
@@ -31,9 +31,6 @@ const IntroText = () => {
         experience, merging cutting-edge technologies with the warm atmosphere
         of friendly gatherings around a virtual campfire.
       </span>
-      <div className="flex items-center justify-center">
-        <Image src="/home_pic.svg" width={400} height={400} alt="pic" />
-      </div>
     </div>
   );
 };
@@ -43,27 +40,12 @@ const Links = () => {
   return (
     <div className="">
       {data?.user ? (
-        <Link
-          href="/meet/"
-          className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
-        >
-          Go To Forest Meet
-        </Link>
+        <CustomNextLink href="/meet/">Go To Forest Meet</CustomNextLink>
       ) : (
         <div className="flex space-x-3">
-          <Link
-            href={"/meet/"}
-            className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
-          >
-            Join
-          </Link>
+          <CustomNextLink href={"/meet/"}>Join</CustomNextLink>
 
-          <Link
-            href={"/auth/"}
-            className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
-          >
-            Sign in
-          </Link>
+          <CustomNextLink href={"/auth/"}>Sign in</CustomNextLink>
         </div>
       )}
     </div>

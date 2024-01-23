@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/default";
+import Loader from "@/components/loader";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -8,9 +10,9 @@ const LobbyPage = () => {
   const router = useRouter();
   const { status } = useSession();
 
-  const createRoomMutation = api.agora.createRoom.useMutation({
+  const { isLoading, mutate } = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
-      console.log(data);
+      //console.log(data);
       router.push(`/meet/room?id=${data.channelName}`);
     },
     onError(error) {
@@ -18,11 +20,11 @@ const LobbyPage = () => {
     },
   });
 
-  const onCreateClick = () => {
-    createRoomMutation.mutate();
+  const handleCreateClick = () => {
+    mutate();
   };
 
-  const onJoinClick = () => {
+  const handleJoinClick = () => {
     const channelName = prompt("Enter a channel name");
 
     if (channelName !== null && channelName.trim() !== "") {
@@ -30,22 +32,16 @@ const LobbyPage = () => {
     }
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="flex space-x-2">
-        <button
-          onClick={onJoinClick}
-          className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
-        >
-          Join
-        </button>
+      <div className="flex space-x-2 border-[5px] border-green-500 p-10 backdrop-blur-2xl dark:border-blue-900">
+        <Button onClick={handleJoinClick}>Join</Button>
         {status === "authenticated" && (
-          <button
-            onClick={onCreateClick}
-            className="bg-green-400 p-4 text-3xl text-white hover:bg-green-500 focus:bg-green-500 dark:bg-blue-900 dark:hover:bg-blue-950"
-          >
-            Create
-          </button>
+          <Button onClick={handleCreateClick}>Create</Button>
         )}
       </div>
     </main>

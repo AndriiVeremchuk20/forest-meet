@@ -4,7 +4,7 @@ import {
 } from "agora-rtc-react";
 import { type FC } from "react";
 import { ToggleAudioButton, ToggleVideoButton } from "../button/media-control";
-import LeaveButton from "../button/leave";
+import { LeaveButton } from "../button";
 
 interface MeetControlProps {
   videoTrack: ICameraVideoTrack | null;
