@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${googlePixelifySans.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl text-black dark:bg-[url('/bg_dark.gif')] dark:text-neutral-200`}
+        className={`${googlePixelifySans.className} bg-[url('/bg_light.gif')] bg-cover bg-fixed text-xl text-black duration-200 dark:bg-[url('/bg_dark.gif')] dark:text-neutral-200`}
       >
         <AppSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>

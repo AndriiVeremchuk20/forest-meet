@@ -11,7 +11,9 @@ const NotFoundPage = () => {
           <h1 className="text-5xl">Page not found</h1>
         </div>
         <div className="flex w-full justify-center">
-          <NextLink type="button" href="/">Home</NextLink>
+          <NextLink type="button" href="/">
+            Home
+          </NextLink>
         </div>
       </div>
     </main>
