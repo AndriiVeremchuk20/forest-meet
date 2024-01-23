@@ -41,6 +41,7 @@ export default function RootLayout({
             {children}
           </TRPCReactProvider>
         </AppSessionProvider>
+	    {/* vercel tools*/}
         <SpeedInsights />
         <Analytics />
       </body>
