@@ -10,6 +10,8 @@ const LobbyPage = () => {
   const router = useRouter();
   const { status } = useSession();
 
+  const createButtonIsMuted = status !=="authenticated"; // only logged-in users can create rooms
+
   const { isLoading, mutate } = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
       //console.log(data);
@@ -38,7 +40,7 @@ const LobbyPage = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="flex space-x-2 border-[5px] border-green-500 p-10 backdrop-blur-2xl dark:border-blue-900">
+      <div className="grid grid-cols-2 gap-10 border-[5px] border-green-500 p-10 backdrop-blur-2xl dark:border-blue-900">
         <Button onClick={handleJoinClick}>Join</Button>
         {status === "authenticated" && (
           <Button onClick={handleCreateClick}>Create</Button>

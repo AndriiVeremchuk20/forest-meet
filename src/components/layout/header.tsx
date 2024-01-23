@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NextLink } from "../default";
 import { useRef, useState } from "react";
-import { boolean } from "zod";
 import {useOutsideClick} from "@/hooks/outside-click";
 
 // pages where the header is not show
