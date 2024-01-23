@@ -39,12 +39,18 @@ const Links = () => {
   return (
     <div className="">
       {data?.user ? (
-        <NextLink href="/meet/" type="button">Go To Forest Meet</NextLink>
+        <NextLink href="/meet/" type="button">
+          Go To Forest Meet
+        </NextLink>
       ) : (
         <div className="flex space-x-3">
-          <NextLink href={"/meet/"} type="button">Join</NextLink>
+          <NextLink href={"/meet/"} type="button">
+            Join
+          </NextLink>
 
-          <NextLink href={"/auth/"} type="button">Sign in</NextLink>
+          <NextLink href={"/auth/"} type="button">
+            Sign in
+          </NextLink>
         </div>
       )}
     </div>
