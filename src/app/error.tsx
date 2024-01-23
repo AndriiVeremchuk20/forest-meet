@@ -25,12 +25,8 @@ export default function Error({
           Something went wrong!
         </h2>
         <h5 className="text-2xl text-red-600">{message}</h5>
-        <div className="space-x-2 mt-3">
-          <Button
-            onClick={() => reset()}
-          >
-            Try again
-          </Button>
+        <div className="mt-3 space-x-2">
+          <Button onClick={() => reset()}>Try again</Button>
           <Button onClick={() => router.push("/")}>Home</Button>
         </div>
       </div>
