@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import AppLoading from "./loading";
-import { CustomNextLink } from "@/components/default";
+import { NextLink } from "@/components/default";
 
 const Home = () => {
   const { status } = useSession();
@@ -39,12 +39,12 @@ const Links = () => {
   return (
     <div className="">
       {data?.user ? (
-        <CustomNextLink href="/meet/">Go To Forest Meet</CustomNextLink>
+        <NextLink href="/meet/" type="button">Go To Forest Meet</NextLink>
       ) : (
         <div className="flex space-x-3">
-          <CustomNextLink href={"/meet/"}>Join</CustomNextLink>
+          <NextLink href={"/meet/"} type="button">Join</NextLink>
 
-          <CustomNextLink href={"/auth/"}>Sign in</CustomNextLink>
+          <NextLink href={"/auth/"} type="button">Sign in</NextLink>
         </div>
       )}
     </div>
