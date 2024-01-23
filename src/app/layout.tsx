@@ -11,6 +11,8 @@ import Header from "@/components/layout/header";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { ChangeTheme } from "@/components/button/change-theme";
+import ErrorBoundary from "@/providers/error-boundary";
+import Error from "./error";
 
 // load font
 const googlePixelifySans = localFont({

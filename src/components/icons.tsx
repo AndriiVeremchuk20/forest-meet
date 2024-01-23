@@ -97,7 +97,7 @@ export const MoonIcon: FC<IconProps> = ({ width, className }) => {
       width={width ?? 50}
       height="0"
       alt="moon"
-      className={className ?? "w-full h-auto"}
+      className={className ?? "h-auto w-full"}
     />
   );
 };
