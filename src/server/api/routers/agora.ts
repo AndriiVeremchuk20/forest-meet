@@ -24,7 +24,7 @@ export const agoraRouter = createTRPCRouter({
     }
 
     // add a new room into db
-    const newRoom = await db.room.create({
+    await db.room.create({
       data: {
         creatorId: session.user.id,
         channelName,

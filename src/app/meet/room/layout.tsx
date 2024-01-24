@@ -1,9 +1,11 @@
-"use client";
+"use client"
 
+import Loader from "@/components/loader";
 import dynamic from "next/dynamic";
 
-const AgoraProvider = dynamic(() => import("../../providers/agora"), {
+const AgoraProvider = dynamic(() => import("../../../providers/agora"), {
   ssr: false,
+  loading: ()=><Loader/>
 });
 
 export default function RootLayout({
@@ -11,5 +13,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   return <AgoraProvider>{children}</AgoraProvider>;
 }

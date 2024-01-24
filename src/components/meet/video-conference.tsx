@@ -9,7 +9,7 @@ import {
   useRemoteUsers,
 } from "agora-rtc-react";
 import { type FC, useEffect, useState } from "react";
-import { useRtmChannel, useLocalDevice } from "@/hooks";
+import { useLocalDevice, useRtmChannel } from "@/hooks";
 import { useRtmClient } from "@/providers/agora";
 import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
@@ -40,6 +40,11 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     localMicrophoneTrack,
   } = useLocalDevice();
 
+ // const { isLoading: isLoadingCamera, localCameraTrack } =
+ //   useLocalCameraTrack();
+ // const { isLoading: isLoadingMicrophone, localMicrophoneTrack } =
+  //  useLocalMicrophoneTrack();
+
   const remoteUsers = useRemoteUsers(); // get all remote users
   const [rtmUsers, setRemoteRtmUsers] = useState<
     { uid: number; name: string }[]
@@ -53,6 +58,8 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   });
 
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
+
+  //const isLoadingDevice = isLoadingCamera || isLoadingMicrophone;
 
   const isLoadingJoin = publish.isLoading || join.isLoading;
 
@@ -129,7 +136,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
       .catch((error) => console.log(error));
 
     return () => {
-      onLeaveRoom().catch((error) => console.log(error)); 
+      onLeaveRoom().catch((error) => console.log(error));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -145,34 +152,36 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     );
   }
 
-  return (
-    <div>
-      {join.isConnected ? (
-        <div className="">
-          <div className="absolute bottom-24 right-5">
-            <LocalUserPlayer cameraTrack={localCameraTrack} />
-          </div>
-          <div className="grid w-full grid-flow-col-dense gap-3">
-            {/* <RemoteUsersCircle remoteUsers={remoteUsers} />*/}
-            {remoteUsers.map((remoteUser) => (
-              <RemoteUserPlayer
-                key={remoteUser.uid}
-                user={remoteUser}
-                name={
-                  rtmUsers.filter((user) => {
-                    return user.uid == remoteUser.uid;
-                  })[0]?.name ?? "Not found"
-                }
-              />
-            ))}
-          </div>
-          <div className="absolute bottom-0 w-full">
-            <MeetControl onLeaveClick={onLeaveRoom} />
-          </div>
-        </div>
-      ) : (
+  if (!join.isConnected) {
+    return (
+      <div>
         <div className="my-10">Not connected: {join.error?.message}</div>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="">
+      <div className="absolute bottom-24 right-5">
+        <LocalUserPlayer cameraTrack={localCameraTrack} />
+      </div>
+      <div className="grid w-full grid-flow-col-dense gap-3">
+        {/* <RemoteUsersCircle remoteUsers={remoteUsers} />*/}
+        {remoteUsers.map((remoteUser) => (
+          <RemoteUserPlayer
+            key={remoteUser.uid}
+            user={remoteUser}
+            name={
+              rtmUsers.filter((user) => {
+                return user.uid == remoteUser.uid;
+              })[0]?.name ?? "Not found"
+            }
+          />
+        ))}
+      </div>
+      <div className="absolute bottom-0 w-full">
+        <MeetControl onLeaveClick={onLeaveRoom} />
+      </div>
     </div>
   );
 };

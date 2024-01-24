@@ -1,6 +1,5 @@
 import { type IAgoraRTCRemoteUser } from "agora-rtc-react";
 import { type FC } from "react";
-import RemoteUserPlayer from "./palyer/remote-user";
 
 interface RemoteUsersCircleProps {
   remoteUsers: IAgoraRTCRemoteUser[]; //number[];

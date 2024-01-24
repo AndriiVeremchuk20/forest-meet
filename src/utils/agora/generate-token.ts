@@ -42,8 +42,8 @@ const generateRtmToken = ({
   expireTime: number;
 }) => {
   //calculate privilege expire time
-  const currentTime: number = Math.floor(Date.now() / 1000);
-  const privilegeExpireTime = currentTime + expireTime;
+  //const currentTime: number = Math.floor(Date.now() / 1000);
+  //const privilegeExpireTime = currentTime + expireTime;
 
   // generate rtm token
   const token = RtmTokenBuilder.buildToken(
