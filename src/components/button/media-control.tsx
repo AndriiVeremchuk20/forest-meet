@@ -1,35 +1,27 @@
 import {
-  type IMicrophoneAudioTrack,
-  type ICameraVideoTrack,
-} from "agora-rtc-react";
-import {
   CameraOffIcon,
   CameraOnIcon,
   MicroOffIcon,
   MicroOnIcon,
 } from "../icons";
-import { useState } from "react";
+import { useMediaControlStore } from "@/store";
 
-export const ToggleVideoButton = ({
-  track,
-}: {
-  track: ICameraVideoTrack | null;
-}) => {
-  const [camera, setCamera] = useState<boolean>(!!track?.enabled);
+export const ToggleCameraButton = () => {
+  const { enabledCamera } = useMediaControlStore();
 
   const handleClick = () => {
-    track
-      ?.setEnabled(!camera)
-      .then(() => setCamera((prev) => !prev))
-      .catch((error) => console.log(error));
-    //await track?.setEnabled(!camera);
+    useMediaControlStore.setState((prev) => ({
+      ...prev,
+      enabledCamera: !prev.enabledCamera,
+    }));
   };
+
   return (
     <button
       onClick={handleClick}
-      className={`px-3 py-2 text-white hover:opacity-80`}
+      className={`px-3 py-2 text-white hover:opacity-50`}
     >
-      {camera ? (
+      {!enabledCamera ? (
         <CameraOnIcon width={70} className="h-[40px]" />
       ) : (
         <CameraOffIcon width={70} className="h-[40px]" />
@@ -38,24 +30,22 @@ export const ToggleVideoButton = ({
   );
 };
 
-export const ToggleAudioButton = ({
-  track,
-}: {
-  track: IMicrophoneAudioTrack | null;
-}) => {
-  const [microphone, setMicrophone] = useState<boolean>(!!track?.muted);
+export const ToggleAudioButton = () => {
+  const { enabledMicro } = useMediaControlStore();
 
-  const handleClick = async () => {
-    await track?.setMuted(!microphone);
-    setMicrophone((prev) => !prev);
+  const handleClick = () => {
+    useMediaControlStore.setState((prev) => ({
+      ...prev,
+      enabledMicro: !prev.enabledMicro,
+    }));
   };
 
   return (
     <button
       onClick={handleClick}
-      className="w-fit px-3 py-2 text-white hover:opacity-80"
+      className="w-fit px-3 py-2 text-white hover:opacity-50"
     >
-      {!microphone ? (
+      {!enabledMicro ? (
         <MicroOnIcon className="h-[40px]" />
       ) : (
         <MicroOffIcon className="h-[40px]" />

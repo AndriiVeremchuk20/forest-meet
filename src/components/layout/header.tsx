@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NextLink } from "../default";
 import { useRef, useState } from "react";
-import {useOutsideClick} from "@/hooks/outside-click";
+import { useOutsideClick } from "@/hooks/outside-click";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room"];
@@ -44,14 +44,14 @@ const User = () => {
   const userCardRef = useRef<HTMLDivElement | null>(null);
 
   const onOpenNav = () => {
-    setShowNav(prev=>!prev);
+    setShowNav((prev) => !prev);
   };
 
   const onCloseNav = () => {
-	setShowNav(false);
-  }
-   
-   useOutsideClick(userCardRef, onCloseNav);
+    setShowNav(false);
+  };
+
+  useOutsideClick(userCardRef, onCloseNav);
 
   if (status === "authenticated") {
     return (

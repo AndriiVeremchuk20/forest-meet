@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const AuthPage = () => {
-  const { data, status } = useSession();
+  const { status } = useSession();
 
   if (status === "loading") {
     return <Loader />;
