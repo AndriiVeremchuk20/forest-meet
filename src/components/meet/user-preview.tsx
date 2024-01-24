@@ -3,7 +3,7 @@ import { useMediaControlStore } from "@/store";
 import Image from "next/image";
 import { useEffect } from "react";
 
-export const UserPreview = () => {
+const UserPreview = () => {
   const { enabledCamera, enabledMicro } = useMediaControlStore();
   const { isLoading, media } = useUserMedia({
     video: !enabledCamera,
@@ -49,3 +49,5 @@ export const UserPreview = () => {
     );
   }
 };
+
+export default UserPreview

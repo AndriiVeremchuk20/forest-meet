@@ -4,7 +4,7 @@ import { ToggleAudioButton, ToggleCameraButton } from "@/components/button";
 import { Button } from "@/components/default";
 import InputName from "@/components/form/name";
 import Loader from "@/components/loader";
-import { UserPreview } from "@/components/meet/user-preview";
+//import { UserPreview } from "@/components/meet/user-preview";
 import { useRoomId } from "@/hooks";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
@@ -16,6 +16,9 @@ const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
   { ssr: false },
 );
+
+
+const UserPreview = dynamic(()=>import("../../../components/meet/user-preview"), {ssr: false});
 
 // getting a room id from  search params like: (meet/room?id=potato-home-monkey)
 const RoomPage = () => {
