@@ -1,15 +1,16 @@
 "use client";
 
+import { ToggleAudioButton, ToggleCameraButton } from "@/components/button";
+import { Button } from "@/components/default";
 import InputName from "@/components/form/name";
 import Loader from "@/components/loader";
 import { UserPreview } from "@/components/meet/user-preview";
-import useRoom from "@/hooks/room-id";
+import { useRoomId } from "@/hooks";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-//import Meet from "@/components/meet";
+import { useState } from "react";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
@@ -19,7 +20,7 @@ const VideoConference = dynamic(
 // getting a room id from  search params like: (meet/room?id=potato-home-monkey)
 const RoomPage = () => {
   const router = useRouter();
-  const roomId = useRoom();
+  const roomId = useRoomId();
   const { data, status } = useSession();
 
   const [joined, setJoined] = useState<boolean>(false);
@@ -80,12 +81,11 @@ const RoomPage = () => {
             <UserPreview />
           </div>
           {!data?.user.name && <InputName onInputChange={setName} />}
-          <button
-            onClick={handleGoClick}
-            className="bg-gray-400  p-4 text-white dark:bg-blue-900 dark:text-white"
-          >
-            Go
-          </button>
+          <div className="grid grid-cols-3">
+            <ToggleCameraButton />
+            <ToggleAudioButton />
+            <Button onClick={handleGoClick}>Go</Button>
+          </div>
         </div>
       )}
     </main>

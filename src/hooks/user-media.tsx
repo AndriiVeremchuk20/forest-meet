@@ -8,8 +8,8 @@ interface UseUserMediaParams {
 export const useUserMedia = (conf: UseUserMediaParams) => {
   const userMedia = useQuery(
     ["user-media", conf.video],
-    () =>
-      navigator.mediaDevices.getUserMedia({
+    async () =>
+      await navigator.mediaDevices.getUserMedia({
         audio: conf.audio,
         video: conf.video,
       }),

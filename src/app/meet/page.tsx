@@ -10,8 +10,6 @@ const LobbyPage = () => {
   const router = useRouter();
   const { status } = useSession();
 
-  const createButtonIsMuted = status !=="authenticated"; // only logged-in users can create rooms
-
   const { isLoading, mutate } = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
       //console.log(data);

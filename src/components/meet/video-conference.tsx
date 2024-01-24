@@ -4,18 +4,16 @@ import { env } from "@/env";
 import {
   useClientEvent,
   useJoin,
-  useLocalCameraTrack,
-  useLocalMicrophoneTrack,
   usePublish,
   useRTCClient,
   useRemoteUsers,
 } from "agora-rtc-react";
 import { type FC, useEffect, useState } from "react";
+import { useRtmChannel, useLocalDevice } from "@/hooks";
+import { useRtmClient } from "@/providers/agora";
 import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
-import { useRtmClient } from "@/providers/agora";
 import RemoteUserPlayer from "./palyer/remote-user";
-import useRtmChannel from "@/hooks/rtm-channel";
 
 interface MeetProps {
   roomId: string;
@@ -36,10 +34,11 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const rtmChannel = useRtmChannel({ channelName: roomId }); // create RTM channel
 
-  // getting local camera & microphone tracks
-  const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack();
-  const { isLoading: isLoadingMic, localMicrophoneTrack } =
-    useLocalMicrophoneTrack();
+  const {
+    isLoading: isLoadingDevice,
+    localCameraTrack,
+    localMicrophoneTrack,
+  } = useLocalDevice();
 
   const remoteUsers = useRemoteUsers(); // get all remote users
   const [rtmUsers, setRemoteRtmUsers] = useState<
@@ -54,8 +53,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   });
 
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
-
-  const isLoadingDevice = isLoadingCam || isLoadingMic;
 
   const isLoadingJoin = publish.isLoading || join.isLoading;
 
@@ -117,20 +114,22 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     });
   };
 
-  const rtmLogout = async () => {
-    await rtmClient.logout();
+  const onLeaveRoom = async () => {
+    //await rtmLogout();
+    localCameraTrack?.close();
+    localMicrophoneTrack?.close();
+    await rtcClient.leave();
     await rtmChannel.leave();
   };
 
   useEffect(() => {
+    // init rtm client
     initRtm()
       .then(() => console.log("Login success"))
       .catch((error) => console.log(error));
 
     return () => {
-      localCameraTrack?.close();
-      localMicrophoneTrack?.close();
-      rtmLogout().catch((error) => console.log(error));
+      onLeaveRoom().catch((error) => console.log(error)); 
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -155,7 +154,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
           </div>
           <div className="grid w-full grid-flow-col-dense gap-3">
             {/* <RemoteUsersCircle remoteUsers={remoteUsers} />*/}
-
             {remoteUsers.map((remoteUser) => (
               <RemoteUserPlayer
                 key={remoteUser.uid}
@@ -169,10 +167,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
             ))}
           </div>
           <div className="absolute bottom-0 w-full">
-            <MeetControl
-              audioTrack={localMicrophoneTrack}
-              videoTrack={localCameraTrack}
-            />
+            <MeetControl onLeaveClick={onLeaveRoom} />
           </div>
         </div>
       ) : (

@@ -1,15 +1,25 @@
-import { useUserMedia } from "@/hooks/user-media";
+import { useUserMedia } from "@/hooks";
+import { useMediaControlStore } from "@/store";
 import Image from "next/image";
 import { useEffect } from "react";
 
 export const UserPreview = () => {
-  const { isLoading, media } = useUserMedia({ video: true, audio: false });
+  const { enabledCamera, enabledMicro } = useMediaControlStore();
+  const { isLoading, media } = useUserMedia({
+    video: !enabledCamera,
+    audio: !enabledMicro,
+  });
 
   useEffect(() => {
-    return () => {
+    if(enabledCamera){
+      media?.getTracks().forEach((track) => track.stop());
+	}
+
+	return () => {
       media?.getTracks().forEach((track) => track.stop());
     };
-  }, []);
+    // eslint-disable-next-line
+  }, [media,enabledCamera, enabledMicro]);
 
   if (media) {
     return (
