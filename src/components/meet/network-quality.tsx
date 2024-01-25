@@ -1,20 +1,27 @@
-import {useNetworkQuality} from "agora-rtc-react"
+import { useNetworkQuality } from "agora-rtc-react";
 
 export const NetworkQuality = () => {
-	
- 	const networkQuality = useNetworkQuality();
+  const networkQuality = useNetworkQuality();
 
-    const updateNetworkStatus = () => {
+  const updateNetworkStatus = () => {
     const networkLabels = {
-      0: 'Unknown', 1: 'Excellent',
-      2: 'Good', 3: 'Poor',
-      4: 'Bad', 5: 'Very Bad',
-      6: 'No Connection'
-    }
+      0: "unknown",
+      1: "excellent",
+      2: "good",
+      3: "poor",
+      4: "bad",
+      5: "very Bad",
+      6: "no connection",
+    };
 
-    return <label>Network Quality: {networkLabels[networkQuality.uplinkNetworkQuality]}</label>;
+    return (
+      <label>
+        Network Quality: {networkLabels[networkQuality.uplinkNetworkQuality]}
+      </label>
+    );
   };
 
-	return <div className="w-full flex justify-center">{updateNetworkStatus()}</div>
-}
-
+  return (
+    <div className="flex w-full justify-center">{updateNetworkStatus()}</div>
+  );
+};

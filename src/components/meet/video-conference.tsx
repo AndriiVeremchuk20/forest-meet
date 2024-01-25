@@ -17,7 +17,6 @@ import RemoteUserPlayer from "./palyer/remote-user";
 import { JoinLeavePlayer } from "./join-leave-player";
 import { Box } from "../default/box";
 import { ReloadPageButton } from "../button";
-import {NetworkQuality} from "./network-quality";
 
 interface MeetProps {
   roomId: string;
@@ -35,7 +34,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
- 
+
   //rtcClient.getRTCStats().Duration;
 
   const rtmChannel = useRtmChannel({ channelName: roomId }); // create RTM channel
@@ -47,9 +46,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   } = useLocalDevice();
 
   const remoteUsers = useRemoteUsers(); // get all remote users
-  const [rtmUsers, setRemoteRtmUsers] = useState<
-    { uid: number; name: string }[]
-  >([]); // collect rtm remote users
+  const [rtmUsers, setRemoteRtmUsers] = useState<Record<number, string>>({}); // collect rtm remote users
 
   const joinAudioRef = useRef<HTMLAudioElement | null>(null);
   const leaveAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -91,20 +88,19 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
       userRtcUid: uid.toString(),
     });
 
-    console.log("Attr updated");
-
     const members = await rtmChannel.getMembers();
-    const membInfo = await Promise.all(
+    const recordMembersInfo: Record<number, string> = {};
+    await Promise.all(
       members.map(async (m) => {
         const { name, userRtcUid } = await rtmClient.getUserAttributesByKeys(
           m,
           ["name", "userRtcUid"],
         );
-        return { name: name ?? "error", uid: Number(userRtcUid) };
+        recordMembersInfo[Number(userRtcUid)] = name ?? "No name";
       }),
     );
 
-    setRemoteRtmUsers(membInfo);
+    setRemoteRtmUsers(recordMembersInfo);
 
     rtmChannel.on("MemberJoined", async (memberId) => {
       const { name, userRtcUid } = await rtmClient.getUserAttributesByKeys(
@@ -112,20 +108,24 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         ["name", "userRtcUid"],
       );
 
-      console.log("Joined", { name, userRtcUid });
+      // console.log("Joined", { name, userRtcUid });
 
       if (name && userRtcUid)
-        setRemoteRtmUsers((prev) => [
-          ...prev,
-          { name, uid: Number(userRtcUid) },
-        ]);
+        setRemoteRtmUsers((prev) => {
+          const updatedUsers: Record<number, string> = { ...prev };
+          updatedUsers[Number(userRtcUid)] = name;
+          return updatedUsers;
+        });
     });
 
     rtmChannel.on("MemberLeft", (memberId) => {
       console.log("Jeft ", memberId);
-      setRemoteRtmUsers((prev) =>
-        prev.filter((u) => u.uid !== Number(memberId)),
-      );
+      setRemoteRtmUsers((prev) => {
+        const updatedUsers: Record<number, string> = { ...prev };
+        delete updatedUsers[Number(memberId)];
+
+        return updatedUsers;
+      });
     });
   };
 
@@ -180,7 +180,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         joinAudioRef={joinAudioRef}
         leaveAudioRef={leaveAudioRef}
       />
-	  <NetworkQuality/>
       <div className="absolute bottom-24 right-5">
         <LocalUserPlayer cameraTrack={localCameraTrack} />
       </div>
@@ -190,11 +189,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
           <RemoteUserPlayer
             key={remoteUser.uid}
             user={remoteUser}
-            name={
-              rtmUsers.filter((user) => {
-                return user.uid == remoteUser.uid;
-              })[0]?.name ?? "Not found"
-            }
+            name={rtmUsers[Number(remoteUser.uid.toString())] ?? "No name"}
           />
         ))}
       </div>
