@@ -14,6 +14,7 @@ import { useRtmClient } from "@/providers/agora";
 import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
 import RemoteUserPlayer from "./palyer/remote-user";
+import { JoinLeavePlayer } from "./join-leave-player";
 
 interface MeetProps {
   roomId: string;
@@ -45,8 +46,8 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     { uid: number; name: string }[]
   >([]); // collect rtm remote users
 
-  const joinAudioRef = useRef<HTMLAudioElement|null>(null);
-  const leaveAudioRef = useRef<HTMLAudioElement|null>(null);
+  const joinAudioRef = useRef<HTMLAudioElement | null>(null);
+  const leaveAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const join = useJoin({
     appid: APP_ID,
@@ -61,16 +62,16 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   useClientEvent(rtcClient, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
-	if(joinAudioRef.current){
-	   joinAudioRef.current.play().catch(error=>console.log(error));
-	}
+    if (joinAudioRef.current) {
+      joinAudioRef.current.play().catch((error) => console.log(error));
+    }
   });
 
   useClientEvent(rtcClient, "user-left", (user) => {
     console.log("The user", user.uid, " has left the channel");
-	if(leaveAudioRef.current){
-	   leaveAudioRef.current.play().catch(error=>console.log(error));
-	}
+    if (leaveAudioRef.current) {
+      leaveAudioRef.current.play().catch((error) => console.log(error));
+    }
   });
 
   const initRtm = async () => {
@@ -165,14 +166,11 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   return (
     <div className="">
       {/*audio that used when users joined and leave*/}
-     <>
-      <audio ref={joinAudioRef} controls preload="auto" className="hidden">
-        <source src="/audio/join_caw_sound.mp3" type="audio/mp3" />
-      </audio>
-      <audio ref={leaveAudioRef} controls src="/audio/leave-whoosh.mp3" preload="auto" className="hidden">
-        <source src="/audio/leave-whoosh.mp3" type="audio/mp3" />
-      </audio>
-    </>      <div className="absolute bottom-24 right-5">
+      <JoinLeavePlayer
+        joinAudioRef={joinAudioRef}
+        leaveAudioRef={leaveAudioRef}
+      />
+      <div className="absolute bottom-24 right-5">
         <LocalUserPlayer cameraTrack={localCameraTrack} />
       </div>
       <div className="grid w-full grid-flow-col-dense gap-3">
