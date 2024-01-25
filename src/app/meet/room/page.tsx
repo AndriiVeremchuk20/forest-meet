@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import InputName from "@/components/form/name";
 import Loader from "@/components/loader";
 import dynamic from "next/dynamic";
+import { ReloadPageButton } from "@/components/button";
+import { Box } from "@/components/default/box";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
@@ -26,6 +28,7 @@ const RoomPage = () => {
   const router = useRouter();
   const roomId = useRoomId();
   const { data, status } = useSession();
+  const isUserLoading = status === "loading";
 
   const [joined, setJoined] = useState<boolean>(false);
   const [name, setName] = useState<string | null | undefined>(data?.user.name);
@@ -68,23 +71,13 @@ const RoomPage = () => {
     return <div>Room id not found</div>;
   }
 
-  if (getMeetCredentialsMutations.isLoading || status === "loading") {
+  if (getMeetCredentialsMutations.isLoading || isUserLoading) {
     return <Loader />;
   }
 
-  return (
-    <main className="h-screen">
-      {joined ? (
-        <>
-          {roomId && credentials && name && joined && (
-            <VideoConference
-              roomId={roomId}
-              userName={name}
-              credentials={credentials}
-            />
-          )}
-        </>
-      ) : (
+  if (!joined) {
+    return (
+      <main className="h-screen">
         <div className="flex h-full flex-col items-center justify-center gap-3 ">
           <div className="">{<UserPreview />}</div>
           {!data?.user.name && <InputName onInputChange={setName} />}
@@ -94,6 +87,22 @@ const RoomPage = () => {
             <Button onClick={handleGoClick}>Go</Button>
           </div>
         </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="h-screen">
+      {roomId && credentials && name ? (
+        <VideoConference
+          roomId={roomId}
+          userName={name}
+          credentials={credentials}
+        />
+      ) : (
+        <Box>
+          <h1>Something wrong.. Try reload page</h1> <ReloadPageButton />
+        </Box>
       )}
     </main>
   );

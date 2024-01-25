@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import AppLoading from "./loading";
 import { NextLink } from "@/components/default";
+import { Box } from "@/components/default/box";
 
 const Home = () => {
   const { status } = useSession();
@@ -14,10 +15,10 @@ const Home = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center">
       <h1 className="text-4xl">What is Forest Meet?</h1>
-      <div className="flex h-full flex-col items-center gap-5 border-[5px] border-green-400 p-4 backdrop-blur-xl dark:border-blue-900 phone:w-full tablet:w-5/6 desktop:w-4/6">
+      <Box className="flex flex-col items-center gap-10">
         <IntroText />
         <Links />
-      </div>
+      </Box>
     </main>
   );
 };
