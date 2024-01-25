@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
-  { ssr: false, loading: ()=><Loader/>, },
+  { ssr: false, loading: () => <Loader /> },
 );
 
 const UserPreview = dynamic(
@@ -77,11 +77,11 @@ const RoomPage = () => {
       {joined ? (
         <>
           {roomId && credentials && name && joined && (
-              <VideoConference
-                roomId={roomId}
-                userName={name}
-                credentials={credentials}
-              />
+            <VideoConference
+              roomId={roomId}
+              userName={name}
+              credentials={credentials}
+            />
           )}
         </>
       ) : (

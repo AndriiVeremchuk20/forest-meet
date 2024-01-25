@@ -1,27 +1,29 @@
-import {useUserMedia} from "@/hooks";
-import {useMediaControlStore} from "@/store";
+import { useUserMedia } from "@/hooks";
+import { useMediaControlStore } from "@/store";
 import Image from "next/image";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 const UserPreview = () => {
-const {enabledMicro, enabledCamera} = useMediaControlStore();
+  const { enabledMicro, enabledCamera } = useMediaControlStore();
   const { isLoading, media } = useUserMedia({
     video: !enabledCamera,
     audio: !enabledMicro,
   });
 
   useEffect(() => {
-  if(typeof window === "undefined"){return}
-  	if (enabledCamera) {
-        media?.getTracks().forEach((track) => track.stop());
-     }
+    if (typeof window === "undefined") {
+      return;
+    }
+    if (enabledCamera) {
+      media?.getTracks().forEach((track) => track.stop());
+    }
 
-   return () => {
-     media?.getTracks().forEach((track) => track.stop());
+    return () => {
+      media?.getTracks().forEach((track) => track.stop());
     };
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [media, enabledCamera, enabledMicro]);
-  
+
   if (media) {
     return (
       <div className="border-orange-900 bg-neutral-400">
@@ -42,13 +44,13 @@ const {enabledMicro, enabledCamera} = useMediaControlStore();
         )}
       </div>
     );
-	
   } else {
-  return (
-    <div className="h-full w-full bg-neutral-400">
-      <Image src={"/user.png"} width={200} height={200} alt="user" />
-    </div>
-  );}
+    return (
+      <div className="h-full w-full bg-neutral-400">
+        <Image src={"/user.png"} width={200} height={200} alt="user" />
+      </div>
+    );
+  }
 };
 
 export default UserPreview;

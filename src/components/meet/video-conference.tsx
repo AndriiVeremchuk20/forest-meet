@@ -8,7 +8,7 @@ import {
   useRTCClient,
   useRemoteUsers,
 } from "agora-rtc-react";
-import { type FC, useEffect, useState } from "react";
+import { type FC, useEffect, useState, useRef } from "react";
 import { useLocalDevice, useRtmChannel } from "@/hooks";
 import { useRtmClient } from "@/providers/agora";
 import LocalUserPlayer from "./palyer/local-user";
@@ -40,15 +40,13 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     localMicrophoneTrack,
   } = useLocalDevice();
 
- // const { isLoading: isLoadingCamera, localCameraTrack } =
- //   useLocalCameraTrack();
- // const { isLoading: isLoadingMicrophone, localMicrophoneTrack } =
-  //  useLocalMicrophoneTrack();
-
   const remoteUsers = useRemoteUsers(); // get all remote users
   const [rtmUsers, setRemoteRtmUsers] = useState<
     { uid: number; name: string }[]
   >([]); // collect rtm remote users
+
+  const joinAudioRef = useRef<HTMLAudioElement|null>(null);
+  const leaveAudioRef = useRef<HTMLAudioElement|null>(null);
 
   const join = useJoin({
     appid: APP_ID,
@@ -59,16 +57,20 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
 
-  //const isLoadingDevice = isLoadingCamera || isLoadingMicrophone;
-
   const isLoadingJoin = publish.isLoading || join.isLoading;
 
   useClientEvent(rtcClient, "user-joined", (user) => {
     console.log("The user", user.uid, " has joined the channel");
+	if(joinAudioRef.current){
+	   joinAudioRef.current.play().catch(error=>console.log(error));
+	}
   });
 
   useClientEvent(rtcClient, "user-left", (user) => {
     console.log("The user", user.uid, " has left the channel");
+	if(leaveAudioRef.current){
+	   leaveAudioRef.current.play().catch(error=>console.log(error));
+	}
   });
 
   const initRtm = async () => {
@@ -144,7 +146,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   if (isLoadingDevice || isLoadingJoin) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
-        <div className="flex h-[200px] w-[300px] flex-col items-center justify-center gap-3 border-[5px] border-orange-900 text-2xl backdrop-blur-sm">
+        <div className="flex h-[200px] w-[300px] flex-col items-center justify-center gap-3 border-[5px] border-green-400 text-2xl backdrop-blur-md dark:border-blue-900">
           {isLoadingDevice && <div>Loading devices</div>}
           {isLoadingJoin && <div>Joining</div>}
         </div>
@@ -162,7 +164,15 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   return (
     <div className="">
-      <div className="absolute bottom-24 right-5">
+      {/*audio that used when users joined and leave*/}
+     <>
+      <audio ref={joinAudioRef} controls preload="auto" className="hidden">
+        <source src="/audio/join_caw_sound.mp3" type="audio/mp3" />
+      </audio>
+      <audio ref={leaveAudioRef} controls src="/audio/leave-whoosh.mp3" preload="auto" className="hidden">
+        <source src="/audio/leave-whoosh.mp3" type="audio/mp3" />
+      </audio>
+    </>      <div className="absolute bottom-24 right-5">
         <LocalUserPlayer cameraTrack={localCameraTrack} />
       </div>
       <div className="grid w-full grid-flow-col-dense gap-3">
