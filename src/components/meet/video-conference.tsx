@@ -17,6 +17,7 @@ import RemoteUserPlayer from "./palyer/remote-user";
 import { JoinLeavePlayer } from "./join-leave-player";
 import { Box } from "../default/box";
 import { ReloadPageButton } from "../button";
+import {NetworkQuality} from "./network-quality";
 
 interface MeetProps {
   roomId: string;
@@ -34,6 +35,8 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
+ 
+  //rtcClient.getRTCStats().Duration;
 
   const rtmChannel = useRtmChannel({ channelName: roomId }); // create RTM channel
 
@@ -177,6 +180,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         joinAudioRef={joinAudioRef}
         leaveAudioRef={leaveAudioRef}
       />
+	  <NetworkQuality/>
       <div className="absolute bottom-24 right-5">
         <LocalUserPlayer cameraTrack={localCameraTrack} />
       </div>

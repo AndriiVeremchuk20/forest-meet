@@ -33,7 +33,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
       className={`w-fit border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
     >
       {!hasAudio && (
-        <div className="absolute top-0 z-40 bg-orange-900 p-1">Micro off</div>
+        <div className="relative top-0 z-40 bg-orange-900 p-1">Micro off</div>
       )}
 
       <div className="h-[200px] w-[200px]">
