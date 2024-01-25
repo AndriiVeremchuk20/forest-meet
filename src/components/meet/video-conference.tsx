@@ -15,6 +15,8 @@ import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
 import RemoteUserPlayer from "./palyer/remote-user";
 import { JoinLeavePlayer } from "./join-leave-player";
+import { Box } from "../default/box";
+import { ReloadPageButton } from "../button";
 
 interface MeetProps {
   roomId: string;
@@ -146,20 +148,25 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   if (isLoadingDevice || isLoadingJoin) {
     return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <div className="flex h-[200px] w-[300px] flex-col items-center justify-center gap-3 border-[5px] border-green-400 text-2xl backdrop-blur-md dark:border-blue-900">
+      <main className="flex h-screen w-full items-center justify-center">
+        <Box className="flex h-[200px] w-[300px] flex-col items-center justify-center gap-3 text-2xl">
           {isLoadingDevice && <div>Loading devices</div>}
           {isLoadingJoin && <div>Joining</div>}
-        </div>
-      </div>
+        </Box>
+      </main>
     );
   }
 
   if (!join.isConnected) {
     return (
-      <div>
-        <div className="my-10">Not connected: {join.error?.message}</div>
-      </div>
+      <main className="flex h-screen w-full items-center justify-center">
+        <Box className="gap-5">
+          <h1 className="text-5xl">
+            Something happened. Try to reload the page
+          </h1>
+          <ReloadPageButton />
+        </Box>
+      </main>
     );
   }
 
