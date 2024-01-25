@@ -39,6 +39,7 @@
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
     "prisma": "^5.8.0",
+    "random-words": "^2.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "server-only": "^0.0.1",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@types/eslint": "^8.44.7",
     "@types/node": "^18.17.0",
+    "@types/random-words": "^1.2.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.11.0",

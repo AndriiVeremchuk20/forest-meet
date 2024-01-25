@@ -1,6 +1,7 @@
 // function to generate random channel name
 
 import ky from "ky";
+import {generate} from "random-words";
 
 const RANDOM_WORD_API_URL = "https://random-word-api.herokuapp.com";
 
@@ -22,11 +23,13 @@ const getRandomWord = async () => {
 };
 
 const generateChannelName = async () => {
-  const words = await Promise.all([
-    getRandomWord(),
-    getRandomWord(),
-    getRandomWord(),
-  ]);
+  const words = generate(5) as string[];
+	//console.log(generate().join());
+	//const words = await Promise.all([
+    //getRandomWord(),
+    //getRandomWord(),
+    //getRandomWord(),
+  //]);
   return words.join("-");
 };
 

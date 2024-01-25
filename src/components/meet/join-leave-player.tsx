@@ -16,7 +16,7 @@ export const JoinLeavePlayer: FC<JoinLeavePlayerProps> = ({
       </audio>
       <audio
         ref={leaveAudioRef}
-        src="/audio/leave-whoosh.mp3"
+        src="/audio/leave_sound.mp3"
         preload="auto"
         className="hidden"
       >
