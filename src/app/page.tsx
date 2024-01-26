@@ -2,8 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import AppLoading from "./loading";
-import { NextLink } from "@/components/default";
-import { Box } from "@/components/default/box";
+import { NextLink, Box } from "@/components/common";
 
 const Home = () => {
   const { status } = useSession();
@@ -14,8 +13,10 @@ const Home = () => {
 
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center">
-      <h1 className="text-4xl">What is Forest Meet?</h1>
-      <Box className="flex flex-col items-center gap-10">
+      <h1 className="animate-fade animate-once phone:text-3xl tablet:text-5xl desktop:text-8xl">
+        What is Forest Meet?
+      </h1>
+      <Box className="flex flex-col items-center gap-10 phone:p-3 desktop:p-10">
         <IntroText />
         <Links />
       </Box>

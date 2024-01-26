@@ -10,6 +10,7 @@ const hideOnPages = ["/meet/room"];
 export const ChangeTheme = () => {
   const pathname = usePathname();
   const { isDark, setIsDark } = useThemeStore();
+ // const timeoutRef = useRef(null);
 
   const handleClick = () => {
     setIsDark(!isDark);
@@ -18,6 +19,9 @@ export const ChangeTheme = () => {
   useEffect(() => {
     if (isDark) document.documentElement.classList.remove("dark");
     else document.documentElement.classList.add("dark");
+	
+	//timeoutRef.current = setTimeout(()=>)
+
   }, [isDark]);
 
   if (hideOnPages.some((p) => pathname.includes(p))) {
@@ -27,7 +31,7 @@ export const ChangeTheme = () => {
   return (
     <button
       onClick={handleClick}
-      className="absolute left-5 z-20 phone:top-[100px] desktop:top-[120px]"
+      className="absolute left-5 z-20 phone:top-[100px] desktop:top-[120px] active:animate-bounce active:animate-delay-100"
     >
       {isDark ? <SunIcon width={60} /> : <MoonIcon width={60} />}
     </button>

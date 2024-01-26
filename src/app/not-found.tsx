@@ -1,6 +1,6 @@
 "use client";
 
-import { NextLink } from "@/components/default";
+import { NextLink } from "@/components/common";
 
 const NotFoundPage = () => {
   return (

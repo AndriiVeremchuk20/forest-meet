@@ -1,5 +1,4 @@
-import { NextLink } from "@/components/default";
-import { Box } from "@/components/default/box";
+import { NextLink, Box } from "@/components/common";
 
 const MeetEndedPage = () => {
   return (

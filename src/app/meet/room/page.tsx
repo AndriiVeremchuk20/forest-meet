@@ -1,17 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import InputName from "@/components/form/name";
+import Loader from "@/components/loader";
 import { ToggleAudioButton, ToggleCameraButton } from "@/components/button";
-import { Button } from "@/components/default";
+import { Button, Box } from "@/components/common";
 import { useRoomId } from "@/hooks/room-id";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import InputName from "@/components/form/name";
-import Loader from "@/components/loader";
-import dynamic from "next/dynamic";
 import { ReloadPageButton } from "@/components/button";
-import { Box } from "@/components/default/box";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
