@@ -6,6 +6,9 @@ import { useEffect } from "react";
 export const useLocalDevice = () => {
   const { enabledMicro, enabledCamera } = useMediaControlStore();
 
+  // get network quality to balancet video quality
+  //const networkStatus = useNetworkStatus();
+
   // getting local camera & microphone tracks
   const { isLoading: isLoadingCamera, localCameraTrack } =
     useLocalCameraTrack();
