@@ -1,10 +1,10 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { NextLink } from "../default";
+import { NextLink } from "../common";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/outside-click";
 
@@ -82,7 +82,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="absolute top-24 cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl dark:divide-neutral-50 dark:bg-blue-900 phone:w-full tablet:w-full desktop:w-[300px]">
+    <div className="absolute top-24 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:w-full tablet:w-full desktop:w-[300px]">
       <Link href={"/tips"} className="p-2 duration-150 hover:ml-2">
         Tips
       </Link>

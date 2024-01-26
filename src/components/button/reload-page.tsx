@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { Button } from "../default";
+import { Button } from "../common";
 
 export const ReloadPageButton = () => {
   const router = useRouter();

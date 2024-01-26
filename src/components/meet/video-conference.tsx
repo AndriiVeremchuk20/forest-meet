@@ -1,5 +1,8 @@
 "use client";
 
+import LocalUserPlayer from "./palyer/local-user";
+import MeetControl from "./control";
+import RemoteUserPlayer from "./palyer/remote-user";
 import { env } from "@/env";
 import {
   useClientEvent,
@@ -11,11 +14,8 @@ import {
 import { type FC, useEffect, useState, useRef } from "react";
 import { useLocalDevice, useRtmChannel } from "@/hooks";
 import { useRtmClient } from "@/providers/agora";
-import LocalUserPlayer from "./palyer/local-user";
-import MeetControl from "./control";
-import RemoteUserPlayer from "./palyer/remote-user";
 import { JoinLeavePlayer } from "./join-leave-player";
-import { Box } from "../default/box";
+import { Box } from "../common";
 import { ReloadPageButton } from "../button";
 
 interface MeetProps {
