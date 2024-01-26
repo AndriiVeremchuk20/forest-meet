@@ -8,7 +8,7 @@ interface BoxProps {
 export const Box: FC<BoxProps> = ({ children, className }) => {
   return (
     <div
-      className={`${className ?? ""} border-[5px] border-green-500 backdrop-blur-xl dark:border-blue-900 phone:w-full tablet:w-5/6 desktop:w-4/6 animate-fade animate-delay-200`}
+      className={`${className ?? ""} animate-fade border-[5px] border-green-500 backdrop-blur-xl animate-delay-200 dark:border-blue-900 phone:w-full tablet:w-5/6 desktop:w-4/6`}
     >
       {children}
     </div>
