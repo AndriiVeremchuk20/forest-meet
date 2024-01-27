@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import parseVolumeLevel from "@/utils/parse-volume-level";
 import {
   type IAgoraRTCRemoteUser,
   RemoteUser,
   useVolumeLevel,
 } from "agora-rtc-react";
-import Image from "next/image";
 import { useState, type FC, useEffect } from "react";
 
 interface RemoteUserPlayerProps {

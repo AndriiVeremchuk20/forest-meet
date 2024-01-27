@@ -2,7 +2,6 @@
 
 import LocalUserPlayer from "./palyer/local-user";
 import MeetControl from "./control";
-import RemoteUserPlayer from "./palyer/remote-user";
 import { env } from "@/env";
 import {
   useClientEvent,
@@ -17,6 +16,8 @@ import { useRtmClient } from "@/providers/agora";
 import { JoinLeavePlayer } from "./join-leave-player";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
+import { RemoteUsersGrid } from "./remote-users-grid";
+import { EnsureCallQuality } from "../agora/ensure-call-quality";
 
 interface MeetProps {
   roomId: string;
@@ -111,8 +112,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         ["name", "userRtcUid"],
       );
 
-      // console.log("Joined", { name, userRtcUid });
-
       if (name && userRtcUid)
         setRemoteRtmUsers((prev) => {
           const updatedUsers: Record<number, string> = { ...prev };
@@ -122,7 +121,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     });
 
     rtmChannel.on("MemberLeft", (memberId) => {
-      console.log("Jeft ", memberId);
       setRemoteRtmUsers((prev) => {
         const updatedUsers: Record<number, string> = { ...prev };
         delete updatedUsers[Number(memberId)];
@@ -177,29 +175,22 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   }
 
   return (
-    <div className="">
-      {/*audio that used when users joined and leave*/}
-      <JoinLeavePlayer
-        joinAudioRef={joinAudioRef}
-        leaveAudioRef={leaveAudioRef}
-      />
-      <div className="absolute bottom-24 right-5">
-        <LocalUserPlayer cameraTrack={localCameraTrack} />
+    <EnsureCallQuality localCameraTrack={localCameraTrack}>
+      <div className="h-screen">
+        {/*audio that used when users joined and leave*/}
+        <JoinLeavePlayer
+          joinAudioRef={joinAudioRef}
+          leaveAudioRef={leaveAudioRef}
+        />
+        <div className="absolute bottom-24 right-5">
+          <LocalUserPlayer cameraTrack={localCameraTrack} />
+        </div>
+        <RemoteUsersGrid remoteUsers={remoteUsers} names={rtmUsers} />
+        <div className="absolute bottom-0 w-full">
+          <MeetControl onLeaveClick={onLeaveRoom} />
+        </div>
       </div>
-      <div className="grid w-full grid-flow-col-dense gap-3">
-        {/* <RemoteUsersCircle remoteUsers={remoteUsers} />*/}
-        {remoteUsers.map((remoteUser) => (
-          <RemoteUserPlayer
-            key={remoteUser.uid}
-            user={remoteUser}
-            name={rtmUsers[Number(remoteUser.uid.toString())] ?? "No name"}
-          />
-        ))}
-      </div>
-      <div className="absolute bottom-0 w-full">
-        <MeetControl onLeaveClick={onLeaveRoom} />
-      </div>
-    </div>
+    </EnsureCallQuality>
   );
 };
 
