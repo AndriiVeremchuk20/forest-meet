@@ -12,12 +12,11 @@ import {
   useRemoteUsers,
 } from "agora-rtc-react";
 import { type FC, useEffect, useState, useRef } from "react";
-import { useLocalDevice, useRtmChannel } from "@/hooks";
+import { useLocalDevice, useRtmChannel, useGeofencing } from "@/hooks/agora";
 import { useRtmClient } from "@/providers/agora";
 import { JoinLeavePlayer } from "./join-leave-player";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
-import {useGeofencing} from "@/hooks/agora/geofencing";
 
 interface MeetProps {
   roomId: string;
@@ -60,8 +59,8 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   });
 
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
-  
-  //enable geofencing 
+
+  //enable geofencing
   useGeofencing();
 
   const isLoadingJoin = publish.isLoading || join.isLoading;
