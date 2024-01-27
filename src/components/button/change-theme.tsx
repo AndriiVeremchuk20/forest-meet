@@ -22,9 +22,9 @@ export const ChangeTheme = () => {
       else document.documentElement.classList.add("dark");
     }, 200);
 
-    return ()=>{
-		clearTimeout(timeout)
-	}
+    return () => {
+      clearTimeout(timeout);
+    };
     //timeoutRef.current = setTimeout(()=>)
   }, [isDark]);
 
@@ -32,12 +32,22 @@ export const ChangeTheme = () => {
     return null;
   }
 
-    return (
+  return (
     <button
       onClick={handleClick}
       className="absolute left-5 z-20 phone:top-[100px] desktop:top-[120px]"
     >
-      {isDark ? <SunIcon width={60} className="animate-spin animate-once animate-duration-500 animate-ease-linear"/> : <MoonIcon width={60} className="animate-spin animate-once animate-duration-500 animate-ease-linear"/>}
+      {isDark ? (
+        <SunIcon
+          width={60}
+          className="animate-spin animate-duration-500 animate-once animate-ease-linear"
+        />
+      ) : (
+        <MoonIcon
+          width={60}
+          className="animate-spin animate-duration-500 animate-once animate-ease-linear"
+        />
+      )}
     </button>
   );
 };

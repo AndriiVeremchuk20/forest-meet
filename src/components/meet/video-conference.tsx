@@ -17,6 +17,7 @@ import { useRtmClient } from "@/providers/agora";
 import { JoinLeavePlayer } from "./join-leave-player";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
+import {useGeofencing} from "@/hooks/agora/geofencing";
 
 interface MeetProps {
   roomId: string;
@@ -59,6 +60,9 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
   });
 
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
+  
+  //enable geofencing 
+  useGeofencing();
 
   const isLoadingJoin = publish.isLoading || join.isLoading;
 
