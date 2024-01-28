@@ -1,49 +1,19 @@
-import { type IAgoraRTCRemoteUser } from "agora-rtc-react";
-import { type FC } from "react";
+"use client"
 
-interface RemoteUsersCircleProps {
-  remoteUsers: IAgoraRTCRemoteUser[]; //number[];
-}
+import React, { FC, useEffect, useState } from "react";
 
-const RemoteUsersCircle: FC<RemoteUsersCircleProps> = ({ remoteUsers }) => {
-  const polarToCartesian = (
-    angle: number,
-    radiusX: number,
-    radiusY: number,
-  ) => {
-    const radians = (angle * Math.PI) / 180;
-    const x = radiusX * Math.cos(radians);
-    const y = radiusY * Math.sin(radians);
-    return { x, y };
-  };
+const RemoteUsersSquare: FC = () => {
 
-  const radiusX = 350;
-  const radiusY = 250;
 
   return (
-    <div className="relative h-[800px] w-full">
-      {remoteUsers.map((remoteUser, index) => {
-        const angle = (360 / remoteUsers.length) * index;
-        const { x, y } = polarToCartesian(angle, radiusX, radiusY);
-        const style: React.CSSProperties = {
-          position: "absolute",
-          top: `calc(50% - 100px + ${y}px)`, // Adjusted for a better centering
-          left: `calc(50% - 100px + ${x}px)`, // Adjusted for a better centering
-        };
+    <div className="h-screen w-full relative">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <img src={"/fire.gif"} alt="fire" className="w-[300px] h-auto z-30" />
+      </div>
+       
 
-        return (
-          <div
-            className="h-[130px] w-[130px]"
-            key={remoteUser.uid}
-            style={style}
-          >
-            {/* Assuming RemoteUserPlayer is imported */}
-            {/*<RemoteUserPlayer user={remoteUser} />*/}
-          </div>
-        );
-      })}
     </div>
   );
 };
 
-export default RemoteUsersCircle;
+export default RemoteUsersSquare;

@@ -18,6 +18,7 @@ import { Box } from "../common";
 import { ReloadPageButton } from "../button";
 import { RemoteUsersGrid } from "./remote-users-grid";
 import { EnsureCallQuality } from "../agora/ensure-call-quality";
+import RemoteUsersCircle from "./remote-users-circle";
 
 interface MeetProps {
   roomId: string;
@@ -35,9 +36,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
-
-  //rtcClient.getRTCStats().Duration;
-
+ 
   const rtmChannel = useRtmChannel({ channelName: roomId }); // create RTM channel
 
   const {
@@ -185,7 +184,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         <div className="absolute bottom-24 right-5">
           <LocalUserPlayer cameraTrack={localCameraTrack} />
         </div>
-        <RemoteUsersGrid remoteUsers={remoteUsers} names={rtmUsers} />
+		<RemoteUsersGrid remoteUsers={remoteUsers} names={rtmUsers}/>
         <div className="absolute bottom-0 w-full">
           <MeetControl onLeaveClick={onLeaveRoom} />
         </div>
