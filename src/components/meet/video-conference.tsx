@@ -184,7 +184,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         <div className="absolute bottom-24 right-5">
           <LocalUserPlayer cameraTrack={localCameraTrack} />
         </div>
-        <RemoteUsersCircle remoteUsers={remoteUsers} names={rtmUsers} />
+		<RemoteUsersGrid remoteUsers={remoteUsers} names={rtmUsers}/>
         <div className="absolute bottom-0 w-full">
           <MeetControl onLeaveClick={onLeaveRoom} />
         </div>
