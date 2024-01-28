@@ -13,13 +13,13 @@ export const RemoteUsersGrid: FC<RemoteUsersGridProps> = ({
 }) => {
   return (
     <div className="grid w-full grid-flow-col-dense gap-3">
-      {remoteUsers.map((remoteUser) => (
+      {/*remoteUsers.map((remoteUser) => (
         <RemoteUserPlayer
           key={remoteUser.uid}
           user={remoteUser}
           name={names[Number(remoteUser.uid.toString())] ?? "No name"}
         />
-      ))}
+      ))*/}
     </div>
   );
 };

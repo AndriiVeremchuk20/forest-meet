@@ -12,9 +12,14 @@ import { useState, type FC, useEffect } from "react";
 interface RemoteUserPlayerProps {
   user: IAgoraRTCRemoteUser;
   name: string;
+  css: {
+    radius: string;
+    rotate: number;
+    rotateReverse: number;
+  };
 }
 
-const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
+const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name, css }) => {
   const volumeLevel = useVolumeLevel(user.audioTrack);
   const { hasAudio, hasVideo } = user;
 
@@ -30,13 +35,15 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
 
   return (
     <div
-      className={`w-fit border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
+      className={`square border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
+      style={{
+        transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
+      }}
     >
-      {!hasAudio && (
+      {/* !hasAudio && (
         <div className="relative top-0 z-40 bg-orange-900 p-1">Micro off</div>
-      )}
+      )*/}
 
-      <div className="h-[200px] w-[200px] phone:h-[70px] phone:w-[70px]">
         {!hasVideo && (
           <Image
             src="/user.png"
@@ -52,10 +59,9 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
           playAudio={true}
           className={`${!hasVideo ? "hidden" : "block"}`}
         />
-      </div>
-      <div className="h-fit desktop:w-[200px] phone:[70px] break-all bg-blue-600 p-2 text-white">
+      {/*<div className="phone:[70px] h-fit break-all bg-blue-600 p-2 text-white desktop:w-[200px]">
         {name}
-      </div>
+      </div>*/ }
     </div>
   );
 };
