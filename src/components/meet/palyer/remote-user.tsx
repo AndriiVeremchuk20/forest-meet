@@ -36,7 +36,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
         <div className="relative top-0 z-40 bg-orange-900 p-1">Micro off</div>
       )}
 
-      <div className="h-[200px] w-[200px]">
+      <div className="h-[200px] w-[200px] phone:h-[70px] phone:w-[70px]">
         {!hasVideo && (
           <Image
             src="/user.png"
@@ -53,7 +53,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name }) => {
           className={`${!hasVideo ? "hidden" : "block"}`}
         />
       </div>
-      <div className="h-fit w-[200px] break-all bg-blue-600 p-2 text-white">
+      <div className="h-fit desktop:w-[200px] phone:[70px] break-all bg-blue-600 p-2 text-white">
         {name}
       </div>
     </div>

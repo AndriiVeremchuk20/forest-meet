@@ -9,7 +9,7 @@ import { useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/outside-click";
 
 // pages where the header is not show
-const hideOnPages = ["/meet/room"];
+const hideOnPages = ["/meet/room", "test"];
 
 const Header = () => {
   const pathname = usePathname();
