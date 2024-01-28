@@ -78,7 +78,11 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
   };
 
   if (networkQuality.code >= 3) {
-    return  <div className="text-red-500 font-bold">Bad Connection: Please check your network.</div>;
+    return (
+      <div className="font-bold text-red-500">
+        Bad Connection: Please check your network.
+      </div>
+    );
   }
 
   return <>{children}</>;
