@@ -44,24 +44,24 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, name, css }) => {
         <div className="relative top-0 z-40 bg-orange-900 p-1">Micro off</div>
       )*/}
 
-        {!hasVideo && (
-          <Image
-            src="/user.png"
-            width={200}
-            height={200}
-            alt="user"
-            className="bg-neutral-500"
-          />
-        )}
-        <RemoteUser
-          user={user}
-          playVideo={true}
-          playAudio={true}
-          className={`${!hasVideo ? "hidden" : "block"}`}
+      {!hasVideo && (
+        <Image
+          src="/user.png"
+          width={200}
+          height={200}
+          alt="user"
+          className="bg-neutral-500"
         />
+      )}
+      <RemoteUser
+        user={user}
+        playVideo={true}
+        playAudio={true}
+        className={`${!hasVideo ? "hidden" : "block"}`}
+      />
       {/*<div className="phone:[70px] h-fit break-all bg-blue-600 p-2 text-white desktop:w-[200px]">
         {name}
-      </div>*/ }
+      </div>*/}
     </div>
   );
 };
