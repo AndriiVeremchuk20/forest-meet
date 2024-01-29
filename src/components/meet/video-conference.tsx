@@ -16,9 +16,13 @@ import { useRtmClient } from "@/providers/agora";
 import { JoinLeavePlayer } from "./join-leave-player";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
-import { RemoteUsersGrid } from "./remote-users-grid";
 import { EnsureCallQuality } from "../agora/ensure-call-quality";
-import RemoteUsersCircle from "./remote-users-circle";
+import dynamic from "next/dynamic";
+//import RemoteUsersCircle from "./remote-users-circle";
+
+const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
+  ssr: false,
+});
 
 interface MeetProps {
   roomId: string;
@@ -181,10 +185,15 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
           joinAudioRef={joinAudioRef}
           leaveAudioRef={leaveAudioRef}
         />
-        <div className="absolute bottom-24 right-5">
+        {/*<div className="absolute bottom-24 right-5">
           <LocalUserPlayer cameraTrack={localCameraTrack} />
-        </div>
-        <RemoteUsersCircle remoteUsers={remoteUsers} />
+        </div>*/}
+        {
+          <UsersAroundFire
+            remoteUsers={remoteUsers}
+            localUserCameraTrack={localCameraTrack}
+          />
+        }
         <div className="absolute bottom-0 w-full">
           <MeetControl onLeaveClick={onLeaveRoom} />
         </div>
