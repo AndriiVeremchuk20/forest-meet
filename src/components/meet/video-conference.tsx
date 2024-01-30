@@ -179,7 +179,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   return (
     <EnsureCallQuality localCameraTrack={localCameraTrack}>
-      <div className="h-screen">
+      <div className="flex h-screen w-full items-center justify-center">
         {/*audio that used when users joined and leave*/}
         <JoinLeavePlayer
           joinAudioRef={joinAudioRef}
