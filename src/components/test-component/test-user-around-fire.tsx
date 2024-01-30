@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, type FC } from "react";
 import { NextImage } from "../common";
+import { MicroOffIcon } from "../icons";
 
 type ComponentCss = {
   radius: string;
@@ -28,7 +29,9 @@ const Square: React.FC<SquareProps> = ({ css, num }) => {
       className={`absolute left-0 h-[100px] w-[100px] transform bg-red-500 text-white  transition-all duration-1000 ease-linear laptop:h-[120px] laptop:w-[120px]`}
       style={dynamicStyle}
     >
-      <div className="absolute right-1">N</div>
+      <div className="absolute right-[-10px] top-[-10px] z-10">
+        <MicroOffIcon width={25} />
+      </div>
       {num}
     </div>
   );
