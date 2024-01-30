@@ -7,6 +7,8 @@ import {
 } from "@/server/api/trpc";
 import AgoraServices from "@/utils/agora";
 import { TRPCError } from "@trpc/server";
+import { getChannelInfo } from "@/services/agora";
+import { env } from "@/env";
 
 export const agoraRouter = createTRPCRouter({
   createRoom: protectedProcedure.mutation(async ({ ctx: { db, session } }) => {
@@ -43,13 +45,22 @@ export const agoraRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx: { db } }) => {
+      const { AGORA_MAX_USERS_IN_CHANNEL } = env;
+
       const { channelName } = input;
 
-      // check room
-      const checkRoom = await db.room.findUnique({ where: { channelName } });
+      // get channel info
+      const channelInfo = await getChannelInfo(channelName);
 
-      if (!checkRoom) {
+      // check room
+      const checkChannel = await db.room.findUnique({ where: { channelName } });
+
+      if (!checkChannel || !channelInfo) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Room not found" });
+      }
+
+      if (channelInfo.data.total >= AGORA_MAX_USERS_IN_CHANNEL) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Room is full" });
       }
 
       const uid = AgoraServices.generateUid();

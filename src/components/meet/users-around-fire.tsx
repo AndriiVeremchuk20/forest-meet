@@ -10,6 +10,7 @@ import {
   RemoteUser,
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
+import { MicroOffIcon } from "../icons";
 
 type UserCss = {
   radius: string;
@@ -71,7 +72,9 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
       style={dynamicStyle}
     >
       {!hasAudio && (
-        <div className="absolute right-1 bg-orange-900 p-1">Micro off</div>
+        <div className="absolute right-[-10px] top-[-10px] z-10">
+          <MicroOffIcon width={25} />
+        </div>
       )}
 
       {!hasVideo && (

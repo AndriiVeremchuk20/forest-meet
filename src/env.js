@@ -11,7 +11,9 @@ export const env = createEnv({
 
     /*Agora credentials*/
     AGORA_APP_CERTIFICATE: z.string(),
-
+    AGORA_MAX_USERS_IN_CHANNEL: z.string().transform((val) => Number(val)),
+    AGORA_KEY: z.string(),
+    AGORA_SECRET: z.string(),
     /*Next-auth variables*/
     NEXTAUTH_SECRET: z.string(),
     NEXTAUTH_URL: z.string(),
@@ -42,6 +44,9 @@ export const env = createEnv({
     /*Agora credentials*/
     NEXT_PUBLIC_AGORA_APP_ID: process.env.NEXT_PUBLIC_AGORA_APP_ID,
     AGORA_APP_CERTIFICATE: process.env.AGORA_APP_CERTIFICATE,
+    AGORA_MAX_USERS_IN_CHANNEL: process.env.AGORA_MAX_USERS_IN_CHANNEL,
+    AGORA_KEY: process.env.AGORA_KEY,
+    AGORA_SECRET: process.env.AGORA_SECRET,
 
     /*next auth variables*/
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
