@@ -11,46 +11,26 @@ import {
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
 
-type ComponentCss = {
+type UserCss = {
   radius: string;
   rotate: number;
   rotateReverse: number;
 };
 
-interface SquareProps {
-  css: {
-    radius: string;
-    rotate: number;
-    rotateReverse: number;
-  };
-  num: number;
-}
-
-const Square: React.FC<SquareProps> = ({ css, num }) => {
-  return (
-    <div
-      className="square"
-      style={{
-        transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
-      }}
-    >
-      {num}
-    </div>
-  );
-};
-
 interface LocalUserPlayerProps {
   cameraTrack: ICameraVideoTrack | null;
-  css: ComponentCss;
+  css: UserCss;
 }
 
 const LocalUserPlayer: FC<LocalUserPlayerProps> = ({ cameraTrack, css }) => {
+  const dynamicStyle = {
+    transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
+  };
+
   return (
     <div
-      style={{
-        transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
-      }}
-      className="square border-[5px] border-red-800 backdrop-blur-md"
+      style={dynamicStyle}
+      className="absolute left-0 h-[100px] w-[100px] transform border-[5px] border-red-800  bg-red-500 text-white backdrop-blur-md transition-all duration-1000 ease-linear laptop:h-[120px] laptop:w-[120px]"
     >
       <LocalVideoTrack track={cameraTrack} play={true} />
     </div>
@@ -68,6 +48,10 @@ interface RemoteUserPlayerProps {
 }
 
 const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
+  const dynamicStyle = {
+    transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
+  };
+
   const volumeLevel = useVolumeLevel(user.audioTrack);
   const { hasAudio, hasVideo } = user;
 
@@ -83,14 +67,12 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
 
   return (
     <div
-      className={`square border-[5px] bg-neutral-400 ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
-      style={{
-        transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
-      }}
+      className={`absolute left-0 h-[100px] w-[100px] transform border-[5px]  bg-neutral-400 text-white transition-all duration-1000 ease-linear  laptop:h-[120px] laptop:w-[120px] ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
+      style={dynamicStyle}
     >
-      {/* !hasAudio && (
-        <div className="relative top-0 z-40 bg-orange-900 p-1">Micro off</div>
-      )*/}
+      {!hasAudio && (
+        <div className="absolute right-1 bg-orange-900 p-1">Micro off</div>
+      )}
 
       {!hasVideo && (
         <NextImage src="/user.png" width={200} className="bg-neutral-500" />
@@ -131,7 +113,7 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
   localUserCameraTrack,
 }) => {
   const [radius, setRadius] = useState<string>(() => {
-    const { desktop, laptop, tablet, phone } = screenSizeConfig;
+    const { laptop, tablet, phone } = screenSizeConfig;
     const windowWidth = window.innerWidth;
 
     if (windowWidth <= phone) return "100";
@@ -140,13 +122,13 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
     return "230";
   });
 
-  const [localUserWithCss, setLocalUserWithCss] = useState<ComponentCss>({
+  const [localUserWithCss, setLocalUserWithCss] = useState<UserCss>({
     radius,
     rotate: -90,
     rotateReverse: 90,
   });
   const [remoteUsersPosition, setRemoteUsersPosition] = useState<
-    Array<{ user: IAgoraRTCRemoteUser; css: ComponentCss }>
+    Array<{ user: IAgoraRTCRemoteUser; css: UserCss }>
   >([]);
 
   const buildCircle = () => {
@@ -163,22 +145,23 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
 
       if (i === 0) {
         setLocalUserWithCss({ radius, rotate: -90, rotateReverse: 90 });
+      } else {
+        items.push({
+          user: remoteUsers[i - 1]!,
+          css: {
+            radius: r,
+            rotate: rotate,
+            rotateReverse: rotateReverse,
+          },
+        });
       }
-	  else {
-      items.push({
-	  user: remoteUsers[i-1]!,
-	  css: {
-        radius: r,
-        rotate: rotate,
-        rotateReverse: rotateReverse,
-      }});}
     }
     setRemoteUsersPosition(items);
   };
 
   const handleResize = () => {
     setRadius(() => {
-      const { desktop, laptop, tablet, phone } = screenSizeConfig;
+      const { laptop, tablet, phone } = screenSizeConfig;
       const windowWidth = window.innerWidth;
 
       if (windowWidth <= phone) return "100";
@@ -186,8 +169,6 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
       if (windowWidth <= laptop) return "180";
       return "230";
     });
-
-    buildCircle();
   };
 
   useEffect(() => {
@@ -202,29 +183,24 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
 
   useEffect(() => {
     buildCircle();
-  }, [remoteUsers, localUserCameraTrack]);
+  }, [remoteUsers, radius]);
 
   return (
     <div>
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <NextImage
-          src={"/fire.gif"}
-          className="phone:w-[200px] tablet:w-[250px] desktop:w-[300px] "
+          src={"/campfire.gif"}
+          className="phone:w-[100px] tablet:w-[150px] desktop:w-[200px] "
         />
       </div>
-      <div className="circle">
-        <div className="circle-hold">
+      <div className="relative mx-auto my-[40px] h-[500px] w-[500px] rounded-full">
+        <div className="absolute left-[200px] top-[180px]">
           <LocalUserPlayer
             cameraTrack={localUserCameraTrack}
             css={localUserWithCss}
           />
-          {remoteUsersPosition.map(({user, css}, index) => (
-            <RemoteUserPlayer
-              key={index}
-              user={user}
-              css={css}
-              name="dd"
-            />
+          {remoteUsersPosition.map(({ user, css }, index) => (
+            <RemoteUserPlayer key={index} user={user} css={css} name="dd" />
           ))}
         </div>
       </div>
