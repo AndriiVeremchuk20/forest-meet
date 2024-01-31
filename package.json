@@ -50,6 +50,7 @@
   "devDependencies": {
     "@types/eslint": "^8.44.7",
     "@types/node": "^18.17.0",
+    "@types/paypal__checkout-server-sdk": "^1.0.8",
     "@types/random-words": "^1.2.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

@@ -101,3 +101,15 @@ export const MoonIcon: FC<IconProps> = ({ width, className }) => {
     />
   );
 };
+
+export const CoffeIcon: FC<IconProps> = ({ width, className }) => {
+  return (
+    <Image
+      src={"/icon/coffe.svg"}
+      width={width ?? 50}
+      height="0"
+      alt="coffe"
+      className={className ?? "h-auto w-full"}
+    />
+  );
+};

@@ -1,16 +1,15 @@
 import "@/styles/globals.css";
 
 import localFont from "next/font/local";
-import { cookies } from "next/headers";
-
-import { TRPCReactProvider } from "@/trpc/react";
 import AppSessionProvider from "@/providers/session";
 import Header from "@/components/layout/header";
+import { cookies } from "next/headers";
+import { TRPCReactProvider } from "@/trpc/react";
+import { ChangeTheme } from "@/components/button/change-theme";
 
 // vercel tools
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import { ChangeTheme } from "@/components/button/change-theme";
 
 // load font
 const googlePixelifySans = localFont({
