@@ -13,7 +13,7 @@ const DonatePage = () => {
         </span>
         <Link
           href={BMCLink}
-          className="flex animate-shake items-center justify-center bg-orange-800 duration-150 animate-duration-[3000ms] animate-infinite hover:bg-orange-900 active:bg-orange-900"
+          className="flex animate-bounce items-center justify-center bg-orange-800 duration-150 animate-duration-[3000ms] animate-infinite hover:bg-orange-900 active:bg-orange-900"
         >
           <CoffeIcon
             width={10}
