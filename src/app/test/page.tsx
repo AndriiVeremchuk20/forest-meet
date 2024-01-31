@@ -13,8 +13,8 @@ const TestUsersAroundFire = dynamic(
 const TestPage = () => {
   return (
     <div className="flex h-screen w-full items-center justify-center">
-      <BadConnection />
-    </div>
+		<TestUsersAroundFire/>
+	</div>
   );
 };
 
