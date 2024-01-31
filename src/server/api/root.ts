@@ -1,5 +1,6 @@
 import { createTRPCRouter } from "@/server/api/trpc";
 import { agoraRouter } from "./routers/agora";
+import { donateRouter } from "./routers/donate";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { agoraRouter } from "./routers/agora";
  */
 export const appRouter = createTRPCRouter({
   agora: agoraRouter,
+  donate: donateRouter,
 });
 
 // export type definition of API
