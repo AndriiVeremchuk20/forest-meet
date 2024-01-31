@@ -6,6 +6,7 @@ import {
 } from "agora-rtc-react";
 
 import { useRef, type FC, type ReactNode, useEffect, useState } from "react";
+import BadConnection from "../meet/bad-connection";
 
 interface CallQualityProps {
   children: ReactNode;
@@ -78,11 +79,7 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
   };
 
   if (networkQuality.code >= 3) {
-    return (
-      <div className="font-bold text-red-500">
-        Bad Connection: Please check your network.
-      </div>
-    );
+    return (<BadConnection/> );
   }
 
   return <>{children}</>;

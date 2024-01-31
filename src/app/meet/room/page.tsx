@@ -48,7 +48,7 @@ const RoomPage = () => {
     },
     onError(error) {
       alert(error.message);
-      router.replace("/meet/lobby");
+      router.replace("/meet/");
     },
   });
 
