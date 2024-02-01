@@ -35,7 +35,7 @@ export const ChangeTheme = () => {
   return (
     <button
       onClick={handleClick}
-      className="absolute left-5 z-20 phone:top-[100px] desktop:top-[120px]"
+      className="fixed left-5 z-20 phone:top-[100px] desktop:top-[120px]"
     >
       {isDark ? (
         <SunIcon

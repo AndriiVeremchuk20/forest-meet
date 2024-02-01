@@ -113,3 +113,15 @@ export const CoffeIcon: FC<IconProps> = ({ width, className }) => {
     />
   );
 };
+
+export const DeerIcon: FC<IconProps> = ({ width, className }) => {
+  return (
+    <Image
+      src={"/icon/deer_frame.svg"}
+      width={width ?? 50}
+      height="0"
+      alt="deer"
+      className={className ?? "h-auto w-full"}
+    />
+  );
+};
