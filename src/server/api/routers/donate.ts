@@ -1,16 +1,17 @@
-import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import BMC from "@/services/buy-me-coffe";
 export const donateRouter = createTRPCRouter({
-  createDonate: publicProcedure.mutation(async ({ ctx: { db, session } }) => {
-    const t = "d";
+  getSupportesr: publicProcedure.query(async ({ ctx: { db, session } }) => {
+    const supporters = await BMC.getAllSupporters();
 
-    return t;
-  }),
+    //const supportersEmails = supporters.map(({ payer_email }) => payer_email);
 
-  approveDonate: publicProcedure.mutation(async ({ ctx: { db, session } }) => {
-    const d = "d";
+    //check payers email's in db to get avatars;
 
-    return d;
+    return supporters.map(({ support_id, support_note, supporter_name }) => ({
+      id: support_id,
+      name: supporter_name,
+      message: support_note,
+    }));
   }),
 });
