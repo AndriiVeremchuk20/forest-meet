@@ -125,3 +125,15 @@ export const DeerIcon: FC<IconProps> = ({ width, className }) => {
     />
   );
 };
+
+export const RopeIcon: FC<IconProps> = ({ width, className }) => {
+  return (
+    <Image
+      src={"/icon/rope.svg"}
+      width={width ?? 50}
+      height="0"
+      alt="deer"
+      className={className ?? "h-auto w-full"}
+    />
+  );
+};

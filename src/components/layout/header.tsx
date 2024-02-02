@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { NextLink } from "../common";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/outside-click";
+import {CoffeIcon, RopeIcon} from "../icons";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room", "test"];
@@ -33,7 +34,7 @@ const Logo = () => {
       className="flex cursor-pointer items-center justify-center"
     >
       <Image src="/icon.png" width={80} height={80} alt="logo" />
-      <span className="text-3xl">Forest Meet</span>
+      <span className="laptop:text-5xl phone:text-3xl">Forest Meet</span>
     </Link>
   );
 };
@@ -82,12 +83,12 @@ const Nav = () => {
   };
 
   return (
-    <div className="absolute top-24 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:w-full tablet:w-full desktop:w-[300px]">
-      <Link href={"/donate"} className="p-2 duration-150 hover:ml-2">
-        Donate
+    <div className="absolute top-20 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:w-full tablet:w-full desktop:w-[300px]">
+      <Link href={"/support"} className="flex space-x-2 p-2 duration-150 hover:ml-2">
+        <CoffeIcon className="w-[30px]"/><span>Support</span>
       </Link>
-      <div className="p-2 duration-150 hover:ml-2" onClick={handleSignOutClick}>
-        Sign out
+      <div className=" flex space-x-1 p-2 duration-150 hover:ml-2" onClick={handleSignOutClick}>
+        <RopeIcon className="w-[20px]"/> <span>Sign out</span>
       </div>
     </div>
   );
