@@ -5,7 +5,7 @@ interface JoinLeavePlayerProps {
   leaveAudioRef: RefObject<HTMLAudioElement>;
 }
 
-export const JoinLeavePlayer: FC<JoinLeavePlayerProps> = ({
+export const JoinLeaveSounds: FC<JoinLeavePlayerProps> = ({
   joinAudioRef,
   leaveAudioRef,
 }) => {

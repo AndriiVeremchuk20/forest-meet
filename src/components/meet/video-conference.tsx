@@ -13,11 +13,12 @@ import {
 import { type FC, useEffect, useState, useRef } from "react";
 import { useLocalDevice, useRtmChannel, useGeofencing } from "@/hooks/agora";
 import { useRtmClient } from "@/providers/agora";
-import { JoinLeavePlayer } from "./join-leave-player";
+import { JoinLeaveSounds } from "./join-leave-sounds";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
 import { EnsureCallQuality } from "../agora/ensure-call-quality";
 import dynamic from "next/dynamic";
+import TimeControl from "./time-control";
 //import RemoteUsersCircle from "./remote-users-circle";
 
 const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
@@ -179,25 +180,27 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   return (
     <EnsureCallQuality localCameraTrack={localCameraTrack}>
-      <div className="flex h-screen w-full items-center justify-center">
-        {/*audio that used when users joined and leave*/}
-        <JoinLeavePlayer
-          joinAudioRef={joinAudioRef}
-          leaveAudioRef={leaveAudioRef}
-        />
-        {/*<div className="absolute bottom-24 right-5">
+      <TimeControl>
+        <div className="flex h-screen w-full items-center justify-center">
+          {/*audio that used when users joined and leave*/}
+          <JoinLeaveSounds
+            joinAudioRef={joinAudioRef}
+            leaveAudioRef={leaveAudioRef}
+          />
+          {/*<div className="absolute bottom-24 right-5">
           <LocalUserPlayer cameraTrack={localCameraTrack} />
         </div>*/}
-        {
-          <UsersAroundFire
-            remoteUsers={remoteUsers}
-            localUserCameraTrack={localCameraTrack}
-          />
-        }
-        <div className="absolute bottom-0 w-full">
-          <MeetControl onLeaveClick={onLeaveRoom} />
+          {
+            <UsersAroundFire
+              remoteUsers={remoteUsers}
+              localUserCameraTrack={localCameraTrack}
+            />
+          }
+          <div className="absolute bottom-0 w-full">
+            <MeetControl onLeaveClick={onLeaveRoom} />
+          </div>
         </div>
-      </div>
+      </TimeControl>
     </EnsureCallQuality>
   );
 };
