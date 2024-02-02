@@ -137,3 +137,15 @@ export const RopeIcon: FC<IconProps> = ({ width, className }) => {
     />
   );
 };
+
+export const MonkeyIcon: FC<IconProps> = ({ width, className }) => {
+  return (
+    <Image
+      src={"/icon/monkey.svg"}
+      width={width ?? 50}
+      height="0"
+      alt="monkey"
+      className={className ?? "h-auto w-full"}
+    />
+  );
+};

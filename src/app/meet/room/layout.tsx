@@ -1,4 +1,3 @@
-"use client";
 
 import Loader from "@/components/loader";
 import dynamic from "next/dynamic";
