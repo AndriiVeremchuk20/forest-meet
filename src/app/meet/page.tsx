@@ -42,6 +42,7 @@ const LobbyPage = () => {
     if (roomId) {
       router.push(`/meet/room?id=${roomId}`);
     }
+    // eslint-disable-next-line
   }, [roomId]);
 
   if (isLoading) {
@@ -52,9 +53,12 @@ const LobbyPage = () => {
     <main className="flex min-h-screen flex-col items-center justify-center">
       <Box className="grid gap-10 p-10 phone:grid-cols-1 phone:grid-rows-2 desktop:grid-cols-2 desktop:grid-rows-1">
         <Button onClick={handleJoinClick}>Join</Button>
-        {status === "authenticated" && (
-          <Button onClick={handleCreateClick}>Create</Button>
-        )}
+        <Button
+          onClick={handleCreateClick}
+          disabled={status === "unauthenticated"}
+        >
+          Create
+        </Button>
       </Box>
     </main>
   );
