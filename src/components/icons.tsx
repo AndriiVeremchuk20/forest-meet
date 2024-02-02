@@ -149,3 +149,15 @@ export const MonkeyIcon: FC<IconProps> = ({ width, className }) => {
     />
   );
 };
+
+export const HeartIcon: FC<IconProps> = ({ width, className }) => {
+  return (
+    <Image
+      src={"/icon/heart.svg"}
+      width={width ?? 50}
+      height="0"
+      alt="heart"
+      className={className ?? "h-auto w-full"}
+    />
+  );
+};
