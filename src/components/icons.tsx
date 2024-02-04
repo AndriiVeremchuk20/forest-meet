@@ -161,3 +161,15 @@ export const HeartIcon: FC<IconProps> = ({ width, className }) => {
     />
   );
 };
+
+export const MushroomIcon: FC<IconProps> = ({ width, className }) => {
+  return (
+    <Image
+      src={"/icon/mushroom.svg"}
+      width={width ?? 50}
+      height="0"
+      alt="mushroom"
+      className={className ?? "h-auto w-full"}
+    />
+  );
+};

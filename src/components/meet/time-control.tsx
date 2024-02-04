@@ -5,9 +5,7 @@ import { useRTCClient } from "agora-rtc-react";
 const TimeControl = ({ children }: { children: ReactNode }) => {
   const rtcClient = useRTCClient();
 
-  const [duration, setDuration] = useState<number>(
-    3600,
-  );
+  const [duration, setDuration] = useState<number>(3600);
 
   const countDuration = () => {
     const numHearts = Math.floor(duration / 60 / 10);
@@ -24,8 +22,8 @@ const TimeControl = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setDuration(3600 - rtcClient.getRTCStats().Duration);
-	  console.log(3600 - rtcClient.getRTCStats().Duration);
-	}, 1000 * 60);
+      console.log(3600 - rtcClient.getRTCStats().Duration);
+    }, 1000 * 60);
 
     return () => {
       clearInterval(interval);
@@ -34,7 +32,7 @@ const TimeControl = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <div className="absolute laptop:right-10 laptop:top-10 phone:right-5 phone:top-5 flex space-x-1">
+      <div className="absolute flex space-x-1 phone:right-5 phone:top-5 laptop:right-10 laptop:top-10">
         {countDuration()}
       </div>
       {children}
