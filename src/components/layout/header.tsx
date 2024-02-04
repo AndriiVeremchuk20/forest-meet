@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { NextLink } from "../common";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/outside-click";
-import { CoffeIcon, MonkeyIcon, MushroomIcon, RopeIcon } from "../icons";
+import { Coffee, Monkey, Mushroom, Rope } from "../svgs";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room", "test"];
@@ -47,7 +47,7 @@ const User = () => {
   const onOpenNav = () => {
     setShowNav((prev) => !prev);
   };
-
+  
   const onCloseNav = () => {
     setShowNav(false);
   };
@@ -85,28 +85,28 @@ const Nav = () => {
   return (
     <div className="absolute top-20 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:left-0 phone:w-full tablet:w-full laptop:left-2/3 desktop:w-[500px]">
       <Link href={"*"} className="flex space-x-2 p-2 duration-150 hover:ml-2">
-        <MonkeyIcon className="w-[40px]" />
+        <Monkey width={50} height={50} />
         <span>Profile (Not working)</span>
       </Link>
       <Link
         href="/information"
         className="flex space-x-2 p-2 duration-150 hover:ml-2"
       >
-        <MushroomIcon className="w-[30px]" />
+        <Mushroom width={50} height={50} />
         <span>Information</span>
       </Link>
       <Link
         href={"/support"}
         className="flex space-x-2 p-2 duration-150 hover:ml-2"
       >
-        <CoffeIcon className="w-[30px]" />
+        <Coffee width={50} height={50} />
         <span>Support</span>
       </Link>
       <div
         className=" flex space-x-4 p-2 duration-150 hover:ml-2"
         onClick={handleSignOutClick}
       >
-        <RopeIcon className="w-[20px]" /> <span>Sign out</span>
+        <Rope  width={50} height={50}/> <span>Sign out</span>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 
 import { Box, NextImage } from "@/components/common";
-import { CoffeIcon, DeerIcon } from "@/components/icons";
+import { Coffee, DeerFrame } from "@/components/svgs";
 import { api } from "@/trpc/server";
 import Link from "next/link";
 
@@ -30,7 +30,7 @@ const DonatePage = async () => {
           href={BMCLink}
           className="flex animate-bounce items-center justify-center bg-orange-800 duration-150 animate-duration-[3000ms] animate-infinite hover:bg-orange-900 active:bg-orange-900"
         >
-          <CoffeIcon
+          <Coffee
             width={10}
             className="h-[80px] w-[80px] bg-orange-400 p-2"
           />
@@ -59,10 +59,10 @@ const DonatePage = async () => {
 const UserInFrame = ({ avatar }: { avatar: string }) => {
   return (
     <div className="felx block items-center justify-center phone:w-[150px] laptop:w-[200px]">
-      <DeerIcon className="w-full" />
+      <DeerFrame width={150} height={100} />
       <NextImage
         src={avatar}
-        className="absolute -z-10 backdrop-blur-md phone:left-[40px] phone:top-[55px] phone:w-[70px] laptop:left-[48px] laptop:top-[70px] laptop:w-[100px]"
+        className="absolute -z-10 backdrop-blur-md left-[45px] top-[40px] w-[60px]"
       />
     </div>
   );

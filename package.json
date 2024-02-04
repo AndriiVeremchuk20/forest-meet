@@ -48,6 +48,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/eslint": "^8.44.7",
     "@types/node": "^18.17.0",
     "@types/paypal__checkout-server-sdk": "^1.0.8",

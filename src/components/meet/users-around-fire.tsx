@@ -10,7 +10,7 @@ import {
   RemoteUser,
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
-import { MicroOffIcon } from "../icons";
+import { MicrophoneOff } from "../svgs";
 
 type UserCss = {
   radius: string;
@@ -73,7 +73,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
     >
       {!hasAudio && (
         <div className="absolute right-[-10px] top-[-10px] z-10">
-          <MicroOffIcon width={25} />
+          <MicrophoneOff width={25} />
         </div>
       )}
 

@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { ExitIcon } from "../icons";
+import { Exit } from "../svgs";
 import { type FC } from "react";
 //import { useUserMedia } from "@/hooks/user-media";
 
@@ -23,7 +23,7 @@ export const LeaveButton: FC<LeaveButtonProps> = () => {
 
   return (
     <button onClick={onLeaveClick} className="w-full hover:opacity-80">
-      <ExitIcon className="w-3/5" />
+      <Exit className="w-[100px] h-[70px]" />
     </button>
   );
 };

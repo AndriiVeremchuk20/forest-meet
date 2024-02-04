@@ -1,9 +1,9 @@
 "use client";
 
 import { signIn, signOut } from "next-auth/react";
-import { GoogleIcon } from "../icons";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import {Google} from "../svgs";
 
 export const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export const GoogleButton = () => {
       className="flex w-[300px]  items-center border-[5px] border-blue-800 bg-blue-500 duration-100 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
     >
       <div className="bg-blue-300 p-1">
-        <GoogleIcon width={45} />
+        <Google width={50} height={50} />
       </div>
       <span className="p-2 text-2xl text-white">
         {isLoading ? "Loading" : "Sign in with Google"}
