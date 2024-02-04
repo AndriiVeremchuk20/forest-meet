@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, type FC } from "react";
 import { NextImage } from "../common";
-import { MicroOffIcon } from "../icons";
+import { MicrophoneOff } from "../svgs";
 
 type ComponentCss = {
   radius: string;
@@ -30,7 +30,7 @@ const Square: React.FC<SquareProps> = ({ css, num }) => {
       style={dynamicStyle}
     >
       <div className="absolute right-[-10px] top-[-10px] z-10">
-        <MicroOffIcon width={25} />
+        <MicrophoneOff width={25} height={25} />
       </div>
       {num}
     </div>
