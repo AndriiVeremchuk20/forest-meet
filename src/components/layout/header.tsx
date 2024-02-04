@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { NextLink } from "../common";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/outside-click";
-import { Coffee, Monkey, Mushroom, Rope } from "../svgs";
+import { Coffee, Monkey, Mushroom, Rope, Logo } from "../svgs";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room", "test"];
@@ -21,20 +21,20 @@ const Header = () => {
 
   return (
     <header className="fixed z-50 flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-xl dark:border-blue-900">
-      <Logo />
+      <AppLogo/>
       <User />
     </header>
   );
 };
 
-const Logo = () => {
+const AppLogo = () => {
   return (
     <Link
       href={"/"}
       className="flex cursor-pointer items-center justify-center"
     >
-      <Image src="/icon.png" width={80} height={80} alt="logo" />
-      <span className="phone:text-3xl laptop:text-5xl">Forest Meet</span>
+      <Logo className="w-[50px] h-[50px]"/>
+	  <span className="phone:text-3xl laptop:text-5xl">Forest Meet</span>
     </Link>
   );
 };
