@@ -20,7 +20,7 @@ export const metadata = {
   title: "Forest Meet",
   description:
     "Forest Meet is a real-time video meetup application created by create-t3-app. Enjoy virtual gatherings with friends around a cozy virtual campfire.",
-  icons: [{ rel: "icon", url: "/icon.png" }],
+  icons: [{ rel: "icon", url: "/icon.png",}],
 };
 
 export default function RootLayout({
