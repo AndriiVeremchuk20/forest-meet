@@ -13,4 +13,5 @@ export { default as Moon } from "./moon.svg";
 export { default as Mushroom } from "./mushroom.svg";
 export { default as Rope } from "./rope.svg";
 export { default as Sun } from "./sun.svg";
-export {default as Logo } from "./logo.svg";
+export { default as Logo } from "./logo.svg";
+export { default as ChainSaw } from "./chainsaw.svg";

@@ -44,23 +44,38 @@ export const agoraRouter = createTRPCRouter({
         channelName: z.string(),
       }),
     )
-    .mutation(async ({ input, ctx: { db } }) => {
+    .mutation(async ({ input, ctx: { db, session } }) => {
       const { AGORA_MAX_USERS_IN_CHANNEL } = env;
 
       const { channelName } = input;
 
-      // get channel info
+      // get agora channel info
       const channelInfo = await getChannelInfo(channelName);
+      //console.log(channelInfo);
 
-      // check room
+      // get room from db
       const checkChannel = await db.room.findUnique({ where: { channelName } });
+	  //console.log(checkChannel);
 
+      // check chanel in db
       if (!checkChannel || !channelInfo) {
         throw new TRPCError({ code: "NOT_FOUND", message: "Room not found" });
       }
 
+      // check room capacity
       if (channelInfo.data.total >= AGORA_MAX_USERS_IN_CHANNEL) {
         throw new TRPCError({ code: "FORBIDDEN", message: "Room is full" });
+      }
+
+      // check organizator is connected
+      if (
+        !channelInfo.data.channel_exist &&
+        session?.user.id !== checkChannel.creatorId
+      ) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Organizator not connected",
+        });
       }
 
       const uid = AgoraServices.generateUid();
@@ -84,6 +99,17 @@ export const agoraRouter = createTRPCRouter({
           rtc: rtcToken,
           rtm: rtmToken,
         },
+        creatorId: checkChannel.creatorId,
       };
+    }),
+
+  deleteRoom: protectedProcedure
+    .input(
+      z.object({
+        channelName: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx: { db, session } }) => {
+      console.log("Delete");
     }),
 });

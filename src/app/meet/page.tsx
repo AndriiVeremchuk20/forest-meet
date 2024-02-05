@@ -15,7 +15,6 @@ const LobbyPage = () => {
 
   const { isLoading, mutate } = api.agora.createRoom.useMutation({
     onSuccess: async (data) => {
-      //console.log(data);
       setRoomId(data.channelName);
     },
     onError(error) {

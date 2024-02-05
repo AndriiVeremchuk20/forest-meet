@@ -3,7 +3,7 @@
 import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import {Google} from "../svgs";
+import { Google } from "../svgs";
 
 export const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
