@@ -35,7 +35,7 @@ interface ChannelInfoResponse {
   data: {
     channel_exist: true;
     mode: boolean;
-    total: 1;
+    total: number;
     users: number[];
   };
 }

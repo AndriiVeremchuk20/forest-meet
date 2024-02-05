@@ -1,9 +1,4 @@
-import {
-  CameraOff,
-  CameraOn,
-  MicrophoneOff,
-  MicrophoneOn,
-} from "../svgs";
+import { CameraOff, CameraOn, MicrophoneOff, MicrophoneOn } from "../svgs";
 import { useMediaControlStore } from "@/store";
 
 export const ToggleCameraButton = () => {

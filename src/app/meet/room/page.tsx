@@ -45,6 +45,7 @@ const RoomPage = () => {
         rtmToken: data.token.rtm,
       });
       setJoined(true);
+      //data.creatorId
     },
     onError(error) {
       alert(error.message);

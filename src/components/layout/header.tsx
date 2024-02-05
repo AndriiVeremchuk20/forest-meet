@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <header className="fixed z-50 flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-xl dark:border-blue-900">
-      <AppLogo/>
+      <AppLogo />
       <User />
     </header>
   );
@@ -33,8 +33,8 @@ const AppLogo = () => {
       href={"/"}
       className="flex cursor-pointer items-center justify-center"
     >
-      <Logo className="w-[50px] h-[50px]"/>
-	  <span className="phone:text-3xl laptop:text-5xl">Forest Meet</span>
+      <Logo className="h-[50px] w-[50px]" />
+      <span className="phone:text-3xl laptop:text-5xl">Forest Meet</span>
     </Link>
   );
 };
@@ -47,7 +47,7 @@ const User = () => {
   const onOpenNav = () => {
     setShowNav((prev) => !prev);
   };
-  
+
   const onCloseNav = () => {
     setShowNav(false);
   };
@@ -106,7 +106,7 @@ const Nav = () => {
         className=" flex space-x-4 p-2 duration-150 hover:ml-2"
         onClick={handleSignOutClick}
       >
-        <Rope  width={50} height={50}/> <span>Sign out</span>
+        <Rope width={50} height={50} /> <span>Sign out</span>
       </div>
     </div>
   );

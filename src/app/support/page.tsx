@@ -30,10 +30,7 @@ const DonatePage = async () => {
           href={BMCLink}
           className="flex animate-bounce items-center justify-center bg-orange-800 duration-150 animate-duration-[3000ms] animate-infinite hover:bg-orange-900 active:bg-orange-900"
         >
-          <Coffee
-            width={10}
-            className="h-[80px] w-[80px] bg-orange-400 p-2"
-          />
+          <Coffee width={10} className="h-[80px] w-[80px] bg-orange-400 p-2" />
           <span className="px-5 text-5xl">Support</span>
         </Link>
       </Box>
@@ -62,7 +59,7 @@ const UserInFrame = ({ avatar }: { avatar: string }) => {
       <DeerFrame width={150} height={100} />
       <NextImage
         src={avatar}
-        className="absolute -z-10 backdrop-blur-md left-[45px] top-[40px] w-[60px]"
+        className="absolute left-[45px] top-[40px] -z-10 w-[60px] backdrop-blur-md"
       />
     </div>
   );

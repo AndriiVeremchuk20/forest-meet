@@ -10,7 +10,7 @@ import {
   RemoteUser,
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
-import { MicrophoneOff } from "../svgs";
+import { ChainSaw, MicrophoneOff } from "../svgs";
 
 type UserCss = {
   radius: string;
@@ -86,6 +86,9 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
         playAudio={true}
         className={`${!hasVideo ? "hidden" : "block"}`}
       />
+      <button>
+        <ChainSaw className="h-[40px] w-[30px]" />
+      </button>
     </div>
   );
 };

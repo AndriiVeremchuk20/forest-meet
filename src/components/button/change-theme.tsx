@@ -3,7 +3,7 @@
 import { useThemeStore } from "@/store";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import {Moon, Sun} from "../svgs";
+import { Moon, Sun } from "../svgs";
 
 const hideOnPages = ["/meet/room"];
 
@@ -38,15 +38,15 @@ export const ChangeTheme = () => {
       className="fixed left-5 z-20 phone:top-[100px] desktop:top-[120px]"
     >
       {isDark ? (
-		<Sun
+        <Sun
           width={60}
-		  height={60}
+          height={60}
           className="animate-spin animate-duration-500 animate-once animate-ease-linear"
         />
       ) : (
         <Moon
           width={60}
-		  height={60}
+          height={60}
           className="animate-spin animate-duration-500 animate-once animate-ease-linear"
         />
       )}
