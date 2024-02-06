@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ReloadPageButton } from "@/components/button";
+import {useMeetStore} from "@/store";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
@@ -19,31 +20,33 @@ const VideoConference = dynamic(
 
 const UserPreview = dynamic(
   () => import("../../../components/meet/user-preview"),
-  { ssr: false },
+  { ssr: false, loading: ()=> <Loader/> },
 );
 
 // getting a room id from  search params like: (meet/room?id=potato-home-monkey)
 const RoomPage = () => {
   const router = useRouter();
   const roomId = useRoomId();
+  const {meetCredentials, setMeetCredentials} = useMeetStore();
   const { data, status } = useSession();
   const isUserLoading = status === "loading";
 
   const [joined, setJoined] = useState<boolean>(false);
   const [name, setName] = useState<string | null | undefined>(data?.user.name);
-  const [credentials, setCredentials] = useState<{
-    rtcToken: string;
-    rtmToken: string;
-    uid: number;
-  } | null>();
+  //const [credentials, setCredentials] = useState<{
+  //  rtcToken: string;
+  //  rtmToken: string;
+  //  uid: number;
+  //} | null>();
 
   const getMeetCredentialsMutations = api.agora.joinToRoom.useMutation({
     onSuccess(data) {
-      setCredentials({
-        uid: data.uid,
-        rtcToken: data.token.rtc,
-        rtmToken: data.token.rtm,
-      });
+      setMeetCredentials(data);
+	  //setCredentials({
+      //  uid: data.uid,
+      //  rtcToken: data.token.rtc,
+      //  rtmToken: data.token.rtm,
+      //});
       setJoined(true);
       //data.creatorId
     },
@@ -93,11 +96,11 @@ const RoomPage = () => {
 
   return (
     <main className="h-screen">
-      {roomId && credentials && name ? (
+      {meetCredentials && name ? (
         <VideoConference
           roomId={roomId}
           userName={name}
-          credentials={credentials}
+          //credentials={credentials}
         />
       ) : (
         <Box>
