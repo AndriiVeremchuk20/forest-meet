@@ -87,7 +87,6 @@ const RoomPage = () => {
     <main className="h-screen">
       {meetCredentials && name ? (
         <VideoConference
-          roomId={roomId}
           userName={name}
         />
       ) : (

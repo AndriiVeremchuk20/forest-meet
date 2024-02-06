@@ -1,6 +1,5 @@
 "use client";
 
-
 import dynamic from "next/dynamic";
 import TimeControl from "./time-control";
 import Loader from "../loader";
@@ -30,22 +29,21 @@ const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
 });
 
 interface MeetProps {
-  roomId: string;
   userName: string; 
 }
 
-const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
+const VideoConference: FC<MeetProps> = ({ userName }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
 
   const {meetCredentials} = useMeetStore();
-  const { uid, isCreator, token: {rtc: rtcToken, rtm: rtmToken}} = meetCredentials!;
+  const { uid, cname, isCreator, token: {rtc: rtcToken, rtm: rtmToken}} = meetCredentials!;
 
   const router = useRouter();
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
 
-  const rtmChannel = useRtmChannel({ channelName: roomId }); // create RTM channel
+  const rtmChannel = useRtmChannel({ channelName: cname }); // create RTM channel
 
   const {
     isLoading: isLoadingDevice,
@@ -62,7 +60,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
   const join = useJoin({
     appid: APP_ID,
     token: rtcToken,
-    channel: roomId,
+    channel: cname,
     uid: uid.toString(),
   });
 
@@ -89,11 +87,10 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
 
   useClientEvent(rtcClient, "connection-state-change", (status) => {
     if(status === "DISCONNECTING" && isCreator) {
-		deleteRoomMutation.mutate({channelName: roomId});
+		deleteRoomMutation.mutate({channelName: cname});
 	}
 
 	if (status === "DISCONNECTED") {
-      console.log("Is Creator:", isCreator);	
       router.push("/meet/ended");
     }
   });
@@ -150,11 +147,9 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
     });
   };
 
-  const onLeaveRoom = async () => {
-    //await rtmLogout();
-    //deleteRoomMutation.mutate({ channelName: roomId });
-	  if(isCreator){
-		deleteRoomMutation.mutate({channelName: roomId});
+  const onLeaveRoom = async () => { 
+	if(isCreator){
+		deleteRoomMutation.mutate({channelName: cname});
 	  }
     localCameraTrack?.close();
     localMicrophoneTrack?.close();
