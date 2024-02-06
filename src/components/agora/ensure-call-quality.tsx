@@ -12,7 +12,7 @@ interface CallQualityProps {
   children: ReactNode;
   localCameraTrack: ILocalVideoTrack | null;
 }
-
+//https://docs.agora.io/en/video-calling/reference/channel-management-rest-api?platform=react-js#online-channel-statistics-query
 export const EnsureCallQuality: FC<CallQualityProps> = ({
   children,
   localCameraTrack,
@@ -50,7 +50,7 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
     try {
       await rtcClient.enableDualStream();
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
     await localCameraTrack?.setEncoderConfiguration({
       width: 640,

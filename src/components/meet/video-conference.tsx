@@ -1,6 +1,9 @@
 "use client";
 
-//import LocalUserPlayer from "./palyer/local-user";
+
+import dynamic from "next/dynamic";
+import TimeControl from "./time-control";
+import Loader from "../loader";
 import MeetControl from "./control";
 import { env } from "@/env";
 import {
@@ -17,27 +20,27 @@ import { JoinLeaveSounds } from "./join-leave-sounds";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
 import { EnsureCallQuality } from "../agora/ensure-call-quality";
-import dynamic from "next/dynamic";
-import TimeControl from "./time-control";
-//import RemoteUsersCircle from "./remote-users-circle";
+import { useRouter } from "next/navigation";
+import { api } from "@/trpc/react";
+import {useMeetStore} from "@/store";
 
 const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
   ssr: false,
+  loading: () => <Loader />,
 });
 
 interface MeetProps {
   roomId: string;
-  userName: string;
-  credentials: {
-    uid: number;
-    rtcToken: string;
-    rtmToken: string;
-  };
+  userName: string; 
 }
 
-const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
+const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
-  const { uid, rtcToken, rtmToken } = credentials;
+
+  const {meetCredentials} = useMeetStore();
+  const { uid, isCreator, token: {rtc: rtcToken, rtm: rtmToken}} = meetCredentials!;
+
+  const router = useRouter();
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
@@ -84,6 +87,19 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
     }
   });
 
+  useClientEvent(rtcClient, "connection-state-change", (status) => {
+    if(status === "DISCONNECTING" && isCreator) {
+		deleteRoomMutation.mutate({channelName: roomId});
+	}
+
+	if (status === "DISCONNECTED") {
+      console.log("Is Creator:", isCreator);	
+      router.push("/meet/ended");
+    }
+  });
+
+  const deleteRoomMutation = api.agora.deleteRoom.useMutation();
+
   const initRtm = async () => {
     await rtmClient.login({ uid: uid.toString(), token: rtmToken });
     rtmChannel
@@ -124,7 +140,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
         });
     });
 
-    rtmChannel.on("MemberLeft", (memberId) => {
+    rtmChannel.on("MemberLeft", async (memberId) => {
       setRemoteRtmUsers((prev) => {
         const updatedUsers: Record<number, string> = { ...prev };
         delete updatedUsers[Number(memberId)];
@@ -136,6 +152,10 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
 
   const onLeaveRoom = async () => {
     //await rtmLogout();
+    //deleteRoomMutation.mutate({ channelName: roomId });
+	  if(isCreator){
+		deleteRoomMutation.mutate({channelName: roomId});
+	  }
     localCameraTrack?.close();
     localMicrophoneTrack?.close();
     await rtcClient.leave();
@@ -187,9 +207,6 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName, credentials }) => {
             joinAudioRef={joinAudioRef}
             leaveAudioRef={leaveAudioRef}
           />
-          {/*<div className="absolute bottom-24 right-5">
-          <LocalUserPlayer cameraTrack={localCameraTrack} />
-        </div>*/}
           {
             <UsersAroundFire
               remoteUsers={remoteUsers}

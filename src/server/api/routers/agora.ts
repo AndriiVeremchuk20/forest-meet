@@ -7,12 +7,12 @@ import {
 } from "@/server/api/trpc";
 import AgoraServices from "@/utils/agora";
 import { TRPCError } from "@trpc/server";
-import { getChannelInfo } from "@/services/agora";
+import { getChannelInfo, kickUserInChannel } from "@/services/agora";
 import { env } from "@/env";
 
 export const agoraRouter = createTRPCRouter({
   createRoom: protectedProcedure.mutation(async ({ ctx: { db, session } }) => {
-    // generate a channel name for future room
+    // generate channel name to future room
     const channelName = await AgoraServices.generateChannelName();
 
     // check if channel name is not exist
@@ -25,7 +25,7 @@ export const agoraRouter = createTRPCRouter({
       });
     }
 
-    // add a new room into db
+    // add created room into db
     await db.room.create({
       data: {
         creatorId: session.user.id,
@@ -46,7 +46,6 @@ export const agoraRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx: { db, session } }) => {
       const { AGORA_MAX_USERS_IN_CHANNEL } = env;
-
       const { channelName } = input;
 
       // get agora channel info
@@ -55,7 +54,7 @@ export const agoraRouter = createTRPCRouter({
 
       // get room from db
       const checkChannel = await db.room.findUnique({ where: { channelName } });
-	  //console.log(checkChannel);
+      //console.log(checkChannel);
 
       // check chanel in db
       if (!checkChannel || !channelInfo) {
@@ -78,6 +77,8 @@ export const agoraRouter = createTRPCRouter({
         });
       }
 
+      /* --- TOKEN GENERATIONS --- */
+
       const uid = AgoraServices.generateUid();
       const expireTime = 3600; // 1 hour
 
@@ -93,13 +94,13 @@ export const agoraRouter = createTRPCRouter({
       });
 
       return {
-        channelName,
+        cname: channelName,
         uid,
         token: {
           rtc: rtcToken,
           rtm: rtmToken,
         },
-        creatorId: checkChannel.creatorId,
+        isCreator: checkChannel.creatorId === session?.user.id,
       };
     }),
 
@@ -109,7 +110,79 @@ export const agoraRouter = createTRPCRouter({
         channelName: z.string(),
       }),
     )
+    .mutation(async ({ input: { channelName }, ctx: { db, session } }) => {
+      /* --- SEARCH ROOM IN DB --- */
+
+      // search room in db
+      const room = await db.room.findUnique({ where: { channelName } });
+
+      // check room
+      if (!room) {
+        console.log("Room not found");
+        throw new TRPCError({ code: "NOT_FOUND", message: "Room not found" });
+      }
+
+      // check creator
+      if (room.creatorId !== session.user.id) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
+      }
+
+      /* ---  KICK ALL USERS FROM CHANEL THEN DELETE ROOM FROM DB --- */
+
+      // get all users in room
+      const channelInfo = await getChannelInfo(channelName);
+
+      // kick all users
+      if (channelInfo?.data.users) {
+        await Promise.all(
+          channelInfo.data.users.map(async (uid) => {
+            await kickUserInChannel({
+              uid,
+              cname: channelName,
+              privileges: ["join_channel"],
+            });
+          }),
+        );
+      }
+
+	  // delete room from db
+	  await db.room.delete({where: {channelName}});
+
+    }),
+
+  kickUserFromRoom: protectedProcedure
+    .input(z.object({ cname: z.string(), uid: z.number() }))
     .mutation(async ({ input, ctx: { db, session } }) => {
-      console.log("Delete");
+      const { cname, uid } = input;
+
+      /* --- CHECK DATA --- */
+
+      // get data from db
+      const roomDb = await db.room.findUnique({
+        where: { channelName: cname },
+      });
+
+      // check room exist
+      if (!roomDb) {
+        throw new TRPCError({ code: "NOT_FOUND", message: "Room not found" });
+      }
+
+      // check creator
+      if (roomDb.creatorId !== session.user.id) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
+      }
+
+      /* --- KICK USER --- */
+
+      // try to kick user
+      const result = await kickUserInChannel({
+        uid,
+        cname,
+        privileges: ["join_channel"],
+      });
+
+      return {
+        success: result,
+      };
     }),
 });
