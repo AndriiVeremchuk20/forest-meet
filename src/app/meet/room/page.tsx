@@ -32,23 +32,12 @@ const RoomPage = () => {
   const isUserLoading = status === "loading";
 
   const [joined, setJoined] = useState<boolean>(false);
-  const [name, setName] = useState<string | null | undefined>(data?.user.name);
-  //const [credentials, setCredentials] = useState<{
-  //  rtcToken: string;
-  //  rtmToken: string;
-  //  uid: number;
-  //} | null>();
+  const [name, setName] = useState<string | null | undefined>(data?.user.name); 
 
   const getMeetCredentialsMutations = api.agora.joinToRoom.useMutation({
     onSuccess(data) {
       setMeetCredentials(data);
-	  //setCredentials({
-      //  uid: data.uid,
-      //  rtcToken: data.token.rtc,
-      //  rtmToken: data.token.rtm,
-      //});
       setJoined(true);
-      //data.creatorId
     },
     onError(error) {
       alert(error.message);
@@ -100,7 +89,6 @@ const RoomPage = () => {
         <VideoConference
           roomId={roomId}
           userName={name}
-          //credentials={credentials}
         />
       ) : (
         <Box>

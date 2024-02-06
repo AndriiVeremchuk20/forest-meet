@@ -5,7 +5,7 @@
 import { create } from "zustand";
 
 interface MeetCredentials {
-	creatorId: string;
+	isCreator: boolean;
 	uid: number;
 	cname: string;
 	token: {

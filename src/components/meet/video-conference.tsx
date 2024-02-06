@@ -36,8 +36,9 @@ interface MeetProps {
 
 const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
+
   const {meetCredentials} = useMeetStore();
-  const { uid, creatorId, token: {rtc: rtcToken, rtm: rtmToken}} = meetCredentials!;
+  const { uid, isCreator, token: {rtc: rtcToken, rtm: rtmToken}} = meetCredentials!;
 
   const router = useRouter();
 
@@ -88,6 +89,7 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
 
   useClientEvent(rtcClient, "connection-state-change", (status) => {
     if (status === "DISCONNECTED") {
+      console.log("Is Creator:", isCreator);	
       router.push("/meet/ended");
     }
   });
@@ -141,14 +143,15 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
 
         return updatedUsers;
       });
-
-      await onLeaveRoom();
     });
   };
 
   const onLeaveRoom = async () => {
     //await rtmLogout();
     //deleteRoomMutation.mutate({ channelName: roomId });
+	  if(isCreator){
+		deleteRoomMutation.mutate({channelName: roomId});
+	  }
     localCameraTrack?.close();
     localMicrophoneTrack?.close();
     await rtcClient.leave();

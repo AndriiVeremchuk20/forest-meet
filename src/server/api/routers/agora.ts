@@ -100,7 +100,7 @@ export const agoraRouter = createTRPCRouter({
           rtc: rtcToken,
           rtm: rtmToken,
         },
-        creatorId: checkChannel.creatorId,
+        isCreator: checkChannel.creatorId === session?.user.id,
       };
     }),
 
@@ -127,7 +127,7 @@ export const agoraRouter = createTRPCRouter({
         throw new TRPCError({ code: "FORBIDDEN", message: "Access denied" });
       }
 
-      /* ---  KICK ALL USERS FROM CHANEL --- */
+      /* ---  KICK ALL USERS FROM CHANEL THEN DELETE ROOM FROM DB --- */
 
       // get all users in room
       const channelInfo = await getChannelInfo(channelName);
@@ -144,6 +144,10 @@ export const agoraRouter = createTRPCRouter({
           }),
         );
       }
+
+	  // delete room from db
+	  await db.room.delete({where: {channelName}});
+
     }),
 
   kickUserFromRoom: protectedProcedure
