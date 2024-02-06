@@ -88,7 +88,11 @@ const VideoConference: FC<MeetProps> = ({ roomId, userName }) => {
   });
 
   useClientEvent(rtcClient, "connection-state-change", (status) => {
-    if (status === "DISCONNECTED") {
+    if(status === "DISCONNECTING" && isCreator) {
+		deleteRoomMutation.mutate({channelName: roomId});
+	}
+
+	if (status === "DISCONNECTED") {
       console.log("Is Creator:", isCreator);	
       router.push("/meet/ended");
     }
