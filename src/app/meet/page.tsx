@@ -30,7 +30,7 @@ const LobbyPage = () => {
   };
 
   const handleJoinClick = () => {
-    const channelName = prompt("Enter a channel name");
+    const channelName = prompt("Enter room name.");
 
     if (channelName !== null && channelName.trim() !== "") {
       setRoomId(channelName);

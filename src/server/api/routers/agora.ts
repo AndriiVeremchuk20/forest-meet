@@ -12,6 +12,24 @@ import AgoraChannelManager from "@/utils/agora-channel-manager";
 
 export const agoraRouter = createTRPCRouter({
   createRoom: protectedProcedure.mutation(async ({ ctx: { db, session } }) => {
+    /* --- CHECK USER UID --- */
+    const { id, uid } = session.user;
+    console.log(uid);
+	//const userDb = await db.user.findUnique({ where: { id } });
+
+   // if (!uid) {
+   //   throw new TRPCError({ code: "UNAUTHORIZED", message: "Server error" });
+   // }
+
+    if (!uid) {
+      const newUid = AgoraChannelManager.generateUid().toString();
+      const updateUser = await db.user.update({
+        where: { id },
+        data: { uid: newUid },
+      });
+      console.log(updateUser);
+    }
+
     // generate channel name to future room
     const channelName = AgoraChannelManager.generateChannelName();
 
@@ -47,9 +65,9 @@ export const agoraRouter = createTRPCRouter({
     .mutation(async ({ input, ctx: { db, session } }) => {
       const { AGORA_MAX_USERS_IN_CHANNEL } = env;
       const { channelName } = input;
-
+	  
       // get agora channel info
-      const channelInfo = await  AgoraApi.getChannelInfo(channelName);
+      const channelInfo = await AgoraApi.getChannelInfo(channelName);
       //console.log(channelInfo);
 
       // get room from db

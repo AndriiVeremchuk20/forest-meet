@@ -50,10 +50,10 @@ export const getChannelInfo = async (cname: string) => {
  *   @param {string} params.cname - The channel name
  *   @param {Privileges[]} params.privileges - An array of privileges.
  *
- * @returns {boolean} - The operation was successfully completed 
+ * @returns {boolean} - The operation was successfully completed
  *
  * */
-export const kickUserPrivileges= async ({
+export const kickUserPrivileges = async ({
   uid,
   cname,
   privileges,

@@ -43,6 +43,7 @@ model User {
   email         String?      @unique
   emailVerified DateTime?
   image         String?
+  uid			String?      @unique // uses as UID to Agora io
   accounts      Account[]
   sessions      Session[]
   rooms         Room[]

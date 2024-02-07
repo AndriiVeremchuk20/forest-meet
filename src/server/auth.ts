@@ -20,16 +20,17 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      //uid?: number;
+      uid?: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+   interface User {
+     uid?: string;
+	   // ...other properties
+     // role: UserRole;
+   }
 }
 
 /**
@@ -39,15 +40,30 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+  //  jwt: async ({ token, user }) => {
+  //    console.log("User")
+//	  console.log(user);
+//	  token.uid = user.uid;
+ //     return token;
+  //  },
+
+    session: async ({ session, user }) => { 
+		session = {
+			...session,
+			user: {
+				...user,
+			}
+		}
+        return session; 
+    },
   },
-  secret: env.NEXTAUTH_SECRET,
+
+  //session: {
+  //  strategy: "jwt",
+  //},
+  //jwt: {
+    secret: env.NEXTAUTH_SECRET,
+  //},
 
   adapter: PrismaAdapter(db),
 
@@ -56,7 +72,7 @@ export const authOptions: NextAuthOptions = {
       clientId: env.PROVIDER_GOOGLE_ID,
       clientSecret: env.PROVIDER_GOOGLE_SECRET,
       httpOptions: {
-        timeout: 5000,
+        timeout: 6000,
       },
     }),
   ],
