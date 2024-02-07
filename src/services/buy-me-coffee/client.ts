@@ -1,3 +1,5 @@
+// create Buy me a coffe API client
+
 import { env } from "@/env";
 import ky from "ky";
 
