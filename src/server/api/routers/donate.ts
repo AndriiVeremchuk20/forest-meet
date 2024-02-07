@@ -1,7 +1,7 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import BMC from "@/services/buy-me-coffe";
 export const donateRouter = createTRPCRouter({
-  getSupportesr: publicProcedure.query(async ({ ctx: { db, session } }) => {
+  getSupportesr: publicProcedure.query(async () => {
     const supporters = await BMC.getAllSupporters();
 
     //const supportersEmails = supporters.map(({ payer_email }) => payer_email);

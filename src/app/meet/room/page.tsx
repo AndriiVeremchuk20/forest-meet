@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ReloadPageButton } from "@/components/button";
-import {useMeetStore} from "@/store";
+import { useMeetStore } from "@/store";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
@@ -20,19 +20,19 @@ const VideoConference = dynamic(
 
 const UserPreview = dynamic(
   () => import("../../../components/meet/user-preview"),
-  { ssr: false, loading: ()=> <Loader/> },
+  { ssr: false, loading: () => <Loader /> },
 );
 
 // getting a room id from  search params like: (meet/room?id=potato-home-monkey)
 const RoomPage = () => {
   const router = useRouter();
   const roomId = useRoomId();
-  const {meetCredentials, setMeetCredentials} = useMeetStore();
+  const { meetCredentials, setMeetCredentials } = useMeetStore();
   const { data, status } = useSession();
   const isUserLoading = status === "loading";
 
   const [joined, setJoined] = useState<boolean>(false);
-  const [name, setName] = useState<string | null | undefined>(data?.user.name); 
+  const [name, setName] = useState<string | null | undefined>(data?.user.name);
 
   const getMeetCredentialsMutations = api.agora.joinToRoom.useMutation({
     onSuccess(data) {
@@ -86,9 +86,7 @@ const RoomPage = () => {
   return (
     <main className="h-screen">
       {meetCredentials && name ? (
-        <VideoConference
-          userName={name}
-        />
+        <VideoConference userName={name} />
       ) : (
         <Box>
           <h1>Something wrong.. Try reload page</h1> <ReloadPageButton />
