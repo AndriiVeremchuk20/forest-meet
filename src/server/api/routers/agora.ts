@@ -6,7 +6,7 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { getChannelInfo, kickUserInChannel } from "@/services/agora";
+import AgoraApi from "@/services/agora";
 import { env } from "@/env";
 import AgoraChannelManager from "@/utils/agora-channel-manager";
 
@@ -49,7 +49,7 @@ export const agoraRouter = createTRPCRouter({
       const { channelName } = input;
 
       // get agora channel info
-      const channelInfo = await getChannelInfo(channelName);
+      const channelInfo = await  AgoraApi.getChannelInfo(channelName);
       //console.log(channelInfo);
 
       // get room from db
@@ -130,13 +130,13 @@ export const agoraRouter = createTRPCRouter({
       /* ---  KICK ALL USERS FROM CHANEL THEN DELETE ROOM FROM DB --- */
 
       // get all users in room
-      const channelInfo = await getChannelInfo(channelName);
+      const channelInfo = await AgoraApi.getChannelInfo(channelName);
 
       // kick all users
       if (channelInfo?.data.users) {
         await Promise.all(
           channelInfo.data.users.map(async (uid) => {
-            await kickUserInChannel({
+            await AgoraApi.kickUserPrivileges({
               uid,
               cname: channelName,
               privileges: ["join_channel"],
@@ -174,7 +174,7 @@ export const agoraRouter = createTRPCRouter({
       /* --- KICK USER --- */
 
       // try to kick user
-      const result = await kickUserInChannel({
+      const result = await AgoraApi.kickUserPrivileges({
         uid,
         cname,
         privileges: ["join_channel"],

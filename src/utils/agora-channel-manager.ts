@@ -7,7 +7,6 @@ const {
   AGORA_APP_CERTIFICATE: APP_CERTIFICATE,
 } = env;
 
-
 /*
  * The function to generate channel names
  *
@@ -32,22 +31,22 @@ const generateUid = () => {
 };
 
 /*
- * The function to generate Agora RTC token 
+ * The function to generate Agora RTC token
  * @params {object} - An object containing parameters for generating the token
  *	@param {number} uid - The user UID
  *	@param {string} channelName - The name of channel
  *	@param {string} expireTime - The exparition time of the token in a seconds
  *
- *	@returns {string} - The generated RTC token 
+ *	@returns {string} - The generated RTC token
  * */
 const generateRtcToken = ({
   uid,
   channelName,
   expireTime,
 }: {
-	uid: number,
-	channelName: string,
-	expireTime: number,
+  uid: number;
+  channelName: string;
+  expireTime: number;
 }) => {
   //calculate privilege expire time
   const currentTime: number = Math.floor(Date.now() / 1000);
@@ -68,12 +67,12 @@ const generateRtcToken = ({
 };
 
 /*
- * The function to generate Agora RTM token 
+ * The function to generate Agora RTM token
  * @params {object} - An object containing parameters for generating the token
  *	@param {number} uid - The user UID
  *	@param {string} expireTime - The exparition time of the token in a seconds
  *
- *	@returns {string} - The generated RTM token 
+ *	@returns {string} - The generated RTM token
  * */
 const generateRtmToken = ({
   uid,
@@ -82,7 +81,6 @@ const generateRtmToken = ({
   uid: string;
   expireTime: number;
 }) => {
- 
   // generate rtm token
   const token = RtmTokenBuilder.buildToken(
     APP_ID,

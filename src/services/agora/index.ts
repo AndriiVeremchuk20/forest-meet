@@ -1,10 +1,10 @@
 import { env } from "@/env";
-import ky from "ky";
 import type {
   ChannelInfoResponse,
   KickUserChannelResponse,
   Privileges,
 } from "./types";
+import AgoraApiClient from "./client";
 
 /*
  * Usage Agora REST API
@@ -14,20 +14,22 @@ import type {
  *
  */
 
-const BASE_URL = "http://api.agora.io/dev/v1/";
+const { NEXT_PUBLIC_AGORA_APP_ID: APP_ID } = env;
 
-const { NEXT_PUBLIC_AGORA_APP_ID: APP_ID, AGORA_KEY, AGORA_SECRET } = env;
-const credential = `${AGORA_KEY}:${AGORA_SECRET}`;
-const AuthorizationHeader = `Basic ${btoa(credential)}`; // convert crredential to base-64
-
-const AgoraApiClient = ky.create({
-  prefixUrl: BASE_URL,
-  headers: {
-    "content-type": "application/json",
-    Authorization: AuthorizationHeader,
-  },
-});
-
+/*
+ * The function returned channel info such as (channel_exist, users, total users in channel)
+ *
+ * @param {string} chame - The name of agora channel
+ *
+ * @returns {Object} - An object representing the response.
+ *  @property {boolean} success - Indicates if the operation was successful.
+ *  @property {Object} data - The data object containing additional information.
+ *    @property {boolean} channel_exist - Indicates if the channel exists.
+ *    @property {boolean} mode - The mode.
+ *    @property {number} total - The total count.
+ *    @property {number[]} users - An array containing user IDs.
+ *
+ * */
 export const getChannelInfo = async (cname: string) => {
   const queryString = ["channel/user", APP_ID, cname].join("/");
   try {
@@ -40,7 +42,18 @@ export const getChannelInfo = async (cname: string) => {
   }
 };
 
-export const kickUserInChannel = async ({
+/*
+ * The function to kick user privileges
+ *
+ * @params {Object} params - The object contain parameters to kick user privilege
+ *   @param {number} params.uid - The user UID
+ *   @param {string} params.cname - The channel name
+ *   @param {Privileges[]} params.privileges - An array of privileges.
+ *
+ * @returns {boolean} - The operation was successfully completed 
+ *
+ * */
+export const kickUserPrivileges= async ({
   uid,
   cname,
   privileges,
@@ -71,3 +84,10 @@ export const kickUserInChannel = async ({
     return false;
   }
 };
+
+const AgoraApi = {
+  getChannelInfo,
+  kickUserPrivileges,
+};
+
+export default AgoraApi;
