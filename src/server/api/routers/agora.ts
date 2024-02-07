@@ -5,15 +5,15 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import AgoraServices from "@/utils/agora";
 import { TRPCError } from "@trpc/server";
 import { getChannelInfo, kickUserInChannel } from "@/services/agora";
 import { env } from "@/env";
+import AgoraChannelManager from "@/utils/agora-channel-manager";
 
 export const agoraRouter = createTRPCRouter({
   createRoom: protectedProcedure.mutation(async ({ ctx: { db, session } }) => {
     // generate channel name to future room
-    const channelName = await AgoraServices.generateChannelName();
+    const channelName = AgoraChannelManager.generateChannelName();
 
     // check if channel name is not exist
     const checkExist = await db.room.findUnique({ where: { channelName } });
@@ -79,16 +79,16 @@ export const agoraRouter = createTRPCRouter({
 
       /* --- TOKEN GENERATIONS --- */
 
-      const uid = AgoraServices.generateUid();
+      const uid = AgoraChannelManager.generateUid();
       const expireTime = 3600; // 1 hour
 
-      const rtcToken = AgoraServices.token.rtc({
+      const rtcToken = AgoraChannelManager.generateRtcToken({
         uid,
         channelName,
         expireTime,
       });
 
-      const rtmToken = AgoraServices.token.rtm({
+      const rtmToken = AgoraChannelManager.generateRtmToken({
         uid: uid.toString(),
         expireTime,
       });
@@ -145,9 +145,8 @@ export const agoraRouter = createTRPCRouter({
         );
       }
 
-	  // delete room from db
-	  await db.room.delete({where: {channelName}});
-
+      // delete room from db
+      await db.room.delete({ where: { channelName } });
     }),
 
   kickUserFromRoom: protectedProcedure

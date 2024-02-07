@@ -1,28 +1,26 @@
 /*
- * Store to save meet credentials 
+ * Store to save meet credentials
  */
 
 import { create } from "zustand";
 
 interface MeetCredentials {
-	isCreator: boolean;
-	uid: number;
-	cname: string;
-	token: {
-		rtc: string,
-		rtm: string,
-	}
+  isCreator: boolean;
+  uid: number;
+  cname: string;
+  token: {
+    rtc: string;
+    rtm: string;
+  };
 }
 
-
 interface ThemeState {
-  meetCredentials: MeetCredentials|null;
+  meetCredentials: MeetCredentials | null;
   setMeetCredentials: (value: MeetCredentials) => void;
 }
 
-export const useMeetStore = create<ThemeState>()(
-    (set) => ({
-      meetCredentials: null,
-      setMeetCredentials: (value: MeetCredentials) => set({ meetCredentials: value }),
-    }) 
-);
+export const useMeetStore = create<ThemeState>()((set) => ({
+  meetCredentials: null,
+  setMeetCredentials: (value: MeetCredentials) =>
+    set({ meetCredentials: value }),
+}));

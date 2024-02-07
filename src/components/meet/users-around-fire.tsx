@@ -11,6 +11,8 @@ import {
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
 import { ChainSaw, MicrophoneOff } from "../svgs";
+import { useMeetStore } from "@/store";
+import { api } from "@/trpc/react";
 
 type UserCss = {
   radius: string;
@@ -53,10 +55,18 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
     transform: `rotate(${css.rotate}deg) translate(${css.radius}px) rotate(${css.rotateReverse}deg)`,
   };
 
-  const volumeLevel = useVolumeLevel(user.audioTrack);
   const { hasAudio, hasVideo } = user;
+  const { meetCredentials } = useMeetStore();
+  const { isCreator, cname, uid } = meetCredentials!;
 
+  const volumeLevel = useVolumeLevel(user.audioTrack);
   const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
+
+  const kickUserMutations = api.agora.kickUserFromRoom.useMutation();
+
+  const handleKickClick = () => {
+    kickUserMutations.mutate({ cname, uid });
+  };
 
   useEffect(() => {
     if (hasAudio && parseVolumeLevel(volumeLevel) > 20) {
@@ -86,9 +96,11 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
         playAudio={true}
         className={`${!hasVideo ? "hidden" : "block"}`}
       />
-      <button>
-        <ChainSaw className="h-[40px] w-[30px]" />
-      </button>
+      {isCreator && (
+        <button onClick={handleKickClick}>
+          <ChainSaw className="absolute bottom-3 left-3 z-10 h-[40px] w-[30px]" />
+        </button>
+      )}
     </div>
   );
 };

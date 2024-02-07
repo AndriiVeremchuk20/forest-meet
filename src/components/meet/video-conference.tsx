@@ -21,7 +21,7 @@ import { ReloadPageButton } from "../button";
 import { EnsureCallQuality } from "../agora/ensure-call-quality";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
-import {useMeetStore} from "@/store";
+import { useMeetStore } from "@/store";
 
 const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
   ssr: false,
@@ -29,14 +29,19 @@ const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
 });
 
 interface MeetProps {
-  userName: string; 
+  userName: string;
 }
 
 const VideoConference: FC<MeetProps> = ({ userName }) => {
   const APP_ID = env.NEXT_PUBLIC_AGORA_APP_ID;
 
-  const {meetCredentials} = useMeetStore();
-  const { uid, cname, isCreator, token: {rtc: rtcToken, rtm: rtmToken}} = meetCredentials!;
+  const { meetCredentials } = useMeetStore();
+  const {
+    uid,
+    cname,
+    isCreator,
+    token: { rtc: rtcToken, rtm: rtmToken },
+  } = meetCredentials!;
 
   const router = useRouter();
 
@@ -86,11 +91,12 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
   });
 
   useClientEvent(rtcClient, "connection-state-change", (status) => {
-    if(status === "DISCONNECTING" && isCreator) {
-		deleteRoomMutation.mutate({channelName: cname});
-	}
+    console.log(status);
+    if (status === "DISCONNECTING" && isCreator) {
+      deleteRoomMutation.mutate({ channelName: cname });
+    }
 
-	if (status === "DISCONNECTED") {
+    if (status === "DISCONNECTED") {
       router.push("/meet/ended");
     }
   });
@@ -147,10 +153,10 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
     });
   };
 
-  const onLeaveRoom = async () => { 
-	if(isCreator){
-		deleteRoomMutation.mutate({channelName: cname});
-	  }
+  const onLeaveRoom = async () => {
+    if (isCreator) {
+      deleteRoomMutation.mutate({ channelName: cname });
+    }
     localCameraTrack?.close();
     localMicrophoneTrack?.close();
     await rtcClient.leave();
