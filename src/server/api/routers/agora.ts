@@ -97,7 +97,7 @@ export const agoraRouter = createTRPCRouter({
 
       /* --- TOKEN GENERATIONS --- */
 
-      const uid = AgoraChannelManager.generateUid();
+      const uid = session?.user.uid? Number(session.user.uid) : AgoraChannelManager.generateUid();
       const expireTime = 3600; // 1 hour
 
       const rtcToken = AgoraChannelManager.generateRtcToken({
