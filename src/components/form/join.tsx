@@ -7,6 +7,7 @@ import { Button } from "../common";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
+import { checkUrl } from "@/utils/check-url";
 
 const JoinSchema = z.object({
   cname: z.string().min(5, "Too short").max(500, "Too long"),
@@ -29,11 +30,23 @@ export const JoinForm: FC<JoinFormProps> = ({ onCancel }) => {
 
   const checkChannelMutation = api.agora.checkChannelName.useMutation();
 
-  const onSubmit: SubmitHandler<JoinSchemaType> = async ({ cname }) => {
+  const onSubmit: SubmitHandler<JoinSchemaType> = async (data) => {
+    let cname = data.cname;
+
+    const mbUrl = checkUrl(cname);
+    if (mbUrl) {
+      const params = mbUrl.searchParams;
+      const mbCname = params.get("id");
+
+      if (!mbCname) {
+        return setError("cname", { message: "Invalid link" });
+      }
+
+      cname = mbCname;
+    }
+
     const res = await checkChannelMutation.mutateAsync({ cname });
     console.log(res);
-
-    // add logic to check url
 
     if (!res) {
       return setError("cname", { message: "Channel not found" });
@@ -48,11 +61,13 @@ export const JoinForm: FC<JoinFormProps> = ({ onCancel }) => {
       className="border-[10px] border-green-500 bg-green-500 bg-opacity-60 p-5 dark:border-blue-800 dark:bg-blue-500 dark:bg-opacity-40"
     >
       <div className="mx-1 my-4">
-        <label className="text-3xl" htmlFor="cname">Channel name:</label>
+        <label className="text-3xl" htmlFor="cname">
+          Channel name:
+        </label>
         <input
           type="text"
-		  id="cname"
-		  autoFocus={true}
+          id="cname"
+          autoFocus={true}
           className={`w-full border-b-[4px] bg-inherit p-2 outline-none placeholder:text-neutral-300 dark:placeholder:text-neutral-50  ${errors.cname ? "border-red-600" : "border-green-800  dark:border-blue-900"}`}
           placeholder="Channel name or link"
           {...register("cname")}
