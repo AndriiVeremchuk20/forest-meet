@@ -26,11 +26,11 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 
-   interface User {
-     uid?: string;
-	   // ...other properties
-     // role: UserRole;
-   }
+  interface User {
+    uid?: string;
+    // ...other properties
+    // role: UserRole;
+  }
 }
 
 /**
@@ -40,21 +40,21 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-  //  jwt: async ({ token, user }) => {
-  //    console.log("User")
-//	  console.log(user);
-//	  token.uid = user.uid;
- //     return token;
-  //  },
+    //  jwt: async ({ token, user }) => {
+    //    console.log("User")
+    //	  console.log(user);
+    //	  token.uid = user.uid;
+    //     return token;
+    //  },
 
-    session: async ({ session, user }) => { 
-		session = {
-			...session,
-			user: {
-				...user,
-			}
-		}
-        return session; 
+    session: async ({ session, user }) => {
+      session = {
+        ...session,
+        user: {
+          ...user,
+        },
+      };
+      return session;
     },
   },
 
@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
   //  strategy: "jwt",
   //},
   //jwt: {
-    secret: env.NEXTAUTH_SECRET,
+  secret: env.NEXTAUTH_SECRET,
   //},
 
   adapter: PrismaAdapter(db),
