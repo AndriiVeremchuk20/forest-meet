@@ -15,11 +15,11 @@ export const agoraRouter = createTRPCRouter({
     /* --- CHECK USER UID --- */
     const { id, uid } = session.user;
     console.log(uid);
-	//const userDb = await db.user.findUnique({ where: { id } });
+    //const userDb = await db.user.findUnique({ where: { id } });
 
-   // if (!uid) {
-   //   throw new TRPCError({ code: "UNAUTHORIZED", message: "Server error" });
-   // }
+    // if (!uid) {
+    //   throw new TRPCError({ code: "UNAUTHORIZED", message: "Server error" });
+    // }
 
     if (!uid) {
       const newUid = AgoraChannelManager.generateUid().toString();
@@ -65,7 +65,7 @@ export const agoraRouter = createTRPCRouter({
     .mutation(async ({ input, ctx: { db, session } }) => {
       const { AGORA_MAX_USERS_IN_CHANNEL } = env;
       const { channelName } = input;
-	  
+
       // get agora channel info
       const channelInfo = await AgoraApi.getChannelInfo(channelName);
       //console.log(channelInfo);
@@ -97,7 +97,9 @@ export const agoraRouter = createTRPCRouter({
 
       /* --- TOKEN GENERATIONS --- */
 
-      const uid = session?.user.uid? Number(session.user.uid) : AgoraChannelManager.generateUid();
+      const uid = session?.user.uid
+        ? Number(session.user.uid)
+        : AgoraChannelManager.generateUid();
       const expireTime = 3600; // 1 hour
 
       const rtcToken = AgoraChannelManager.generateRtcToken({
@@ -201,5 +203,15 @@ export const agoraRouter = createTRPCRouter({
       return {
         success: result,
       };
+    }),
+  checkChannelName: publicProcedure
+    .input(z.object({ cname: z.string() }))
+    .mutation(async ({ input, ctx: { db } }) => {
+      const { cname } = input;
+      const checkChannel = await db.room.findUnique({
+        where: { channelName: cname },
+      });
+
+      return !!checkChannel;
     }),
 });
