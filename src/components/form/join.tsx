@@ -8,7 +8,6 @@ import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 import type { FC } from "react";
 import { checkUrl } from "@/utils/check-url";
-import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
 
 const JoinSchema = z.object({
   cname: z.string().min(5, "Too short").max(500, "Too long"),

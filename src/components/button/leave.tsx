@@ -18,7 +18,7 @@ export const LeaveButton: FC<LeaveButtonProps> = () => {
     //  media?.getTracks().forEach((track) => track.stop());
     // }
 
-    router.replace("/meet/ended/");
+    router.replace("/meet/end/");
   };
 
   return (
