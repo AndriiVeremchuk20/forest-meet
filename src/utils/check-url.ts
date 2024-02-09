@@ -3,15 +3,15 @@
  *
  * @param {string} mbUrl - string to checking
  *
- * @returns {boolean} - is the string a URL
+ * @returns {URL | null} - is the string a URL
  *
  *
  * */
 
-export const isUrl = (mbUrl: string) => {
+export const checkUrl = (mbUrl: string) => {
   try {
-    return Boolean(new URL(mbUrl));
+    return new URL(mbUrl);
   } catch (error) {
-    return false;
+    return null;
   }
 };
