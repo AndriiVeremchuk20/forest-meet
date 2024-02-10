@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ReloadPageButton } from "@/components/button";
 import { useMeetStore } from "@/store";
+import {BackButton} from "@/components/button/back";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
@@ -73,8 +74,9 @@ const RoomPage = () => {
         <div className="flex h-full flex-col items-center justify-center gap-3 ">
           <div className="">{<UserPreview />}</div>
           {!data?.user.name && <InputName onInputChange={setName} />}
-          <div className="grid grid-cols-3">
-            <ToggleCameraButton />
+          <div className="grid grid-cols-4">
+			<BackButton/>
+			<ToggleCameraButton />
             <ToggleAudioButton />
             <Button onClick={handleGoClick}>Go</Button>
           </div>

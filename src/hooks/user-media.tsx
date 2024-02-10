@@ -15,7 +15,7 @@ export const useUserMedia = (conf: UseUserMediaParams) => {
       }),
     {
       enabled: true,
-      refetchOnMount: false,
+      refetchOnMount: true,
       refetchOnWindowFocus: false,
     },
   );

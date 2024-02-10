@@ -26,7 +26,7 @@ const UserPreview = () => {
 
   if (media) {
     return (
-      <div className="border-orange-900 bg-neutral-400">
+      <div className="border-[5px] border-orange-900 bg-neutral-400">
         {isLoading ? (
           <div>Loading</div>
         ) : (
@@ -39,7 +39,7 @@ const UserPreview = () => {
             autoPlay
             playsInline
             muted
-            className="h-[300px] w-[300px]"
+            className="h-[300px] w-[400px]"
           />
         )}
       </div>
@@ -47,7 +47,7 @@ const UserPreview = () => {
   } else {
     return (
       <div className="h-full w-full bg-neutral-400">
-        <Image src={"/user.png"} width={200} height={200} alt="user" />
+        <Image src={"/user.png"} width={400} height={300} alt="user" />
       </div>
     );
   }
