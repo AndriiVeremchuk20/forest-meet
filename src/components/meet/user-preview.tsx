@@ -1,7 +1,7 @@
 import { useUserMedia } from "@/hooks";
 import { useMediaControlStore } from "@/store";
 import Image from "next/image";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 const UserPreview = () => {
   const { enabledMicro, enabledCamera } = useMediaControlStore();
@@ -53,4 +53,4 @@ const UserPreview = () => {
   }
 };
 
-export default UserPreview;
+export default memo(UserPreview);
