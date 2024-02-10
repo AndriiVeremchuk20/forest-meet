@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ReloadPageButton } from "@/components/button";
 import { useMeetStore } from "@/store";
-import {BackButton} from "@/components/button/back";
+import { BackButton } from "@/components/button/back";
 
 const VideoConference = dynamic(
   () => import("../../../components/meet/video-conference"),
@@ -42,7 +42,7 @@ const RoomPage = () => {
     },
     onError(error) {
       alert(error.message);
-      router.replace("/meet/");
+      router.replace(`/meet/room?id=${roomId}`);
     },
   });
 
@@ -75,8 +75,8 @@ const RoomPage = () => {
           <div className="">{<UserPreview />}</div>
           {!data?.user.name && <InputName onInputChange={setName} />}
           <div className="grid grid-cols-4">
-			<BackButton/>
-			<ToggleCameraButton />
+            <BackButton />
+            <ToggleCameraButton />
             <ToggleAudioButton />
             <Button onClick={handleGoClick}>Go</Button>
           </div>
@@ -90,7 +90,7 @@ const RoomPage = () => {
       {meetCredentials && name ? (
         <VideoConference userName={name} />
       ) : (
-        <Box>
+        <Box className="flex flex-col gap-2 p-5">
           <h1>Something wrong.. Try reload page</h1> <ReloadPageButton />
         </Box>
       )}

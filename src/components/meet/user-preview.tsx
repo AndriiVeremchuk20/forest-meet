@@ -47,7 +47,13 @@ const UserPreview = () => {
   } else {
     return (
       <div className="h-full w-full bg-neutral-400">
-        <Image src={"/user.png"} width={400} height={300} alt="user" />
+        <Image
+          src={"/user.png"}
+          width={400}
+          height={300}
+          className="h-[300px] w-[400px]"
+          alt="user"
+        />
       </div>
     );
   }

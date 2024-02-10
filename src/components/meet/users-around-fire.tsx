@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, type FC } from "react";
+import React, { useState, useEffect, type FC, memo } from "react";
 import { NextImage } from "../common";
 import {
   LocalVideoTrack,
@@ -201,6 +201,7 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
 
   useEffect(() => {
     buildCircle();
+    // eslint-disable-line
   }, [remoteUsers, radius]);
 
   return (
@@ -226,4 +227,4 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
   );
 };
 
-export default UsersAroundFire;
+export default memo(UsersAroundFire);
