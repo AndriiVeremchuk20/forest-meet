@@ -21,7 +21,8 @@ import { ReloadPageButton } from "../button";
 import { EnsureCallQuality } from "../agora/ensure-call-quality";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
-import { useMeetStore } from "@/store";
+import { useMediaControlStore, useMeetStore } from "@/store";
+import Routes from "@/config/routes";
 
 const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
   ssr: false,
@@ -44,6 +45,7 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
   } = meetCredentials!;
 
   const router = useRouter();
+  const { enabledMicro, enabledCamera } = useMediaControlStore();
 
   const rtcClient = useRTCClient(); // agora RTC client
   const rtmClient = useRtmClient(); // agora RTM client
@@ -97,7 +99,7 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
     }
 
     if (status === "DISCONNECTED") {
-      router.push("/meet/end");
+      router.push(Routes.meetEnd);
     }
   });
 
@@ -174,6 +176,15 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    localCameraTrack
+      ?.setMuted(!enabledCamera)
+      .catch((error) => console.log(error));
+    localMicrophoneTrack
+      ?.setMuted(!enabledMicro)
+      .catch((error) => console.log(error));
+  }, [localCameraTrack, localMicrophoneTrack, enabledMicro, enabledCamera]);
 
   if (isLoadingDevice || isLoadingJoin) {
     return (

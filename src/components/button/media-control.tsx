@@ -21,7 +21,7 @@ export const ToggleCameraButton = () => {
       onClick={handleClick}
       className={`px-3 py-2 text-white hover:opacity-50`}
     >
-      {!enabledCamera ? (
+      {enabledCamera ? (
         <CameraOnIcon className="h-[40px] w-[60px]" />
       ) : (
         <CameraOffIcon className="h-[40px] w-[60px]" />
@@ -45,7 +45,7 @@ export const ToggleAudioButton = () => {
       onClick={handleClick}
       className="w-fit px-3 py-2 text-white hover:opacity-50"
     >
-      {!enabledMicro ? (
+      {enabledMicro ? (
         <MicrophoneOnIcon className="h-[40px] w-[40px]" />
       ) : (
         <MicrophoneOffIcon className="h-[40px] w-[40px]" />

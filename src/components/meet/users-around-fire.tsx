@@ -33,7 +33,7 @@ const LocalUserPlayer: FC<LocalUserPlayerProps> = ({ cameraTrack, css }) => {
   return (
     <div
       style={dynamicStyle}
-      className="absolute left-0 h-[100px] w-[100px] transform border-[5px] border-red-800  bg-red-500 text-white backdrop-blur-md transition-all duration-1000 ease-linear laptop:h-[120px] laptop:w-[120px]"
+      className="absolute left-0 h-[110px] w-[110px] transform border-[5px] border-red-800  bg-red-500 text-white backdrop-blur-md transition-all duration-1000 ease-linear laptop:h-[140px] laptop:w-[140px]"
     >
       <LocalVideoTrack track={cameraTrack} play={true} />
     </div>
@@ -78,7 +78,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
 
   return (
     <div
-      className={`absolute left-0 h-[100px] w-[100px] transform border-[5px]  bg-neutral-400 text-white transition-all duration-1000 ease-linear  laptop:h-[120px] laptop:w-[120px] ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
+      className={`absolute left-0 h-[110px] w-[110px] transform border-[5px]  bg-neutral-400 text-white transition-all duration-1000 ease-linear  laptop:h-[140px] laptop:w-[140px] ${isSpeaker ? "border-green-600" : "border-orange-900"}`}
       style={dynamicStyle}
     >
       {!hasAudio && (

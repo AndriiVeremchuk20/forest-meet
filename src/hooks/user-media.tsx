@@ -1,13 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface UseUserMediaParams {
-  audio: boolean;
-  video: boolean;
-}
-
-export const useUserMedia = (conf: UseUserMediaParams) => {
+export const useUserMedia = (conf: { audio: boolean; video: boolean }) => {
   const userMedia = useQuery(
-    ["user-media", conf.video],
+    ["user-media", conf.video, conf.audio],
     async () =>
       await navigator.mediaDevices.getUserMedia({
         audio: conf.audio,
@@ -19,6 +14,10 @@ export const useUserMedia = (conf: UseUserMediaParams) => {
       refetchOnWindowFocus: false,
     },
   );
+
+  if (userMedia.isError) {
+    return { media: null, isLoading: false };
+  }
 
   return { media: userMedia.data, isLoading: userMedia.isLoading };
 };
