@@ -98,7 +98,7 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
     }
 
     if (status === "DISCONNECTED") {
-      router.push("/meet/ended");
+      router.push("/meet/end");
     }
   });
 

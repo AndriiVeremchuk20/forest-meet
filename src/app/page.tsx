@@ -1,16 +1,7 @@
-"use client";
-
-import { useSession } from "next-auth/react";
-import AppLoading from "./loading";
 import { NextLink, Box } from "@/components/common";
+import {getServerAuthSession} from "@/server/auth";
 
-const Home = () => {
-  const { status } = useSession();
-
-  if (status === "loading") {
-    return <AppLoading />;
-  }
-
+const Home = async() => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center">
       <h1 className="animate-fade animate-once phone:text-3xl tablet:text-5xl desktop:text-8xl">
@@ -36,11 +27,11 @@ const IntroText = () => {
   );
 };
 
-const Links = () => {
-  const { data } = useSession();
+const Links = async() => {
+  const session = await getServerAuthSession();
   return (
     <div className="">
-      {data?.user ? (
+      {session?.user ? (
         <NextLink href="/meet/" type="button">
           Go To Forest Meet
         </NextLink>
