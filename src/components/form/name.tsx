@@ -13,7 +13,7 @@ const InputName: FC<NameFormProps> = ({ onInputChange }) => {
         id="name"
         maxLength={50}
         onChange={(e) => onInputChange(e.target.value)}
-        className="border-b-[4px] border-green-400 bg-inherit outline-none dark:border-blue-900"
+        className="border-b-[4px] border-green-400 bg-blue-500 bg-opacity-30 outline-none dark:border-blue-900"
       />
     </div>
   );

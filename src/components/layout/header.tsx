@@ -89,7 +89,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="absolute top-20 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:left-0 phone:w-full tablet:w-full laptop:left-2/3 desktop:w-[500px]">
+    <nav className="fixed top-24 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 laptop:w-[500px] phone:w-full right-0">
       <Link href={"*"} className="flex space-x-2 p-2 duration-150 hover:ml-2">
         <MonkeyIcon width={50} height={50} />
         <span>Profile (Not working)</span>
@@ -114,7 +114,7 @@ const Nav = () => {
       >
         <RopeIcon width={50} height={50} /> <span>Sign out</span>
       </div>
-    </div>
+    </nav>
   );
 };
 
