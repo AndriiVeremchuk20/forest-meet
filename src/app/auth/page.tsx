@@ -1,8 +1,8 @@
 import { GoogleButton, SingOutButton } from "@/components/button/auth";
-import {getServerAuthSession} from "@/server/auth";
+import { getServerAuthSession } from "@/server/auth";
 import Link from "next/link";
 
-const AuthPage = async() => {
+const AuthPage = async () => {
   const sesion = await getServerAuthSession();
 
   return (

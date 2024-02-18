@@ -1,5 +1,7 @@
 import { NextLink, Box } from "@/components/common";
-import {getServerAuthSession} from "@/server/auth";
+import { LogoIcon } from "@/components/svgs";
+import Routes from "@/config/routes";
+import { getServerAuthSession } from "@/server/auth";
 
 const Home = () => {
   return (
@@ -27,24 +29,17 @@ const IntroText = () => {
   );
 };
 
-const Links = async() => {
+const Links = async () => {
   const session = await getServerAuthSession();
   return (
-    <div className="">
-      {session?.user ? (
-        <NextLink href="/meet/" type="button">
-          Go To Forest Meet
+    <div className="laptot:flex-row flex space-y-2 phone:flex-col">
+      <NextLink href={Routes.meetBase} type="button">
+        Go To Forest Meet <LogoIcon />
+      </NextLink>
+      {!session?.user && (
+        <NextLink href={"/auth/"} type="button">
+          Sign in
         </NextLink>
-      ) : (
-        <div className="flex space-x-3">
-          <NextLink href={"/meet/"} type="button">
-            Join
-          </NextLink>
-
-          <NextLink href={"/auth/"} type="button">
-            Sign in
-          </NextLink>
-        </div>
       )}
     </div>
   );

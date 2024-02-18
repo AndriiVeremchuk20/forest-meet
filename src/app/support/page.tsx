@@ -1,8 +1,9 @@
-import { cookies } from "next/headers";
+//import { cookies } from "next/headers";
 
 import { Box, NextImage } from "@/components/common";
-import { Coffee, DeerFrame } from "@/components/svgs";
+import { CoffeeIcon, DeerFrameIcon } from "@/components/svgs";
 import { api } from "@/trpc/server";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 async function getCookieData() {
@@ -14,10 +15,10 @@ async function getCookieData() {
   );
 }
 
-const DonatePage = async () => {
-  const cookieData = await getCookieData();
+const BMCLink = "https://www.buymeacoffee.com/andriiveremchuk";
 
-  const BMCLink = "https://www.buymeacoffee.com/andriiveremchuk";
+const DonatePage = async () => {
+  await getCookieData();
   const supporters = await api.donate.getSupportesr.query();
 
   return (
@@ -30,7 +31,10 @@ const DonatePage = async () => {
           href={BMCLink}
           className="flex animate-bounce items-center justify-center bg-orange-800 duration-150 animate-duration-[3000ms] animate-infinite hover:bg-orange-900 active:bg-orange-900"
         >
-          <Coffee width={10} className="h-[80px] w-[80px] bg-orange-400 p-2" />
+          <CoffeeIcon
+            width={10}
+            className="h-[80px] w-[80px] bg-orange-400 p-2"
+          />
           <span className="px-5 text-5xl">Support</span>
         </Link>
       </Box>
@@ -56,7 +60,7 @@ const DonatePage = async () => {
 const UserInFrame = ({ avatar }: { avatar: string }) => {
   return (
     <div className="felx block items-center justify-center phone:w-[150px] laptop:w-[200px]">
-      <DeerFrame width={150} height={100} />
+      <DeerFrameIcon width={150} height={100} />
       <NextImage
         src={avatar}
         className="absolute left-[45px] top-[40px] -z-10 w-[60px] backdrop-blur-md"

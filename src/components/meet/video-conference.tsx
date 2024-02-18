@@ -22,7 +22,6 @@ import { EnsureCallQuality } from "../agora/ensure-call-quality";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { useMeetStore } from "@/store";
-import {People} from "../svgs";
 
 const UsersAroundFire = dynamic(() => import("./users-around-fire"), {
   ssr: false,
@@ -200,8 +199,7 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
 
   return (
     <EnsureCallQuality localCameraTrack={localCameraTrack}>
-      
-	  <TimeControl>
+      <TimeControl>
         <div className="flex h-screen w-full items-center justify-center">
           {/*audio that used when users joined and leave*/}
           <JoinLeaveSounds
