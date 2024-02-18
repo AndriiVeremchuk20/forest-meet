@@ -1,7 +1,7 @@
 import { NextLink, Box } from "@/components/common";
 import {getServerAuthSession} from "@/server/auth";
 
-const Home = async() => {
+const Home = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center">
       <h1 className="animate-fade animate-once phone:text-3xl tablet:text-5xl desktop:text-8xl">

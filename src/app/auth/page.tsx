@@ -1,20 +1,13 @@
-"use client";
-
 import { GoogleButton, SingOutButton } from "@/components/button/auth";
-import Loader from "@/components/loader";
-import { useSession } from "next-auth/react";
+import {getServerAuthSession} from "@/server/auth";
 import Link from "next/link";
 
-const AuthPage = () => {
-  const { status } = useSession();
-
-  if (status === "loading") {
-    return <Loader />;
-  }
+const AuthPage = async() => {
+  const sesion = await getServerAuthSession();
 
   return (
     <main className="flex h-screen items-center justify-center">
-      {status !== "authenticated" ? <SignInForm /> : <SuccessMessage />}
+      {!sesion?.user ? <SignInForm /> : <SuccessMessage />}
     </main>
   );
 };
