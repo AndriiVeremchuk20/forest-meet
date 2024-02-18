@@ -1,5 +1,5 @@
 import { NextLink, Box } from "@/components/common";
-import {CoffeeIcon, LogoIcon, MonkeyIcon} from "@/components/svgs";
+import {CoffeeIcon, MonkeyIcon} from "@/components/svgs";
 import Routes from "@/config/routes";
 
 const MeetEndedPage = () => {

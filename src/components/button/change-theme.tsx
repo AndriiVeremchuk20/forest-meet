@@ -10,7 +10,6 @@ const hideOnPages = ["/meet/room"];
 export const ChangeTheme = () => {
   const pathname = usePathname();
   const { isDark, setIsDark } = useThemeStore();
-  // const timeoutRef = useRef(null);
 
   const handleClick = () => {
     setIsDark(!isDark);
@@ -35,18 +34,18 @@ export const ChangeTheme = () => {
   return (
     <button
       onClick={handleClick}
-      className="fixed left-5 z-20 phone:top-[100px] desktop:top-[120px]"
+      className="fixed left-2 z-20 top-[110px]"
     >
       {isDark ? (
         <SunIcon
-          width={60}
-          height={60}
+          width={50}
+          height={50}
           className="animate-spin animate-duration-500 animate-once animate-ease-linear"
         />
       ) : (
         <MoonIcon
-          width={60}
-          height={60}
+          width={50}
+          height={50}
           className="animate-spin animate-duration-500 animate-once animate-ease-linear"
         />
       )}
