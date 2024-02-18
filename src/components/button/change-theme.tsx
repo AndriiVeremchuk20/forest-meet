@@ -32,10 +32,7 @@ export const ChangeTheme = () => {
   }
 
   return (
-    <button
-      onClick={handleClick}
-      className="fixed left-2 z-20 top-[110px]"
-    >
+    <button onClick={handleClick} className="fixed left-2 top-[110px] z-20">
       {isDark ? (
         <SunIcon
           width={50}
