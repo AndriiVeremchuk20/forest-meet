@@ -7,7 +7,13 @@ import { usePathname } from "next/navigation";
 import { NextLink } from "../common";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/outside-click";
-import { Coffee, Monkey, Mushroom, Rope, Logo } from "../svgs";
+import {
+  CoffeeIcon,
+  MonkeyIcon,
+  MushroomIcon,
+  RopeIcon,
+  LogoIcon,
+} from "../svgs";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room", "test"];
@@ -33,7 +39,7 @@ const AppLogo = () => {
       href={"/"}
       className="flex cursor-pointer items-center justify-center"
     >
-      <Logo className="h-[50px] w-[50px]" />
+      <LogoIcon className="h-[50px] w-[50px]" />
       <span className="phone:text-3xl laptop:text-5xl">Forest Meet</span>
     </Link>
   );
@@ -85,28 +91,28 @@ const Nav = () => {
   return (
     <div className="absolute top-20 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:left-0 phone:w-full tablet:w-full laptop:left-2/3 desktop:w-[500px]">
       <Link href={"*"} className="flex space-x-2 p-2 duration-150 hover:ml-2">
-        <Monkey width={50} height={50} />
+        <MonkeyIcon width={50} height={50} />
         <span>Profile (Not working)</span>
       </Link>
       <Link
         href="/information"
         className="flex space-x-2 p-2 duration-150 hover:ml-2"
       >
-        <Mushroom width={50} height={50} />
+        <MushroomIcon width={50} height={50} />
         <span>Information</span>
       </Link>
       <Link
         href={"/support"}
         className="flex space-x-2 p-2 duration-150 hover:ml-2"
       >
-        <Coffee width={50} height={50} />
+        <CoffeeIcon width={50} height={50} />
         <span>Support</span>
       </Link>
       <div
-        className=" flex space-x-4 p-2 duration-150 hover:ml-2"
+        className="flex space-x-4 p-2 duration-150 hover:ml-2"
         onClick={handleSignOutClick}
       >
-        <Rope width={50} height={50} /> <span>Sign out</span>
+        <RopeIcon width={50} height={50} /> <span>Sign out</span>
       </div>
     </div>
   );

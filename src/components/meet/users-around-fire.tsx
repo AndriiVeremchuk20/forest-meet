@@ -10,7 +10,7 @@ import {
   RemoteUser,
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
-import { ChainSaw, MicrophoneOff } from "../svgs";
+import { ChainSawIcon, MicrophoneOffIcon } from "../svgs";
 import { useMeetStore } from "@/store";
 import { api } from "@/trpc/react";
 
@@ -83,7 +83,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
     >
       {!hasAudio && (
         <div className="absolute right-[-10px] top-[-10px] z-10">
-          <MicrophoneOff width={25} />
+          <MicrophoneOffIcon width={25} />
         </div>
       )}
 
@@ -96,15 +96,11 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
         playAudio={true}
         className={`${!hasVideo ? "hidden" : "block"}`}
       />
-      {
-	  
-	  /*isCreator && (
+      {/*isCreator && (
         <button onClick={handleKickClick}>
           <ChainSaw className="absolute bottom-3 left-3 z-10 h-[40px] w-[30px]" />
         </button>
-      )*/
-
-	  }
+      )*/}
     </div>
   );
 };

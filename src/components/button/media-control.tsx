@@ -1,4 +1,9 @@
-import { CameraOff, CameraOn, MicrophoneOff, MicrophoneOn } from "../svgs";
+import {
+  CameraOffIcon,
+  CameraOnIcon,
+  MicrophoneOffIcon,
+  MicrophoneOnIcon,
+} from "../svgs";
 import { useMediaControlStore } from "@/store";
 
 export const ToggleCameraButton = () => {
@@ -17,9 +22,9 @@ export const ToggleCameraButton = () => {
       className={`px-3 py-2 text-white hover:opacity-50`}
     >
       {!enabledCamera ? (
-        <CameraOn className="h-[40px] w-[60px]" />
+        <CameraOnIcon className="h-[40px] w-[60px]" />
       ) : (
-        <CameraOff className="h-[40px] w-[60px]" />
+        <CameraOffIcon className="h-[40px] w-[60px]" />
       )}
     </button>
   );
@@ -41,9 +46,9 @@ export const ToggleAudioButton = () => {
       className="w-fit px-3 py-2 text-white hover:opacity-50"
     >
       {!enabledMicro ? (
-        <MicrophoneOn className="h-[40px] w-[40px]" />
+        <MicrophoneOnIcon className="h-[40px] w-[40px]" />
       ) : (
-        <MicrophoneOff className="h-[40px] w-[40px]" />
+        <MicrophoneOffIcon className="h-[40px] w-[40px]" />
       )}
     </button>
   );

@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState } from "react";
-import { Heart } from "../svgs";
+import { HeartIcon } from "../svgs";
 import { useRTCClient } from "agora-rtc-react";
 
 const TimeControl = ({ children }: { children: ReactNode }) => {
@@ -13,7 +13,7 @@ const TimeControl = ({ children }: { children: ReactNode }) => {
     const hearts = [];
 
     for (let i = 0; i < numHearts; i++) {
-      hearts.push(<Heart key={i} width={30} height={30} />);
+      hearts.push(<HeartIcon key={i} width={30} height={30} />);
     }
 
     return hearts;
