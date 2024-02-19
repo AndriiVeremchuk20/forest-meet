@@ -1,6 +1,8 @@
 "use client";
 
+import {BackButton} from "@/components/button/back";
 import { NextImage, NextLink } from "@/components/common";
+import Routes from "@/config/routes";
 
 const NotFoundPage = () => {
   return (
@@ -8,16 +10,17 @@ const NotFoundPage = () => {
       <div className="flex h-auto space-y-3 border-[5px] border-green-600 dark:border-blue-900 phone:w-5/6 phone:flex-col tablet:w-4/5 laptop:flex-row desktop:w-3/6">
         <div className="bg-green-400 bg-opacity-60 p-5 dark:bg-blue-400 dark:bg-opacity-60">
           <NextImage src="/compass.png" className="m-auto w-[200px]" />
-          <span className="text-center text-2xl">
+          <div className="text-center text-3xl">
             We not created this page yet
-          </span>
+          </div>
         </div>
 
-        <div className="flex flex-col p-2 text-center">
+        <div className="w-full flex flex-col justify-center items-center p-2">
           <h1 className="text-9xl">404</h1>
-          <h1 className="text-5xl">Page not found</h1>
-          <div className="flex w-full justify-center">
-            <NextLink type="button" href="/">
+          <h1 className="text-5xl phone:text-4xl">Page not found</h1>
+          <div className="flex space-x-2 w-full justify-center">
+			<BackButton/>
+			<NextLink type="button" href={Routes.home}>
               Home
             </NextLink>
           </div>
