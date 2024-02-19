@@ -6,7 +6,7 @@ import {
 } from "agora-rtc-react";
 
 import { useRef, type FC, type ReactNode, useEffect, useState } from "react";
-import BadConnection from "../meet/bad-connection";
+import BadConnection from "../bad-connection";
 
 interface CallQualityProps {
   children: ReactNode;
