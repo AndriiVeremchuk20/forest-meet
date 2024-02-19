@@ -22,7 +22,7 @@ export const LeaveButton: FC<LeaveButtonProps> = () => {
   };
 
   return (
-    <button onClick={onLeaveClick} className="w-full hover:opacity-80">
+    <button onClick={onLeaveClick} className="w-full flex justify-center items-center hover:opacity-80">
       <ExitIcon className="h-[70px] w-[100px]" />
     </button>
   );

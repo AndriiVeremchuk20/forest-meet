@@ -1,3 +1,5 @@
+"use client"
+
 import { type FC } from "react";
 import { ToggleAudioButton, ToggleCameraButton } from "../button/media-control";
 import { LeaveButton } from "../button";
