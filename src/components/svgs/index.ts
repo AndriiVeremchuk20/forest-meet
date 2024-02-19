@@ -18,3 +18,5 @@ export { default as ChainSawIcon } from "./chainsaw.svg";
 export { default as PeopleIcon } from "./people.svg";
 export { default as HomeIcon } from "./home.svg";
 export { default as BackIcon } from "./back.svg";
+export { default as CampFireIcon } from "./campfire.svg";
+export { default as MatchIcon } from "./match.svg";

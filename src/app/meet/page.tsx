@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { JoinForm } from "@/components/form/join";
+import { CampFireIcon, MatchIcon, PeopleIcon } from "@/components/svgs";
 
 const LobbyPage = () => {
   const router = useRouter();
@@ -54,12 +55,20 @@ const LobbyPage = () => {
         <JoinForm onCancel={handleCancelClick} />
       </Modal>
       <Box className="grid gap-10 p-10 phone:grid-cols-1 phone:grid-rows-2 desktop:grid-cols-2 desktop:grid-rows-1">
-        <Button onClick={handleJoinClick}>Join</Button>
         <Button
           onClick={handleCreateClick}
           disabled={status === "unauthenticated"}
         >
-          Create
+          <span className="flex items-center justify-center space-x-2">
+            <MatchIcon width={60} height={50} />
+            Create
+          </span>
+        </Button>
+        <Button onClick={handleJoinClick}>
+          <span className="flex items-center justify-center space-x-2">
+            <CampFireIcon width={60} height={50} />
+            Join
+          </span>
         </Button>
       </Box>
     </main>
