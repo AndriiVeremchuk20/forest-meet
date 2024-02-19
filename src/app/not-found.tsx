@@ -2,7 +2,7 @@
 
 import { BackButton } from "@/components/button/back";
 import { NextImage, NextLink } from "@/components/common";
-import {HomeIcon} from "@/components/svgs";
+import { HomeIcon } from "@/components/svgs";
 import Routes from "@/config/routes";
 
 const NotFoundPage = () => {
@@ -22,7 +22,9 @@ const NotFoundPage = () => {
           <div className="flex w-full justify-center space-x-4">
             <BackButton />
             <NextLink type="button" href={Routes.home}>
-              <span className="flex items-center space-x-2"><HomeIcon/> Home</span>
+              <span className="flex items-center space-x-2">
+                <HomeIcon /> Home
+              </span>
             </NextLink>
           </div>
         </div>
