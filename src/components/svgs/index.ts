@@ -16,3 +16,5 @@ export { default as SunIcon } from "./sun.svg";
 export { default as LogoIcon } from "./logo.svg";
 export { default as ChainSawIcon } from "./chainsaw.svg";
 export { default as PeopleIcon } from "./people.svg";
+export { default as HomeIcon } from "./home.svg";
+export { default as BackIcon } from "./back.svg";

@@ -1,7 +1,8 @@
 "use client";
 
-import {BackButton} from "@/components/button/back";
+import { BackButton } from "@/components/button/back";
 import { NextImage, NextLink } from "@/components/common";
+import {HomeIcon} from "@/components/svgs";
 import Routes from "@/config/routes";
 
 const NotFoundPage = () => {
@@ -15,13 +16,13 @@ const NotFoundPage = () => {
           </div>
         </div>
 
-        <div className="w-full flex flex-col justify-center items-center p-2">
+        <div className="flex w-full flex-col items-center justify-center p-2">
           <h1 className="text-9xl">404</h1>
           <h1 className="text-5xl phone:text-4xl">Page not found</h1>
-          <div className="flex space-x-2 w-full justify-center">
-			<BackButton/>
-			<NextLink type="button" href={Routes.home}>
-              Home
+          <div className="flex w-full justify-center space-x-4">
+            <BackButton />
+            <NextLink type="button" href={Routes.home}>
+              <span className="flex items-center space-x-2"><HomeIcon/> Home</span>
             </NextLink>
           </div>
         </div>
