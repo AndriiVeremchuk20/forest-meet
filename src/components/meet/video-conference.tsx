@@ -18,7 +18,7 @@ import { useRtmClient } from "@/providers/agora";
 import { JoinLeaveSounds } from "./join-leave-sounds";
 import { Box } from "../common";
 import { ReloadPageButton } from "../button";
-import { EnsureCallQuality } from "../agora/ensure-call-quality";
+import { EnsureCallQuality } from "./agora/ensure-call-quality";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { useMediaControlStore, useMeetStore } from "@/store";

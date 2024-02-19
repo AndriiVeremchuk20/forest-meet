@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { JoinForm } from "@/components/form/join";
-import { CampFireIcon, MatchIcon, PeopleIcon } from "@/components/svgs";
+import { CampFireIcon, MatchIcon } from "@/components/svgs";
 
 const LobbyPage = () => {
   const router = useRouter();
