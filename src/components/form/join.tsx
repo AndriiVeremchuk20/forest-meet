@@ -10,7 +10,7 @@ import type { FC } from "react";
 import { checkUrl } from "@/utils/check-url";
 
 const JoinSchema = z.object({
-  cname: z.string().min(5, "Too short").max(500, "Too long"),
+  cname: z.string().min(5, "Required").max(500, "Too long"),
 });
 
 type JoinSchemaType = z.infer<typeof JoinSchema>;
@@ -58,7 +58,7 @@ export const JoinForm: FC<JoinFormProps> = ({ onCancel }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="border-[10px] border-green-500 bg-green-500 bg-opacity-60 p-5 dark:border-blue-800 dark:bg-blue-500 dark:bg-opacity-40"
+      className="border-[10px] border-green-500 bg-sky-200 bg-opacity-60 p-5 dark:border-blue-800 dark:bg-sky-500 dark:bg-opacity-40"
     >
       <div className="mx-1 my-4">
         <label className="text-3xl" htmlFor="cname">
@@ -68,7 +68,7 @@ export const JoinForm: FC<JoinFormProps> = ({ onCancel }) => {
           type="text"
           id="cname"
           autoFocus={true}
-          className={`w-full border-b-[4px] bg-inherit p-2 outline-none placeholder:text-neutral-300 dark:placeholder:text-neutral-50  ${errors.cname ? "border-red-600" : "border-green-800  dark:border-blue-900"}`}
+          className={`w-full border-b-[4px] bg-inherit p-2 outline-none placeholder:text-neutral-500 dark:placeholder:text-neutral-50  ${errors.cname ? "border-red-600" : "border-green-800  dark:border-blue-900"}`}
           placeholder="Channel name or link"
           {...register("cname")}
         />
