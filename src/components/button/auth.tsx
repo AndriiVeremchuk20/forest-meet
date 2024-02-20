@@ -26,7 +26,7 @@ export const GoogleButton = () => {
       disabled={isLoading}
       type="button"
       onClick={handleClick}
-      className="flex w-[300px] items-center border-[5px] border-blue-800 bg-blue-500 duration-300 hover:scale-110 hover:bg-indigo-500 focus:border-blue-600 focus:bg-indigo-600"
+      className="flex w-[300px] items-center border-[5px] border-blue-800 bg-blue-500 duration-300 hover:scale-110 hover:bg-blue-800 focus:border-blue-600 focus:bg-indigo-600"
     >
       <div className="bg-blue-300 p-1">
         <GoogleIcon width={50} height={50} />
