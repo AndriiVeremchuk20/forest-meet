@@ -1,4 +1,8 @@
-import { GoogleButton, SingOutButton } from "@/components/button/auth";
+import {
+  GoogleButton,
+  RedditButton,
+  SingOutButton,
+} from "@/components/button/auth";
 import { getServerAuthSession } from "@/server/auth";
 import Link from "next/link";
 
@@ -21,8 +25,9 @@ const SignInForm = () => {
       <div className="text-2xl">
         Authorization with password and email will be available soon
       </div>
-      <div className="">
+      <div className="flex flex-col space-y-4">
         <GoogleButton />
+        <RedditButton />
       </div>
     </form>
   );

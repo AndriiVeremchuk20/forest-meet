@@ -20,3 +20,4 @@ export { default as HomeIcon } from "./home.svg";
 export { default as BackIcon } from "./back.svg";
 export { default as CampFireIcon } from "./campfire.svg";
 export { default as MatchIcon } from "./match.svg";
+export {default as RedditIcon} from "./reddit.svg";

@@ -5,6 +5,7 @@ import {
 } from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
+import RedditProvider from "next-auth/providers/reddit";
 
 import { env } from "@/env";
 import { db } from "./db";
@@ -66,13 +67,22 @@ export const authOptions: NextAuthOptions = {
   //},
 
   adapter: PrismaAdapter(db),
-
+  //https://www.reddit.com/prefs/apps/
   providers: [
     GoogleProvider({
       clientId: env.PROVIDER_GOOGLE_ID,
       clientSecret: env.PROVIDER_GOOGLE_SECRET,
       httpOptions: {
         timeout: 6000,
+      },
+    }),
+    RedditProvider({
+      clientId: env.PROVIDER_REDDIT_ID,
+      clientSecret: env.PROVIDER_REDDIT_SECRET,
+      authorization: {
+        params: {
+          duration: "permanent",
+        },
       },
     }),
   ],
