@@ -22,6 +22,10 @@ export const env = createEnv({
     PROVIDER_GOOGLE_ID: z.string(),
     PROVIDER_GOOGLE_SECRET: z.string(),
 
+    /*Reddit auth provider*/
+    PROVIDER_REDDIT_ID: z.string(),
+    PROVIDER_REDDIT_SECRET: z.string(),
+
     BUY_ME_A_COFFE_TOKEN: z.string(),
   },
 
@@ -57,6 +61,10 @@ export const env = createEnv({
     /*Google auth provider*/
     PROVIDER_GOOGLE_ID: process.env.PROVIDER_GOOGLE_ID,
     PROVIDER_GOOGLE_SECRET: process.env.PROVIDER_GOOGLE_SECRET,
+
+    /*Reddit auth provider*/
+    PROVIDER_REDDIT_ID: process.env.PROVIDER_REDDIT_ID,
+    PROVIDER_REDDIT_SECRET: process.env.PROVIDER_REDDIT_SECRET,
 
     BUY_ME_A_COFFE_TOKEN: process.env.BUY_ME_A_COFFE_TOKEN,
 
