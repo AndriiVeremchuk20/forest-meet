@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { JoinForm } from "@/components/form/join";
 import { CampFireIcon, MatchIcon } from "@/components/svgs";
-// When user clicked on disabled button redirect to auth page also show message react-tostify
 
 const LobbyPage = () => {
   const router = useRouter();

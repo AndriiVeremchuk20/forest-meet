@@ -12,6 +12,7 @@ interface CallQualityProps {
   children: ReactNode;
   localCameraTrack: ILocalVideoTrack | null;
 }
+
 //https://docs.agora.io/en/video-calling/reference/channel-management-rest-api?platform=react-js#online-channel-statistics-query
 export const EnsureCallQuality: FC<CallQualityProps> = ({
   children,
@@ -32,6 +33,7 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
         .catch((error) => console.error(error));
       enabledFeatures.current = true;
     }
+   // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
 
   useEffect(() => {
     setRemoteVideoQuality();
+	 // eslint-disable-next-line
   }, [isHighRemoteVideoQuality]);
 
   const callQualityEssentials = async () => {

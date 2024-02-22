@@ -1,7 +1,5 @@
 "use client";
-import { useMediaControlStore } from "@/store";
 import { useLocalCameraTrack, useLocalMicrophoneTrack } from "agora-rtc-react";
-import { useEffect } from "react";
 
 export const useLocalDevice = () => {
   // getting local camera & microphone tracks

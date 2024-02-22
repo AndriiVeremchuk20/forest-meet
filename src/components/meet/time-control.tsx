@@ -28,6 +28,7 @@ const TimeControl = ({ children }: { children: ReactNode }) => {
     return () => {
       clearInterval(interval);
     };
+	 // eslint-disable-next-line
   }, []);
 
   return (
