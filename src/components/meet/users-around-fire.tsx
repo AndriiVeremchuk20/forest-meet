@@ -10,7 +10,7 @@ import {
   RemoteUser,
 } from "agora-rtc-react";
 import parseVolumeLevel from "@/utils/parse-volume-level";
-import { ChainSawIcon, MicrophoneOffIcon } from "../svgs";
+import { MicrophoneOffIcon } from "../svgs";
 import { useMeetStore } from "@/store";
 import { api } from "@/trpc/react";
 
@@ -57,13 +57,16 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
 
   const { hasAudio, hasVideo } = user;
   const { meetCredentials } = useMeetStore();
+   // eslint-disable-next-line
   const { isCreator, cname, uid } = meetCredentials!;
 
   const volumeLevel = useVolumeLevel(user.audioTrack);
   const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
 
   const kickUserMutations = api.agora.kickUserFromRoom.useMutation();
-
+  
+  // currently in progress
+  // eslint-disable-next-line
   const handleKickClick = () => {
     kickUserMutations.mutate({ cname, uid });
   };
@@ -197,11 +200,12 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+	 // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     buildCircle();
-    // eslint-disable-line
+// eslint-disable-next-line
   }, [remoteUsers, radius]);
 
   return (

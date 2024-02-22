@@ -59,6 +59,8 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
   } = useLocalDevice();
 
   const remoteUsers = useRemoteUsers(); // get all remote users
+  // currently in process
+  // eslint-disable-next-line
   const [rtmUsers, setRemoteRtmUsers] = useState<Record<number, string>>({}); // collect rtm remote users
 
   const joinAudioRef = useRef<HTMLAudioElement | null>(null);
