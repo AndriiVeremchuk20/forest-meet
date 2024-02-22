@@ -14,20 +14,15 @@ export const agoraRouter = createTRPCRouter({
   createRoom: protectedProcedure.mutation(async ({ ctx: { db, session } }) => {
     /* --- CHECK USER UID --- */
     const { id, uid } = session.user;
-    console.log(uid);
-    //const userDb = await db.user.findUnique({ where: { id } });
-
-    // if (!uid) {
-    //   throw new TRPCError({ code: "UNAUTHORIZED", message: "Server error" });
-    // }
+    //console.log(uid);
 
     if (!uid) {
       const newUid = AgoraChannelManager.generateUid().toString();
-      const updateUser = await db.user.update({
+      await db.user.update({
         where: { id },
         data: { uid: newUid },
       });
-      console.log(updateUser);
+      //console.log(updateUser);
     }
 
     // generate channel name to future room
@@ -100,6 +95,7 @@ export const agoraRouter = createTRPCRouter({
       const uid = session?.user.uid
         ? Number(session.user.uid)
         : AgoraChannelManager.generateUid();
+
       const expireTime = 3600; // 1 hour
 
       const rtcToken = AgoraChannelManager.generateRtcToken({

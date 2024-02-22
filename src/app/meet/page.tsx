@@ -1,13 +1,14 @@
 "use client";
 
 import Loader from "@/components/loader";
-import { Button, Box, Modal } from "@/components/common";
+import { Button, Box, Modal, NextLink } from "@/components/common";
 import { api } from "@/trpc/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { JoinForm } from "@/components/form/join";
 import { CampFireIcon, MatchIcon } from "@/components/svgs";
+// When user clicked on disabled button redirect to auth page also show message react-tostify
 
 const LobbyPage = () => {
   const router = useRouter();
@@ -28,11 +29,11 @@ const LobbyPage = () => {
 
   const isLoading = createLoading || status === "loading";
 
-  const handleCreateClick = () => {
+  const handleCreateButtonClick = () => {
     mutate();
   };
 
-  const handleJoinClick = () => {
+  const handleJoinButtonClick = () => {
     setShowModal(true);
   };
 
@@ -52,19 +53,28 @@ const LobbyPage = () => {
           console.log("G");
         }}
       >
+￼
         <JoinForm onCancel={handleCancelClick} />
       </Modal>
       <Box className="grid gap-10 p-10 phone:grid-cols-1 phone:grid-rows-2 desktop:grid-cols-2 desktop:grid-rows-1">
         <Button
-          onClick={handleCreateClick}
+          onClick={handleCreateButtonClick}
           disabled={status === "unauthenticated"}
         >
-          <span className="flex items-center justify-center space-x-2">
+          <div className="flex items-center justify-center space-x-2">
             <MatchIcon width={60} height={50} />
-            Create
-          </span>
+
+            {status === "unauthenticated" ? (
+              <span className="flex space-x-2 items-center">
+                <NextLink href="/auth">Sign in</NextLink> <span>to create room</span>
+              </span>
+            ) : (
+              "Create"
+            )}
+          </div>
         </Button>
-        <Button onClick={handleJoinClick}>
+
+        <Button onClick={handleJoinButtonClick}>
           <span className="flex items-center justify-center space-x-2">
             <CampFireIcon width={60} height={50} />
             Join
