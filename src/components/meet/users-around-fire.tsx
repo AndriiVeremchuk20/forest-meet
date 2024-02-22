@@ -98,7 +98,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
       />
       {/*isCreator && (
         <button onClick={handleKickClick}>
-          <ChainSaw className="absolute bottom-3 left-3 z-10 h-[40px] w-[30px]" />
+          <ChainSawIcon className="absolute bottom-3 left-3 z-10 h-[40px] w-[30px]" />
         </button>
       )*/}
     </div>

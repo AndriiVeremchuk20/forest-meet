@@ -3,6 +3,8 @@ import { LogoIcon } from "@/components/svgs";
 import Routes from "@/config/routes";
 import { getServerAuthSession } from "@/server/auth";
 
+// add meet screenshot to home page
+
 const Home = () => {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center">
