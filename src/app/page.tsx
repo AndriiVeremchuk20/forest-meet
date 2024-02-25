@@ -40,7 +40,7 @@ const Links = async () => {
       </NextLink>
       {!session?.user && (
         <NextLink href={"/auth/"} type="button">
-          Sign in
+          Sign in / Sign up
         </NextLink>
       )}
     </div>

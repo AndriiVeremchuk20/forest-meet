@@ -80,7 +80,7 @@ const User = () => {
     );
   }
 
-  return <NextLink href={"/auth"}>Sign in</NextLink>;
+  return <NextLink href={"/auth"}>Sign in / Sign up</NextLink>;
 };
 
 const Nav = () => {
