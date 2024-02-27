@@ -57,14 +57,14 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
 
   const { hasAudio, hasVideo } = user;
   const { meetCredentials } = useMeetStore();
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const { isCreator, cname, uid } = meetCredentials!;
 
   const volumeLevel = useVolumeLevel(user.audioTrack);
   const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
 
   const kickUserMutations = api.agora.kickUserFromRoom.useMutation();
-  
+
   // currently in progress
   // eslint-disable-next-line
   const handleKickClick = () => {
@@ -200,12 +200,12 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-	 // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     buildCircle();
-// eslint-disable-next-line
+    // eslint-disable-next-line
   }, [remoteUsers, radius]);
 
   return (

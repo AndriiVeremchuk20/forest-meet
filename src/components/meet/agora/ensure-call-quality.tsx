@@ -33,7 +33,7 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
         .catch((error) => console.error(error));
       enabledFeatures.current = true;
     }
-   // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export const EnsureCallQuality: FC<CallQualityProps> = ({
 
   useEffect(() => {
     setRemoteVideoQuality();
-	 // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [isHighRemoteVideoQuality]);
 
   const callQualityEssentials = async () => {
