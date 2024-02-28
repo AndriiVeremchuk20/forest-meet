@@ -21,6 +21,7 @@ export const Slider: FC<CarrouselProps> = ({ images, delay }) => {
         clearInterval(intervalRef.current);
       }
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
