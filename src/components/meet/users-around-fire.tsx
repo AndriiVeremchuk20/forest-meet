@@ -91,7 +91,7 @@ const RemoteUserPlayer: FC<RemoteUserPlayerProps> = ({ user, css }) => {
       )}
 
       {!hasVideo && (
-        <NextImage src="/user.png" width={200} className="bg-neutral-500" />
+        <NextImage src="/img/user.png" alt="user avatar" width={200} className="bg-neutral-500" />
       )}
       <RemoteUser
         user={user}
@@ -212,7 +212,8 @@ const UsersAroundFire: FC<UsersAroundFireProps> = ({
     <div>
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <NextImage
-          src={"/campfire.gif"}
+          src={"/img/campfire.gif"}
+		  alt={"campfire"}
           className="phone:w-[100px] tablet:w-[150px] desktop:w-[200px] "
         />
       </div>

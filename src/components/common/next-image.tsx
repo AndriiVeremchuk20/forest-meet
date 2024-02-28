@@ -5,7 +5,7 @@ interface NextImageProps {
   src: string;
   width?: number;
   heigth?: number;
-  alt?: string;
+  alt: string;
   className?: string;
 }
 
@@ -13,10 +13,8 @@ export const NextImage: FC<NextImageProps> = ({
   src,
   width: w = 500,
   heigth: h = 500,
-  alt: imageAlt = "image",
   className: classN = "",
+  alt,
 }) => {
-  return (
-    <Image src={src} width={w} height={h} alt={imageAlt} className={classN} />
-  );
+  return <Image src={src} width={w} height={h} alt={alt} className={classN} />;
 };

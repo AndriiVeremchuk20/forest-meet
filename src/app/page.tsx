@@ -1,35 +1,36 @@
-import { NextLink, Box, NextImage } from "@/components/common";
+import { Slider } from "@/components/slider";
+import { NextLink, Box } from "@/components/common";
 import { LogoIcon } from "@/components/svgs";
 import Routes from "@/config/routes";
 import { getServerAuthSession } from "@/server/auth";
 
 const Home = () => {
   return (
-    <main className="flex w-full flex-col items-center justify-center pt-[120px]">
-      <h1 className="animate-fade animate-once phone:text-2xl tablet:text-5xl desktop:text-8xl">
-        What is Forest Meet?
-      </h1>
-      <Box className="flex w-full flex-col items-center gap-10 phone:p-3 desktop:p-10">
-        <IntroText />
-        <div className="flex w-full items-center justify-around">
-          <NextImage
-            src="/img/dark_ex.png"
-            className="animate-fade-right animate-once phone:w-[180px] tablet:w-[200px] laptop:w-[300px]"
-          />
-          <NextImage
-            src="/img/light_ex.png"
-            className="animate-fade-left animate-once phone:w-[180px] tablet:w-[200px] laptop:w-[300px]"
-          />
-        </div>
-        <Links />
-      </Box>
+    <main className="h-screen phone:pt-[160px] laptop:pt-[120px]">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="animate-fade animate-once phone:text-3xl tablet:text-5xl desktop:text-8xl">
+          Welcome to Forest Meet
+        </h1>
+        <Box className="flex items-center justify-center phone:flex-col laptop:flex-row">
+          <div className="h-full w-full border-green-500 bg-red-500 dark:border-blue-900 phone:border-b-[5px] laptop:border-r-[5px]">
+            <Slider
+              images={["/img/dark_ex.png", "/img/light_ex.png"]}
+              delay={5000}
+            />
+          </div>
+          <div className="flex flex-col items-center gap-10 phone:p-3 desktop:p-10">
+            <IntroText />
+            <Links />
+          </div>
+        </Box>
+      </div>
     </main>
   );
 };
 
 const IntroText = () => {
   return (
-    <div className="flex gap-4 phone:flex-col desktop:flex-row">
+    <div className="flex phone:flex-col desktop:flex-row">
       <span className="text-justify text-2xl">
         Forest Meet is an online meeting platform that offers a distinctive
         experience, seamlessly blending cutting-edge technologies with the cozy

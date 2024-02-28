@@ -63,6 +63,7 @@ const UserInFrame = ({ avatar }: { avatar: string }) => {
       <DeerFrameIcon width={150} height={100} />
       <NextImage
         src={avatar}
+        alt="user avatar"
         className="absolute left-[45px] top-[40px] -z-10 w-[60px] backdrop-blur-md"
       />
     </div>
