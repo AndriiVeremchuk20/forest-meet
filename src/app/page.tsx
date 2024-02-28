@@ -12,9 +12,9 @@ const Home = () => {
           Welcome to Forest Meet
         </h1>
         <Box className="flex items-center justify-center phone:flex-col laptop:flex-row">
-          <div className="h-full w-full border-green-500 bg-red-500 dark:border-blue-900 phone:border-b-[5px] laptop:border-r-[5px]">
+          <div className="h-full w-full border-green-500 dark:border-blue-900 phone:border-b-[5px] laptop:border-r-[5px]">
             <Slider
-              images={["/img/dark_ex.png", "/img/light_ex.png"]}
+              images={["/img/light_ex.png", "/img/dark_ex.png"]}
               delay={5000}
             />
           </div>

@@ -17,6 +17,7 @@ const googlePixelifySans = localFont({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://forest-meet.com/"),
   title: "Forest Meet",
   description:
     "Forest Meet is a real-time video meetup application created by create-t3-app. Enjoy virtual gatherings with friends around a cozy virtual campfire.",
@@ -27,7 +28,7 @@ export const metadata = {
     url: "https://forest-meet.com/",
     siteName: "Forest Meet",
   },
-  icons: [{ rel: "icon", url: "/icon.png" }],
+  icons: [{ rel: "icon", url: "/img/icon.png" }],
 };
 
 export default function RootLayout({
