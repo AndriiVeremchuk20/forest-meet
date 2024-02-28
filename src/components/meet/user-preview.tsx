@@ -88,7 +88,7 @@ const UserPreview = () => {
       )}
       <video
         ref={videoRef}
-        poster="/user.png"
+        poster="/img/user.png"
         autoPlay
         playsInline
         muted
