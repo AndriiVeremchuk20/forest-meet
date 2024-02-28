@@ -28,7 +28,7 @@ export const Slider: FC<CarrouselProps> = ({ images, delay }) => {
     <div className="h-full w-full">
       <NextImage
         src={images[currentImageIndex]!}
-        alt="carrousel"
+        alt={`slider ${currentImageIndex}`}
         className="h-full w-full"
       />
     </div>
