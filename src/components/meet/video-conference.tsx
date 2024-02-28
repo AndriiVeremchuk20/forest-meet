@@ -76,7 +76,7 @@ const VideoConference: FC<MeetProps> = ({ userName }) => {
   const publish = usePublish([localMicrophoneTrack, localCameraTrack]);
 
   //enable geofencing
-  useGeofencing();
+  //useGeofencing();
 
   const isLoadingJoin = publish.isLoading || join.isLoading;
 
