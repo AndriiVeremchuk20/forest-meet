@@ -42,7 +42,7 @@ Forest Meet is a project created using the [T3](https://create.t3.gg/) stack and
 
 ## License
 
-[Add license information here]
+This project is licensed under the [MIT](./LICENSE) - see the [LICENSE](./LICENSE) file for details.
 
 ## How to Start
 
