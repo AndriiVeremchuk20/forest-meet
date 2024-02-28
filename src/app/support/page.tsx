@@ -46,7 +46,7 @@ const DonatePage = async () => {
           {supporters.map(({ id, name, message }) => (
             <div key={id}>
               <div title={message ?? ""} className="relative w-[200px]">
-                <UserInFrame avatar={"/user.png"} />
+                <UserInFrame avatar={"/img/user.png"} />
                 <span className="text-center text-2xl">{name}</span>
               </div>
             </div>

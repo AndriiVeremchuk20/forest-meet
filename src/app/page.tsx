@@ -13,11 +13,11 @@ const Home = () => {
         <IntroText />
         <div className="flex w-full items-center justify-around">
           <NextImage
-            src="/dark_ex.png"
+            src="/img/dark_ex.png"
             className="animate-fade-right animate-once phone:w-[180px] tablet:w-[200px] laptop:w-[300px]"
           />
           <NextImage
-            src="/light_ex.png"
+            src="/img/light_ex.png"
             className="animate-fade-left animate-once phone:w-[180px] tablet:w-[200px] laptop:w-[300px]"
           />
         </div>
