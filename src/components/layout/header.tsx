@@ -40,7 +40,7 @@ const AppLogo = () => {
       className="flex cursor-pointer items-center justify-center"
     >
       <LogoIcon className="h-[50px] w-[50px]" />
-      <span className="phone:text-3xl laptop:text-5xl">Forest Meet</span>
+      <span className="phone:text-xl tablet:text-3xl laptop:text-5xl">Forest Meet</span>
     </Link>
   );
 };
