@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${googlePixelifySans.className} scroll-smooth overflow-x-hidden bg-[url('/img/bg_light.gif')] bg-cover bg-fixed text-xl text-black duration-300 selection:bg-green-800 selection:text-white dark:bg-[url('/img/bg_dark.gif')] dark:text-neutral-200`}
+        className={`${googlePixelifySans.className} scroll-smooth bg-[url('/img/bg_light.gif')] bg-cover bg-fixed text-xl text-black duration-300 selection:bg-green-800 selection:text-white dark:bg-[url('/img/bg_dark.gif')] dark:text-neutral-200`}
       >
 
         <AppSessionProvider>

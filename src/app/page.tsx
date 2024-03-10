@@ -5,10 +5,9 @@ import {StartLinks} from "@/components/start-links";
 const Home = () => {
   return (
     <main className="phone:pt-[160px] laptop:pt-[120px]">
-      <div className="flex flex-col items-center justify-center laptop:space-y-[500px] tablet:space-y-[400px] phone:space-y-[300px]">
-        {/*Welcome text*/}
-		
-		<div className="h-4/5 flex justify-center items-center flex-col" data-aos="fade-left">
+      <div className="overflow-x-hidden flex flex-col items-center justify-center laptop:space-y-[500px] tablet:space-y-[400px] phone:space-y-[300px]">
+        {/*Welcome text*/}	
+		<div className="h-4/5 flex items-start flex-col" data-aos="fade-right">
           <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl desktop:text-8xl">
             Welcome to Forest Meet
           </h1>
@@ -30,7 +29,7 @@ const Home = () => {
 
 
        {/*Why Forest meet*/}
-        <div data-aos="fade-right" className="h-fit flex justify-center flex-col items-center">
+        <div data-aos="fade-left" className="h-fit flex flex-col items-end">
           <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl desktop:text-8xl">
             Why Forest Meet?
           </h1>

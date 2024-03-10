@@ -52,7 +52,6 @@ const LobbyPage = () => {
           console.log("G");
         }}
       >
-        ￼
         <JoinForm onCancel={handleCancelClick} />
       </Modal>
       <Box className="grid gap-10 p-10 phone:grid-cols-1 phone:grid-rows-2 desktop:grid-cols-2 desktop:grid-rows-1">
@@ -66,7 +65,7 @@ const LobbyPage = () => {
             {status === "unauthenticated" ? (
               <span className="flex items-center space-x-2">
                 <NextLink href="/auth">Sign in</NextLink>{" "}
-                <span>to create room</span>
+                <span className="phone:text-xl tablet:text-2xl laptop:text-3xl">to create room</span>
               </span>
             ) : (
               "Create"

@@ -68,6 +68,7 @@ const User = () => {
         onClick={onOpenNav}
         ref={userCardRef}
         className="flex cursor-pointer items-center gap-2 bg-green-400 p-2 dark:bg-blue-900"
+		
       >
         <span className="phone:text-xl tablet:text-2xl desktop:text-3xl">
           {data.user.name}

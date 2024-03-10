@@ -4,12 +4,13 @@ import { signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { GoogleIcon, RedditIcon, RopeIcon } from "../svgs";
+import Routes from "@/config/routes";
 
 export const GoogleButton = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const params = useSearchParams();
-  const callbackUrl = params.get("callbackUrl") ?? "/";
+  const callbackUrl = params.get("callbackUrl") ?? Routes.meetBase;
 
   const handleClick = async () => {
     setIsLoading(true);
@@ -42,7 +43,7 @@ export const RedditButton = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const params = useSearchParams();
-  const callbackUrl = params.get("callbackUrl") ?? "/";
+  const callbackUrl = params.get("callbackUrl") ?? Routes.meetBase;
 
   const handleClick = async () => {
     setIsLoading(true);
