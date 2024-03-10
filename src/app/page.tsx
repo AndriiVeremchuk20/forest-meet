@@ -5,10 +5,10 @@ import {StartLinks} from "@/components/start-links";
 const Home = () => {
   return (
     <main className="phone:pt-[160px] laptop:pt-[120px]">
-      <div className="overflow-x-hidden flex flex-col items-center justify-center laptop:space-y-[500px] tablet:space-y-[400px] phone:space-y-[300px]">
+      <div className="overflow-x-hidden overflow-y-hidden flex flex-col items-center justify-center laptop:space-y-[500px] tablet:space-y-[400px] phone:space-y-[300px]">
         {/*Welcome text*/}	
-		<div className="h-4/5 flex items-start flex-col" data-aos="fade-right">
-          <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl desktop:text-8xl">
+		<div className="flex items-center flex-col justify-center" data-aos="fade-left">
+          <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl bg-green-500  desktop:text-8xl dark:bg-blue-900 px-4">
             Welcome to Forest Meet
           </h1>
           <Box className="flex tablet:flex-row laptop:flex-row phone:flex-col">
@@ -29,8 +29,8 @@ const Home = () => {
 
 
        {/*Why Forest meet*/}
-        <div data-aos="fade-left" className="h-fit flex flex-col items-end">
-          <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl desktop:text-8xl">
+        <div data-aos="fade-left" className="h-fit flex flex-col items-center">
+          <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl desktop:text-8xl bg-green-500 dark:bg-blue-900 px-4">
             Why Forest Meet?
           </h1>
 
@@ -46,7 +46,7 @@ const Home = () => {
           </Box>
         </div>
 
-        <div className="">
+        <div>
           <StartLinks />
           <div data-aos="fade-up">
             <NextImage src="/img/fire.gif" alt="fire-gif" />
