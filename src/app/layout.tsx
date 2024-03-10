@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "aos/dist/aos.css";
 
 import localFont from "next/font/local";
 import AppSessionProvider from "@/providers/session";
@@ -10,6 +11,7 @@ import { ChangeTheme } from "@/components/button/change-theme";
 // vercel tools
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import AosProvider from "@/providers/aos";
 
 // load font
 const googlePixelifySans = localFont({
@@ -39,15 +41,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${googlePixelifySans.className} scroll-smooth bg-[url('/img/bg_light.gif')] bg-cover bg-fixed text-xl text-black duration-300 selection:bg-green-800 selection:text-white dark:bg-[url('/img/bg_dark.gif')] dark:text-neutral-200`}
+        className={`${googlePixelifySans.className} scroll-smooth overflow-x-hidden bg-[url('/img/bg_light.gif')] bg-cover bg-fixed text-xl text-black duration-300 selection:bg-green-800 selection:text-white dark:bg-[url('/img/bg_dark.gif')] dark:text-neutral-200`}
       >
+
         <AppSessionProvider>
           <TRPCReactProvider cookies={cookies().toString()}>
-            <Header />
-            <ChangeTheme />
-            {children}
-          </TRPCReactProvider>
+              <AosProvider>
+			  <Header />
+              <ChangeTheme />
+
+			  {children}
+          
+		  </AosProvider>
+		  </TRPCReactProvider>
         </AppSessionProvider>
+
         {/* vercel tools*/}
         <SpeedInsights />
         <Analytics />

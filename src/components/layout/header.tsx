@@ -40,7 +40,9 @@ const AppLogo = () => {
       className="flex cursor-pointer items-center justify-center"
     >
       <LogoIcon className="h-[50px] w-[50px]" />
-      <span className="phone:text-xl tablet:text-3xl laptop:text-5xl">Forest Meet</span>
+      <span className="phone:hidden tablet:block tablet:text-3xl laptop:text-5xl">
+        Forest Meet
+      </span>
     </Link>
   );
 };
@@ -67,12 +69,14 @@ const User = () => {
         ref={userCardRef}
         className="flex cursor-pointer items-center gap-2 bg-green-400 p-2 dark:bg-blue-900"
       >
-        <span>{data.user.name}</span>
+        <span className="phone:text-xl tablet:text-2xl desktop:text-3xl">
+          {data.user.name}
+        </span>
         <Image
-          src={data.user.image ?? "/user.png"}
+          src={data.user.image ?? "/img/user.png"}
           width={50}
           height={50}
-          alt="avatar"
+          alt="user avatar"
           className="border-[2px] border-orange-900"
         />
         {showNav && <Nav />}
@@ -80,7 +84,7 @@ const User = () => {
     );
   }
 
-  return <NextLink href={"/auth"}>Sign in / Sign up</NextLink>;
+  return <NextLink href={"/auth"}>Sign in / Sign up</NextLink>
 };
 
 const Nav = () => {
