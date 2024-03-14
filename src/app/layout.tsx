@@ -12,7 +12,6 @@ import { ChangeTheme } from "@/components/button/change-theme";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import AosProvider from "@/providers/aos";
-import SessionLoadingProvider from "@/providers/session-loading";
 
 // load font
 const googlePixelifySans = localFont({
