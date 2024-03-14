@@ -65,7 +65,9 @@ const LobbyPage = () => {
             {status === "unauthenticated" ? (
               <span className="flex items-center space-x-2">
                 <NextLink href="/auth">Sign in</NextLink>{" "}
-                <span className="phone:text-xl tablet:text-2xl laptop:text-3xl">to create room</span>
+                <span className="phone:text-xl tablet:text-2xl laptop:text-3xl">
+                  to create room
+                </span>
               </span>
             ) : (
               "Create"

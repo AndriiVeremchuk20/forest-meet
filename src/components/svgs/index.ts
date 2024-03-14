@@ -22,3 +22,4 @@ export { default as CampFireIcon } from "./campfire.svg";
 export { default as MatchIcon } from "./match.svg";
 export { default as RedditIcon } from "./reddit.svg";
 export { default as InfoIcon } from "./info.svg";
+export { default as DownIcon } from "./down.svg";
