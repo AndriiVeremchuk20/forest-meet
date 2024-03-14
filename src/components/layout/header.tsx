@@ -26,7 +26,7 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed z-50 flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-xl dark:border-blue-900">
+    <header className="fixed z-50 flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-3xl dark:border-blue-900">
       <AppLogo />
       <User />
     </header>
@@ -68,7 +68,6 @@ const User = () => {
         onClick={onOpenNav}
         ref={userCardRef}
         className="flex cursor-pointer items-center gap-2 bg-green-400 p-2 dark:bg-blue-900"
-		
       >
         <span className="phone:text-xl tablet:text-2xl desktop:text-3xl">
           {data.user.name}
@@ -85,7 +84,7 @@ const User = () => {
     );
   }
 
-  return <NextLink href={"/auth"}>Sign in / Sign up</NextLink>
+  return <NextLink href={"/auth"}>Sign in / Sign up</NextLink>;
 };
 
 const Nav = () => {

@@ -1,61 +1,65 @@
+"use client";
 
-import { Box, NextImage } from "@/components/common";
-import {StartLinks} from "@/components/start-links";
+import { Box, Button, NextImage } from "@/components/common";
+import { StartLinks } from "@/components/start-links";
+import { DownIcon } from "@/components/svgs";
+import { useRef } from "react";
 
-const Home = () => {
+export default function Home() {
+  const ancorRef = useRef<HTMLDivElement | null>(null);
+
   return (
-    <main className="phone:pt-[160px] laptop:pt-[120px]">
-      <div className="overflow-x-hidden overflow-y-hidden flex flex-col items-center justify-center laptop:space-y-[500px] tablet:space-y-[400px] phone:space-y-[300px]">
-        {/*Welcome text*/}	
-		<div className="flex items-center flex-col justify-center" data-aos="fade-left">
-          <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl bg-green-500  desktop:text-8xl dark:bg-blue-900 px-4">
+    <main className="">
+      <div className="flex flex-col items-center justify-center overflow-x-hidden overflow-y-hidden">
+        {/*Welcome text*/}
+        <div className="flex h-screen flex-col items-center justify-center">
+          <h1 className="animate-fade bg-green-500 bg-opacity-30 px-4 animate-once dark:bg-blue-900 dark:bg-opacity-70  phone:text-3xl tablet:text-6xl desktop:text-8xl">
             Welcome to Forest Meet
           </h1>
-          <Box className="flex tablet:flex-row laptop:flex-row phone:flex-col">
-            <NextImage
-              src="/img/light_ex.png"
-              alt="example_1"
-              className="h-fit phone:w-full tablet:w-[300px]"
-            />
-            <div className="p-1 text-balance text-justify">
-              Forest Meet is an online meeting platform that offers a
-              distinctive experience, seamlessly blending cutting-edge
-              technologies with the cozy ambiance of friendly gatherings around
-              a virtual campfire set amidst the serene surroundings of a virtual
-              forest.
+          <Box className="flex phone:flex-col tablet:flex-row laptop:flex-row">
+            <div className="flex w-full justify-around">
+              <NextImage
+                src="/img/light_ex.png"
+                alt="example_1"
+                className="h-fit phone:w-[180px] tablet:w-full"
+              />
+              <NextImage
+                src="/img/dark_ex.png"
+                alt="example_1"
+                className="h-fit phone:block phone:w-[180px] tablet:hidden tablet:w-[300px]"
+              />
+            </div>
+            <div className="flex flex-col justify-between">
+              <div className="laptop:text-3xl text-balance p-1 text-justify">
+                Forest Meet is an online meeting platform that offers a
+                distinctive experience, seamlessly blending cutting-edge
+                technologies with the cozy ambiance of friendly gatherings
+                around a virtual campfire set amidst the serene surroundings of
+                a virtual forest.
+              </div>
+              <Button
+                onClick={() => {
+                  ancorRef.current?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                <div className="flex animate-bounce items-center justify-center">
+                  <DownIcon />
+                </div>
+              </Button>
             </div>
           </Box>
         </div>
 
-
-       {/*Why Forest meet*/}
-        <div data-aos="fade-left" className="h-fit flex flex-col items-center">
-          <h1 className="animate-fade animate-once phone:text-3xl tablet:text-6xl desktop:text-8xl bg-green-500 dark:bg-blue-900 px-4">
-            Why Forest Meet?
-          </h1>
-
-          <Box className="flex tablet:flex-row laptop:flex-row phone:flex-col">
-            <NextImage
-              src="/img/dark_ex.png"
-              alt="example_1"
-              className="h-fit phone:w-full tablet:w-[300px]"
-            />
-            <div className="p-1 text-balance text-justify"> 
-           In a world where digital connections often lack depth and warmth, Forest Meet beckons like a beacon of genuine camaraderie. Picture yourself beneath the virtual canopy, the soft glow of the campfire illuminating faces from all corners of the globe.
-            </div>
-          </Box>
-        </div>
-
-        <div>
+        <div
+          className="flex h-screen flex-col justify-end"
+          data-aos="fade-left"
+        >
           <StartLinks />
-          <div data-aos="fade-up">
+          <div ref={ancorRef} data-aos="fade-up">
             <NextImage src="/img/fire.gif" alt="fire-gif" />
           </div>
         </div>
       </div>
     </main>
   );
-};
-
-
-export default Home;
+}
