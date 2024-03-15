@@ -30,7 +30,7 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-col justify-between">
-              <div className="laptop:text-3xl text-balance p-1 text-justify">
+              <div className="text-balance p-1 text-justify laptop:text-3xl">
                 Forest Meet is an online meeting platform that offers a
                 distinctive experience, seamlessly blending cutting-edge
                 technologies with the cozy ambiance of friendly gatherings
