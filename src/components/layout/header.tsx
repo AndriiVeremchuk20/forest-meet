@@ -14,6 +14,7 @@ import {
   RopeIcon,
   LogoIcon,
 } from "../svgs";
+import { ChangeTheme } from "../button";
 
 // pages where the header is not show
 const hideOnPages = ["/meet/room", "test"];
@@ -26,9 +27,12 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed z-50 flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-3xl dark:border-blue-900">
+    <header className="fixed z-40 flex w-full items-center justify-between border-b-[4px] border-green-500 px-2 py-3 backdrop-blur-3xl dark:border-blue-900">
       <AppLogo />
-      <User />
+      <div className="flex space-x-3">
+        <ChangeTheme />
+        <User />
+      </div>
     </header>
   );
 };

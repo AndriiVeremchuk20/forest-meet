@@ -4,14 +4,13 @@ import "aos/dist/aos.css";
 import localFont from "next/font/local";
 import AppSessionProvider from "@/providers/session";
 import Header from "@/components/layout/header";
+import AosProvider from "@/providers/aos";
 import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
-import { ChangeTheme } from "@/components/button/change-theme";
 
 // vercel tools
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
-import AosProvider from "@/providers/aos";
 
 // load font
 const googlePixelifySans = localFont({
@@ -47,7 +46,6 @@ export default function RootLayout({
           <TRPCReactProvider cookies={cookies().toString()}>
             <AosProvider>
               <Header />
-              <ChangeTheme />
               {children}
             </AosProvider>
           </TRPCReactProvider>
