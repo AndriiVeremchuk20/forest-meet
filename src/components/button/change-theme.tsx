@@ -2,13 +2,9 @@
 
 import { useThemeStore } from "@/store";
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
 import { MoonIcon, SunIcon } from "../svgs";
 
-const hideOnPages = ["/meet/room"];
-
 export const ChangeTheme = () => {
-  const pathname = usePathname();
   const { isDark, setIsDark } = useThemeStore();
 
   const handleClick = () => {
@@ -24,12 +20,7 @@ export const ChangeTheme = () => {
     return () => {
       clearTimeout(timeout);
     };
-    //timeoutRef.current = setTimeout(()=>)
   }, [isDark]);
-
-  if (hideOnPages.some((p) => pathname.includes(p))) {
-    return null;
-  }
 
   return (
     <button onClick={handleClick}>
