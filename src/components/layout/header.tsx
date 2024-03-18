@@ -98,7 +98,10 @@ const Nav = () => {
 
   return (
     <nav className="fixed right-0 top-24 animate-fade-down cursor-pointer divide-y-[3px] divide-neutral-950 bg-green-500 p-2 text-2xl animate-delay-100 animate-once dark:divide-neutral-50 dark:bg-blue-900 phone:w-full laptop:w-[500px]">
-      <Link href={"/profile"} className="flex space-x-2 p-2 duration-150 hover:ml-2">
+      <Link
+        href={"/profile"}
+        className="flex space-x-2 p-2 duration-150 hover:ml-2"
+      >
         <MonkeyIcon width={50} height={50} />
         <span>Profile</span>
       </Link>

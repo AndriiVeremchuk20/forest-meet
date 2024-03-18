@@ -1,7 +1,9 @@
-export default function ProfilePage(){
+import ProfileCard from "@/components/profile-card";
 
-return <main className="pt-[100px]">
-	<div>Current info</div>
-	<div>Change profile data form</div>
-</main>
+export default async function ProfilePage() {
+  return (
+    <main className="pt-[100px]">
+      <ProfileCard />
+    </main>
+  );
 }
